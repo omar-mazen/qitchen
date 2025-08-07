@@ -24,7 +24,11 @@ const styles = {
 const Button = (props: ButtonProps) => {
   return (
     <button
-      className={clsx("h-fit", styles[props.type], props.additionalStyle)}
+      className={clsx(
+        "h-fit focus:outline-0",
+        styles[props.type],
+        props.additionalStyle
+      )}
       onClick={props.onClick}
     >
       {props.children}

@@ -14,7 +14,8 @@
       "@pages/*": ["pages/*"],
       "@style/*": ["style/*"],
       "@icons/*": ["assets/icons/*"],
-      "@images/*": ["assets/images/*"]
+      "@images/*": ["assets/images/*"],
+      "@constants/*": ["constants/*"]
     }
   }
 }
