@@ -1,12 +1,27 @@
-import Button from "@/components/Button";
 import { HomeImages } from "@constants/images";
-import Badge from "@components/Badge";
 import Icons from "@components/Icons";
+import ImageCard from "./ImageCard";
+import SocialMediaLinks from "@components/socialMediaLinks";
+import type { TSocialMediaLink } from "@cTypes/socialMediaLink";
 
 const cards = [
   { image: HomeImages.menu, label: "Menu" },
   { image: HomeImages.reservation, label: "Reservation" },
   { image: HomeImages.restaurant, label: "Our Restaurant" },
+];
+const socialMediaLinks: TSocialMediaLink[] = [
+  {
+    name: "Facbook",
+    Icon: Icons.Facbook,
+  },
+  {
+    name: "Instagram",
+    Icon: Icons.Instagram,
+  },
+  {
+    name: "Twitter",
+    Icon: Icons.Twitter,
+  },
 ];
 const Home = () => {
   return (
@@ -16,23 +31,7 @@ const Home = () => {
           Sushi <br />
           Sensation
         </p>
-        <ul className="flex items-center justify-center absolute bottom-0 right-0 z-3 bg-background px-4 py-4 with-angle rounded-tl-4xl">
-          <li>
-            <Badge>
-              <Icons.Facbook aria-label="facebook" />
-            </Badge>
-          </li>
-          <li>
-            <Badge>
-              <Icons.Instagram aria-label="instagram" />
-            </Badge>
-          </li>
-          <li>
-            <Badge>
-              <Icons.Twitter aria-label="twitter" />
-            </Badge>
-          </li>
-        </ul>
+        <SocialMediaLinks links={socialMediaLinks} />
       </section>
       {cards.map((card) => (
         <ImageCard label={card.label} image={card.image} key={card.label} />
@@ -41,25 +40,4 @@ const Home = () => {
   );
 };
 
-const ImageCard = ({ image, label }: { image: string; label: string }) => {
-  return (
-    <div
-      className={`relative w-full h-full bg-cover rounded-2xl aspect-square`}
-      style={{ backgroundImage: `url(${image})` }}
-      aria-label={label}
-    >
-      <Button
-        type="icon"
-        additionalStyle="bg-background py-4 px-4 absolute bottom-0 right-0 rounded-tl-4xl with-angle"
-        icon={
-          <Badge>
-            <Icons.Arrow />
-          </Badge>
-        }
-      >
-        {label}
-      </Button>
-    </div>
-  );
-};
 export default Home;
