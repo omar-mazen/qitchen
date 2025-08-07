@@ -15,7 +15,8 @@
       "@style/*": ["style/*"],
       "@icons/*": ["assets/icons/*"],
       "@images/*": ["assets/images/*"],
-      "@constants/*": ["constants/*"]
+      "@constants/*": ["constants/*"],
+      "@cTypes/*": ["types/*"]
     }
   }
 }

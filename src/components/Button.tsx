@@ -5,6 +5,7 @@ interface IBaseProps {
   children: React.ReactNode;
   onClick?: () => void;
   additionalStyle?: string;
+  ariaLabel?: string;
 }
 interface IconButtonProps extends IBaseProps {
   type: "icon";
@@ -30,6 +31,7 @@ const Button = (props: ButtonProps) => {
         props.additionalStyle
       )}
       onClick={props.onClick}
+      aria-label={props.ariaLabel}
     >
       {props.children}
       {props.type === "icon" && props.icon}
