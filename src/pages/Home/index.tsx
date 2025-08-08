@@ -26,7 +26,10 @@ const socialMediaLinks: TSocialMediaLink[] = [
 const Home = () => {
   return (
     <main className="grid gap-5 grid-cols-1 md:grid-cols-[70%_30%] md:grid-rows-3 h-full overflow-y-auto overflow-x-hidden md:overflow-y-hidden">
-      <section className="bg-[url('/src/assets/images/home/1.png')] aspect-square md:aspect-auto relative w-full h-full bg-cover md:row-start-1 md:row-end-4 rounded-2xl after:bg-gradient-to-t after:from-background/50 after:to-transparent after:absolute after:z-2 after:w-full after:h-full after:rounded-2xl after:overflow-hidden">
+      <section
+        style={{ backgroundImage: `url(${HomeImages.banner})` }}
+        className=" aspect-square md:aspect-auto relative w-full h-full bg-cover md:row-start-1 md:row-end-4 rounded-2xl after:bg-gradient-to-t after:from-background/50 after:to-transparent after:absolute after:z-2 after:w-full after:h-full after:rounded-2xl after:overflow-hidden"
+      >
         <p className="text-heading-h3 absolute top-6 left-6 sm:text-heading-medium md:text-heading-large lg:text-heading-xlarge sm:top-auto sm:bottom-18 sm:left-20-20 z-3">
           Sushi <br />
           Sensation

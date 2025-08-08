@@ -1,6 +1,25 @@
+import homeBanner from "@images/home/1.png";
+import menu from "@images/home/2.png";
+import reservation from "@images/home/3.png";
+import restaurant from "@images/home/4.png";
 export const HomeImages = {
-  banner: "./src/assets/images/home/1.png",
-  menu: "./src/assets/images/home/2.png",
-  reservation: "./src/assets/images/home/3.png",
-  restaurant: "./src/assets/images/home/4.png",
+  banner: homeBanner,
+  menu,
+  reservation,
+  restaurant,
+};
+
+import menuBanner from "@images/menu/menu.png";
+export const MenuImages = {
+  banner: menuBanner,
+  spicyTunaMaki: "./src/assets/images/menu/spicy-tuna-maki.png",
+  mangoMaki: "./src/assets/images/menu/mango-maki.png",
+  salmonMaki: "./src/assets/images/menu/salamon-maki.png",
+  tunaMaki: "./src/assets/images/menu/tuna-maki.png",
+
+  sunriseBliss: "./src/assets/images/menu/sunrise-bliss.png",
+  mangoTangoFusion: "./src/assets/images/menu/mango-tango-fusion.png",
+  truffleIndulgence: "./src/assets/images/menu/truffle-indulgence.png",
+  pacificFirecracker: "./src/assets/images/menu/pacific-firecracker.png",
+  eternalEelEnchantment: "./src/assets/images/menu/eternal-eel-enchantment.png",
 };
