@@ -13,7 +13,7 @@ const ImageCard = ({ image, label }: { image: string; label: string }) => {
 
       <Button
         type="icon"
-        additionalStyle="bg-background py-4 px-4 absolute bottom-0 right-0 rounded-tl-4xl with-angle"
+        className="bg-background py-4 px-4 absolute bottom-0 right-0 rounded-tl-4xl with-angle"
         aria-label={`Go to ${label}`}
         icon={
           <Badge>

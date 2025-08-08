@@ -12,7 +12,7 @@ const Input = ({ placeholder, value, setValue }: IProps) => {
       defaultValue={value}
       value={value}
       onChange={(e) => setValue(e.target.value)}
-      className=" border border-border bg-background-muted py-4 px-6 rounded-xl focus:outline-none focus:border-primary/50 focus:shadow-lg focus:shadow-primary/5"
+      className=" w-full border border-border bg-background-muted py-4 px-6 rounded-xl focus:outline-none focus:border-primary/50 focus:shadow-lg focus:shadow-primary/5"
     />
   );
 };

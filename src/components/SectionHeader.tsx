@@ -1,8 +1,15 @@
+import clsx from "clsx";
 import React from "react";
 
-const SectionHeader = ({ children }: { children: React.ReactNode }) => {
+const SectionHeader = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
   return (
-    <div className="flex items-center justify-center gap-5">
+    <div className={clsx("flex items-center justify-center gap-5", className)}>
       <img src="./src/assets/images/diamond-line.png" alt="" className="w-32" />
       {children}
       <img
