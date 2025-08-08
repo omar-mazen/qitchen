@@ -80,7 +80,7 @@ const Menu = () => {
       style={{ backgroundImage: `url(${texture})` }}
       className="grid gap-5 lg:grid-cols-2 min-h-full h-full rounded-2xl overflow-hidden"
     >
-      <aside className="relative overflow-hidden lg:block">
+      <aside className="relative hidden overflow-hidden lg:block">
         <figure className="reltive rounded-2xl overflow-hidden w-full h-full after:bg-gradient-to-t after:from-background/50 after:to-transparent after:absolute after:bottom-0 after:z-1 after:w-full after:h-1/2 after:rounded-2xl after:overflow-hidden">
           <img
             src={menuBanner}

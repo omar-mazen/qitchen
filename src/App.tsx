@@ -1,8 +1,9 @@
-import Home from "./pages/Home";
+import Reservation from "./pages/Reservation";
+
 function App() {
   return (
     <>
-      <Home />
+      <Reservation />
     </>
   );
 }

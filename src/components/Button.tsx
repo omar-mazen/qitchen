@@ -4,7 +4,7 @@ import type React from "react";
 interface IBaseProps {
   children: React.ReactNode;
   onClick?: () => void;
-  additionalStyle?: string;
+  className?: string;
   ariaLabel?: string;
 }
 interface IconButtonProps extends IBaseProps {
@@ -28,7 +28,7 @@ const Button = (props: ButtonProps) => {
       className={clsx(
         "h-fit focus:outline-0",
         styles[props.type],
-        props.additionalStyle
+        props.className
       )}
       onClick={props.onClick}
       aria-label={props.ariaLabel}
