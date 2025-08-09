@@ -1,11 +1,13 @@
 import clsx from "clsx";
 import type React from "react";
+import Badge from "./Badge";
 
 interface IBaseProps {
   children: React.ReactNode;
   onClick?: () => void;
   className?: string;
   ariaLabel?: string;
+  withAngle?: boolean;
 }
 interface IconButtonProps extends IBaseProps {
   type: "icon";
@@ -28,13 +30,15 @@ const Button = (props: ButtonProps) => {
       className={clsx(
         "h-fit focus:outline-0",
         styles[props.type],
+        props.withAngle &&
+          "with-angle absolute bottom-0 right-0 bg-background py-4 px-4 rounded-tl-4xl",
         props.className
       )}
       onClick={props.onClick}
       aria-label={props.ariaLabel}
     >
       {props.children}
-      {props.type === "icon" && props.icon}
+      {props.type === "icon" && <Badge>{props.icon}</Badge>}
     </button>
   );
 };

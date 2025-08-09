@@ -1,9 +1,9 @@
-import About from "./pages/About";
+import Reservation from "./pages/Reservation";
 
 function App() {
   return (
     <>
-      <About />
+      <Reservation />
     </>
   );
 }
