@@ -10,12 +10,16 @@ const SectionHeader = ({
 }) => {
   return (
     <div className={clsx("flex items-center justify-center gap-5", className)}>
-      <img src="./src/assets/images/diamond-line.png" alt="" className="w-32" />
+      <img
+        src="./src/assets/images/diamond-line.png"
+        alt=""
+        className=" w-24 sm:w-32"
+      />
       {children}
       <img
         src="./src/assets/images/diamond-line.png"
         alt=""
-        className=" rotate-180 w-32"
+        className=" rotate-180 w-24 sm:w-32"
       />
     </div>
   );
