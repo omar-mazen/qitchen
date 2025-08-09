@@ -4,18 +4,31 @@ import React from "react";
 const SectionHeader = ({
   children,
   className,
+  size = "large",
 }: {
   children: React.ReactNode;
   className?: string;
+  size?: "small" | "large";
 }) => {
   return (
     <div className={clsx("flex items-center justify-center gap-5", className)}>
-      <img src="./src/assets/images/diamond-line.png" alt="" className="w-32" />
+      <img
+        src="./src/assets/images/diamond-line.png"
+        alt=""
+        className={clsx(
+          size == "large" && "sm:w-28 w-32",
+          size == "small" && "sm:w-18 w-28"
+        )}
+      />
       {children}
       <img
         src="./src/assets/images/diamond-line.png"
         alt=""
-        className=" rotate-180 w-32"
+        className={clsx(
+          "rotate-180",
+          size == "large" && "sm:w-28 w-32",
+          size == "small" && "sm:w-18 w-28"
+        )}
       />
     </div>
   );
