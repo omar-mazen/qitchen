@@ -1,5 +1,4 @@
 import Button from "@components/Button";
-import Badge from "@components/Badge";
 import Icons from "@components/Icons";
 const ImageCard = ({ image, label }: { image: string; label: string }) => {
   return (
@@ -13,13 +12,9 @@ const ImageCard = ({ image, label }: { image: string; label: string }) => {
 
       <Button
         type="icon"
-        className="bg-background py-4 px-4 absolute bottom-0 right-0 rounded-tl-4xl with-angle"
         aria-label={`Go to ${label}`}
-        icon={
-          <Badge>
-            <Icons.Arrow />
-          </Badge>
-        }
+        withAngle={true}
+        icon={<Icons.Arrow />}
       >
         {label}
       </Button>

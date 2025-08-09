@@ -150,7 +150,7 @@ table {
 .with-angle:before {
   content: "";
   position: absolute;
-  top: -30px;
+  top: -29px;
   right: -1px;
   width: 30px;
   height: 30px;
@@ -173,12 +173,12 @@ table {
   overflow: hidden;
   white-space: nowrap;
   position: relative;
-  height: 30px;
+  height: 20px;
   width: 100%;
+  color: rgba(var(--primary-color), 30%);
 }
 .dots-fill::after {
   content: " ....................................................................................................................................................................";
   position: absolute;
   width: 100%;
-  height: 30px;
 }

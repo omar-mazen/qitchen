@@ -9,7 +9,7 @@ import AwardCard from "./AwardCard";
 const About = () => {
   return (
     <PageLayout banner={banner} caption="About">
-      <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 overflow-y-scroll h-full">
+      <div className="grid grid-cols-1 sm:grid-cols-12 sm:gap-5 gap-10 overflow-y-scroll h-full">
         <div className="border border-border rounded-2xl sm:col-span-6 p-12 flex flex-col justify-between">
           <h3 className=" text-heading-h3 text-center sm:text-left pb-12 sm:pb-0 sm:max-w-96">
             Sushi Artistry Redefined
@@ -33,7 +33,9 @@ const About = () => {
           <img src={team} alt="" className="w-full !h-full object-cover" />
         </figure>
         <div className="border border-border rounded-2xl sm:col-span-6 p-12 flex flex-col justify-between">
-          <SectionHeader size="small">our story</SectionHeader>
+          <SectionHeader size="small">
+            <h2>our story</h2>
+          </SectionHeader>
           <p className="font-normal font-thin text-center text-medium">
             Founded with a passion for culinary excellence, Qitchen's journey
             began in the heart of Prague. Over years, it evolved into a haven

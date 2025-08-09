@@ -1,3 +1,4 @@
+// home images
 import homeBanner from "@images/home/1.png";
 import menu from "@images/home/2.png";
 import reservation from "@images/home/3.png";
@@ -8,7 +9,13 @@ export const HomeImages = {
   reservation,
   restaurant,
 };
-
+// conatct images
+import conatct1 from "@images/contact/Image (10).png";
+import conatct2 from "@images/contact/Image (12).png";
+import conatct3 from "@images/contact/Image (13).png";
+import conatct4 from "@images/contact/Image (14).png";
+export const contactImages = [conatct1, conatct2, conatct3, conatct4];
+// menu
 import menuBanner from "@images/menu/menu.png";
 export const MenuImages = {
   banner: menuBanner,
