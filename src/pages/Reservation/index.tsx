@@ -1,9 +1,10 @@
-import texture from "@images/texture.png";
-import banner from "@images/reservation.png";
-import Input from "@/components/Input";
 import { useState } from "react";
-import Button from "@/components/Button";
-import SectionHeader from "@/components/SectionHeader";
+import Input from "@components/Input";
+import Button from "@components/Button";
+import SectionHeader from "@components/SectionHeader";
+import PageLayout from "@components/PageLayout";
+
+import banner from "@images/reservation.png";
 const Reservation = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -12,32 +13,23 @@ const Reservation = () => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   return (
-    <div
-      style={{ backgroundImage: `url(${texture})` }}
-      className="grid gap-5 lg:grid-cols-2 min-h-full h-full rounded-2xl overflow-hidden"
+    <PageLayout
+      banner={banner}
+      caption={
+        <>
+          Book <br />a table
+        </>
+      }
     >
-      <aside className="relative hidden overflow-hidden lg:block">
-        <figure className="reltive rounded-2xl overflow-hidden w-full h-full after:bg-gradient-to-t after:from-background/50 after:to-transparent after:absolute after:bottom-0 after:z-1 after:w-full after:h-1/2 after:rounded-2xl after:overflow-hidden">
-          <img
-            src={banner}
-            alt="Decorative reservation banner"
-            role="presentation"
-            className="w-full !h-full object-cover"
-          />
-          <figcaption className="absolute bottom-20 left-20 text-heading-large z-2">
-            Book <br />a table
-          </figcaption>
-        </figure>
-      </aside>
-      <main className="border border-border rounded-2xl overflow-y-scroll h-full px-40">
+      <div className="border border-border rounded-2xl overflow-y-scroll h-full px-10 sm:px-40">
         <SectionHeader className="pt-20">
-          <h1 className=" text-heading-h2">reservation</h1>
+          <h1 className=" text-heading-h4 sm:text-heading-h2">reservation</h1>
         </SectionHeader>
-        <p className="text-center mx-auto mt-6 text-large font-thin font-normal max-w-[400px]">
+        <p className=" text-medium text-center mx-auto mt-6 sm:text-large font-thin font-normal max-w-[400px]">
           Secure your spot at Qitchen, where exceptional sushi and a remarkable
           dining experience await.
         </p>
-        <form action="" className="mt-20 w-full">
+        <form action="" className="mt-20 w-full ">
           <div className="flex flex-col space-y-5">
             <Input placeholder="Name" value={name} setValue={setName} />
             <Input
@@ -56,8 +48,8 @@ const Reservation = () => {
             reserve
           </Button>
         </form>
-      </main>
-    </div>
+      </div>
+    </PageLayout>
   );
 };
 
