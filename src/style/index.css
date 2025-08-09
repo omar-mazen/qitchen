@@ -80,6 +80,7 @@ body {
   font-family: "Cinzel", serif;
   background-color: rgba(var(--background-color), 100%);
   color: rgb(var(--primary-color), 100%);
+  user-select: none;
 }
 
 *,
