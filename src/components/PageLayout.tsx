@@ -23,9 +23,7 @@ const PageLayout = ({ banner, caption, children }: IProps) => {
           </figcaption>
         </figure>
       </aside>
-      <main className="border border-border rounded-2xl overflow-y-scroll h-full">
-        {children}
-      </main>
+      <main className="h-full overflow-hidden">{children}</main>
     </div>
   );
 };

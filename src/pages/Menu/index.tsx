@@ -78,14 +78,16 @@ const menuKeys = Object.keys(menu);
 const Menu = () => {
   return (
     <PageLayout banner={banner} caption="Menu">
-      <MenuLabels labels={menuKeys} />
-      {menuKeys.map((category) => (
-        <Category
-          category={menu[category as keyof typeof menu]}
-          categoryName={category as keyof typeof menu}
-          key={category}
-        />
-      ))}
+      <div className="border border-border rounded-2xl overflow-y-scroll h-full">
+        <MenuLabels labels={menuKeys} />
+        {menuKeys.map((category) => (
+          <Category
+            category={menu[category as keyof typeof menu]}
+            categoryName={category as keyof typeof menu}
+            key={category}
+          />
+        ))}
+      </div>
     </PageLayout>
   );
 };
