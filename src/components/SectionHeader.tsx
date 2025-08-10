@@ -17,7 +17,7 @@ const SectionHeader = ({
         alt=""
         className={clsx(
           size == "large" && " w-24 sm:w-32",
-          size == "small" && "w-16 sm:w-24 "
+          size == "small" && "w-16 sm:w-24 ",
         )}
       />
       {children}
@@ -27,7 +27,7 @@ const SectionHeader = ({
         className={clsx(
           " rotate-180",
           size == "large" && " w-24 sm:w-32",
-          size == "small" && "w-16 sm:w-24 "
+          size == "small" && "w-16 sm:w-24 ",
         )}
       />
     </div>

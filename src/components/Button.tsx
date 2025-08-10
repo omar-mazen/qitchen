@@ -34,7 +34,7 @@ const Button = (props: ButtonProps) => {
         styles[props.type],
         props.withAngle &&
           "with-angle absolute bottom-0 right-0 bg-background py-4 px-4 rounded-tl-4xl",
-        props.className
+        props.className,
       )}
       onClick={props.onClick}
       aria-label={props.ariaLabel}
