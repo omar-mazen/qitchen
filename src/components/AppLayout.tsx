@@ -1,11 +1,13 @@
-import React from "react";
+import { Suspense } from "react";
 import Header from "./Header";
+import { Outlet } from "react-router";
+import Loader from "./Loader";
 
-const AppLayout = ({ children }: { children: React.ReactNode }) => {
+const AppLayout = () => {
   return (
     <div className="grid grid-rows-[auto_1fr] lg:block h-full">
       <Header />
-      <>{children}</>
+      <Suspense fallback={<Loader />}>{<Outlet />}</Suspense>
     </div>
   );
 };

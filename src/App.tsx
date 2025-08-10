@@ -1,14 +1,8 @@
-import AppLayout from "./components/AppLayout";
-import Menu from "./pages/Menu";
+import { RouterProvider } from "react-router";
+import appRoutes from "./routes";
 
 function App() {
-  return (
-    <>
-      <AppLayout>
-        <Menu />
-      </AppLayout>
-    </>
-  );
+  return <RouterProvider router={appRoutes} />;
 }
 
 export default App;
