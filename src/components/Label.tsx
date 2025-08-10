@@ -12,7 +12,7 @@ const Label = ({ children, isActive }: IProps) => {
         "inline-block cursor-pointer w-fit py-2 px-3 font-meta rounded-lg border border-border transition-colors",
         isActive &&
           "bg-primary text-background hover:text-primary hover:bg-background",
-        !isActive && "hover:bg-primary hover:text-background"
+        !isActive && "hover:bg-primary hover:text-background",
       )}
     >
       {children}

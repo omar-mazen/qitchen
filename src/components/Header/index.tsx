@@ -7,7 +7,7 @@ import NavMenu from "./Menu";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isSmallScreen, setIsSmallScreen] = useState<boolean>(
-    window.innerWidth <= 1024
+    window.innerWidth <= 1024,
   );
   function openMenu() {
     setIsMenuOpen(true);
