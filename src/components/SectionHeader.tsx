@@ -11,7 +11,7 @@ const SectionHeader = ({
   size?: "small" | "large";
 }) => {
   return (
-    <div className={clsx("flex items-center justify-center gap-5", className)}>
+    <div className={clsx("!flex items-center justify-center gap-5", className)}>
       <img
         src="./src/assets/images/diamond-line.png"
         alt=""
