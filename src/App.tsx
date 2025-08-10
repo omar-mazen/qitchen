@@ -1,9 +1,12 @@
-import Reservation from "./pages/Reservation";
+import AppLayout from "./components/AppLayout";
+import Menu from "./pages/Menu";
 
 function App() {
   return (
     <>
-      <Reservation />
+      <AppLayout>
+        <Menu />
+      </AppLayout>
     </>
   );
 }
