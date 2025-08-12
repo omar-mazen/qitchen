@@ -1,21 +1,15 @@
 import SectionHeader from "@components/SectionHeader";
-import type { TItem } from "@cTypes/menu";
 import Categoryitem from "./CategoryItem";
+import type { TCategory } from "@cTypes/categories";
 
-const Category = ({
-  categoryName,
-  category,
-}: {
-  categoryName: string;
-  category: TItem[];
-}) => {
+const Category = ({ category }: { category: TCategory }) => {
   return (
-    <section className=" px-24">
+    <section className=" px-24 py-14" id={category.name}>
       <SectionHeader>
-        <h2 className=" text-heading-h2 text-center my-12">{categoryName}</h2>
+        <h2 className=" text-heading-h2 text-center my-12">{category?.name}</h2>
       </SectionHeader>
       <ul className="space-y-8">
-        {category.map((item) => (
+        {category.products.map((item) => (
           <Categoryitem key={item.name} {...item} />
         ))}
       </ul>

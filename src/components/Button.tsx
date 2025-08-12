@@ -8,6 +8,7 @@ interface IBaseProps {
   className?: string;
   ariaLabel?: string;
   withAngle?: boolean;
+  disabled?: boolean;
 }
 interface IconButtonProps extends IBaseProps {
   type: "icon";
@@ -29,12 +30,13 @@ const styles = {
 const Button = (props: ButtonProps) => {
   return (
     <button
+      disabled={props.disabled}
       className={clsx(
         "h-fit focus:outline-0",
         styles[props.type],
         props.withAngle &&
           "with-angle absolute bottom-0 right-0 bg-background py-4 px-4 rounded-tl-4xl",
-        props.className,
+        props.className
       )}
       onClick={props.onClick}
       aria-label={props.ariaLabel}

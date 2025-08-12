@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 
 import SmallScreen from "./SmallScreen";
 import LargeScreen from "./LargeScreen";
-import NavMenu from "./Menu";
+import NavMenu from "./NavMenu";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isSmallScreen, setIsSmallScreen] = useState<boolean>(
-    window.innerWidth <= 1024,
+    window.innerWidth <= 1024
   );
   function openMenu() {
     setIsMenuOpen(true);

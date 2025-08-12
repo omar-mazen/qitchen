@@ -8,6 +8,7 @@ const Menu = lazy(() => import("@pages/Menu"));
 const Contact = lazy(() => import("@pages/Contact"));
 const Reservation = lazy(() => import("@pages/Reservation"));
 const About = lazy(() => import("@pages/About"));
+const Product = lazy(() => import("@pages/Product"));
 
 const appRoutes = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const appRoutes = createBrowserRouter([
       {
         path: ROUTES.ABOUT,
         element: <About />,
+      },
+      {
+        path: ROUTES.PRODUCT,
+        element: <Product />,
       },
     ],
   },

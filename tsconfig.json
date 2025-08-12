@@ -16,7 +16,8 @@
       "@icons/*": ["assets/icons/*"],
       "@images/*": ["assets/images/*"],
       "@constants/*": ["constants/*"],
-      "@cTypes/*": ["types/*"]
+      "@cTypes/*": ["types/*"],
+      "@services/*": ["services/*"]
     }
   }
 }

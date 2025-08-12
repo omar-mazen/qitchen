@@ -4,16 +4,18 @@ import type React from "react";
 interface IProps {
   children: React.ReactNode;
   isActive: boolean;
+  onClick?: () => void;
 }
-const Label = ({ children, isActive }: IProps) => {
+const Label = ({ children, isActive, onClick }: IProps) => {
   return (
     <div
       className={clsx(
         "inline-block cursor-pointer w-fit py-2 px-3 font-meta rounded-lg border border-border transition-colors",
         isActive &&
           "bg-primary text-background hover:text-primary hover:bg-background",
-        !isActive && "hover:bg-primary hover:text-background",
+        !isActive && "hover:bg-primary hover:text-background"
       )}
+      onClick={onClick}
     >
       {children}
     </div>

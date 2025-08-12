@@ -2,11 +2,16 @@ import { HomeImages } from "@constants/images";
 import ImageCard from "./ImageCard";
 import SocialMediaLinks from "@components/socialMediaLinks";
 import { socialMediaLinks } from "@constants/socialMediaLinks";
+import { ROUTES } from "@/constants/routes";
 
 const cards = [
-  { image: HomeImages.menu, label: "Menu" },
-  { image: HomeImages.reservation, label: "Reservation" },
-  { image: HomeImages.restaurant, label: "Our Restaurant" },
+  { image: HomeImages.menu, label: "Menu", link: ROUTES.MENU },
+  {
+    image: HomeImages.reservation,
+    label: "Reservation",
+    link: ROUTES.RESERVATION,
+  },
+  { image: HomeImages.restaurant, label: "Our Restaurant", link: ROUTES.ABOUT },
 ];
 
 const Home = () => {
@@ -23,7 +28,12 @@ const Home = () => {
         <SocialMediaLinks links={socialMediaLinks} />
       </section>
       {cards.map((card) => (
-        <ImageCard label={card.label} image={card.image} key={card.label} />
+        <ImageCard
+          label={card.label}
+          image={card.image}
+          link={card.link}
+          key={card.label}
+        />
       ))}
     </main>
   );
