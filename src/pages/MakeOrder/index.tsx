@@ -32,7 +32,7 @@ const MakeOrder = () => {
     isPending: isCheckoutLoading,
   } = useMutation({
     mutationFn: makeOrder,
-    onSuccess: clearCart,
+    onMutate: clearCart,
   });
   useEffect(() => {
     if (addresses && addresses.addresses)
