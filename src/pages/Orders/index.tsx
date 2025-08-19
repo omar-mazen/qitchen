@@ -29,7 +29,7 @@ const Orders = () => {
                 className=" border border-border rounded-2xl p-4"
               >
                 <p>
-                  itesm:
+                  items:
                   <span className="ml-2 font-normal">
                     {order.products
                       .reduce<
