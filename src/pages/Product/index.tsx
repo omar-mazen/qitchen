@@ -37,7 +37,7 @@ const Product = () => {
 
   return (
     <PageLayout banner={banner} caption="Menu">
-      <div className="w-full flex gap-10 p-12 sm:p-24 overflow-y-scroll">
+      <div className="w-full flex flex-col md:flex-row gap-10 p-12 sm:p-24 h-full overflow-y-scroll ">
         <figure className="w-[150px] h-[100px] overflow-hidden shrink-0">
           <img
             src={images[0]}

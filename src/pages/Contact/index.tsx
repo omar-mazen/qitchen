@@ -12,7 +12,7 @@ import map from "@images/map.png";
 const Contact = () => {
   return (
     <PageLayout banner={banner} caption="contact">
-      <div className="overflow-y-scroll grid sm:grid-cols-2 gap-10 sm:gap-5 h-full  sm:grid-rows-2">
+      <div className="overflow-y-scroll grid sm:grid-cols-2 gap-10 sm:gap-5 h-full sm:grid-rows-2">
         <OpeningHours />
         <div className="grid grid-cols-2 gap-5">
           {contactImages.map((image, i) => (
