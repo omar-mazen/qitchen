@@ -6,6 +6,7 @@ import PageLayout from "@components/PageLayout";
 import Button from "@components/Button";
 import Badge from "@components/Badge";
 import Error from "@components/Error";
+import DotsLoader from "@components/DotsLoader";
 
 import type { GetProductByIdResult } from "@cTypes/product";
 
@@ -14,7 +15,6 @@ import { getProductById } from "@services/product";
 import banner from "@images/menu/menu.png";
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
-import DotsLoader from "@/components/DotsLoader";
 
 const Product = () => {
   const { addToCart, isLoading: cartIsLoading } = useCart();
