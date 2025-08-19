@@ -72,7 +72,11 @@ const MakeOrder = () => {
             disabled={!totalPrice || isCheckoutLoading}
             onClick={async () => {
               if (!totalPrice) return;
-              await checkout({ cartId: cart._id, addressId: selectAddressId });
+              if (cart._id)
+                await checkout({
+                  cartId: cart._id,
+                  addressId: selectAddressId,
+                });
             }}
           >
             checkout
