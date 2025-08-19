@@ -41,10 +41,10 @@ const NavMenu = ({ closeMenu }: { closeMenu: () => void }) => {
           ))}
           {!isAuthenticated && (
             <>
-              <li className="cursor-pointer w-full">
+              <li className="cursor-pointer w-full" onClick={closeMenu}>
                 <Link to={ROUTES.LOGIN}>login</Link>
               </li>
-              <li className="cursor-pointer w-full">
+              <li className="cursor-pointer w-full" onClick={closeMenu}>
                 <Link to={ROUTES.REGISTER}>register</Link>
               </li>
             </>
@@ -54,6 +54,7 @@ const NavMenu = ({ closeMenu }: { closeMenu: () => void }) => {
               className="font-normal cursor-pointer w-full"
               onClick={async () => {
                 await logout();
+                closeMenu();
                 navigate(ROUTES.HOME, { replace: true });
               }}
             >
