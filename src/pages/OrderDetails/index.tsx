@@ -4,9 +4,9 @@ import { useParams } from "react-router";
 import { TOrderStatusColors, TPaymentStatusColors } from "@cTypes/orders";
 
 import Loader from "@components/Loader";
-import Table from "@components/Table";
 import CartProduct from "@/pages/Cart/CartProduct";
 import Error from "@components/Error";
+import OrderTable from "./OrderTable";
 
 import { getOrderDetails } from "@services/order";
 
@@ -24,6 +24,7 @@ const OrderDetails = () => {
   if (!data?.order)
     return <Error message={`No order was found with the ID #${orderId}.`} />;
   if (data?.error) return <Error message={data.error} />;
+
   return (
     <div
       className="w-full h-full overflow-x-hidden overflow-y-auto lg:pt-48 p-10 lg:px-14 backdrop-brightness-150"
@@ -51,38 +52,19 @@ const OrderDetails = () => {
           </span>
         </p>
       </div>
-      <Table>
-        <Table.Head>
-          <Table.Row>
-            <Table.Cell head={true}>image</Table.Cell>
-            <Table.Cell head={true}>name</Table.Cell>
-            <Table.Cell head={true}>price</Table.Cell>
-            <Table.Cell head={true}>quantity</Table.Cell>
-            <Table.Cell head={true}>total price</Table.Cell>
-          </Table.Row>
-        </Table.Head>
-        <Table.Body>
-          {data?.order?.products.map((cartItem) => (
-            <CartProduct
-              product={cartItem.product}
-              quantity={cartItem.quantity}
-              key={cartItem.product._id}
-              mutationEnabled={false}
-            />
-          ))}
-        </Table.Body>
-        <Table.Footer>
-          <Table.Row>
-            <Table.Cell>
-              <p className="py-3">Total: </p>
-            </Table.Cell>
-            <Table.Cell children="" />
-            <Table.Cell children="" />
-            <Table.Cell children={`x ${data?.order?.totalQuantity}`} />
-            <Table.Cell children={`${data?.order?.totalPrice} $`} />
-          </Table.Row>
-        </Table.Footer>
-      </Table>
+      <OrderTable
+        totalPrice={data?.order.totalPrice}
+        totalQuantity={data?.order.totalQuantity}
+      >
+        {data?.order?.products.map((cartItem) => (
+          <CartProduct
+            product={cartItem.product}
+            quantity={cartItem.quantity}
+            key={cartItem.product._id}
+            mutationEnabled={false}
+          />
+        ))}
+      </OrderTable>
     </div>
   );
 };
