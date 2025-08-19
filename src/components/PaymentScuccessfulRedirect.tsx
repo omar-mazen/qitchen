@@ -14,7 +14,7 @@ const PaymentScuccessfulRedirect = () => {
     enabled: !!sessionId && !!orderId,
   });
   if (data?.error) return <p>{data.error}</p>;
-  if (isSuccess) return <Navigate to={`${ROUTES.ORDERS}/${orderId}`} />;
+  if (isSuccess) return <Navigate to={`/${ROUTES.ORDERS}/${orderId}`} />;
 };
 
 export default PaymentScuccessfulRedirect;
