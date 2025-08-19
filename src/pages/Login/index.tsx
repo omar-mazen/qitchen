@@ -27,11 +27,11 @@ const Login = () => {
     ({ key, value }: { key: TKey; value: string }) => {
       setError((state) => ({ ...state, [key]: value }));
     },
-    [],
+    []
   );
   const errorMessage = useMemo(
     () => Object.values(error).filter((str) => str)[0],
-    [error],
+    [error]
   );
   const handleInput = useCallback(
     ({
@@ -55,16 +55,17 @@ const Login = () => {
         handleError({ key, value: message });
       }
     },
-    [handleError],
+    [handleError]
   );
   useEffect(() => {
-    handleInput({
-      key: "email",
-      value: email,
-      setValue: () => {},
-      regex: regex.email.regex,
-      message: regex.email.message,
-    });
+    if (!!email && !!password)
+      handleInput({
+        key: "email",
+        value: email,
+        setValue: () => {},
+        regex: regex.email.regex,
+        message: regex.email.message,
+      });
     handleInput({
       key: "password",
       value: password,

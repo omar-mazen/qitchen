@@ -41,10 +41,10 @@ const NavMenu = ({ closeMenu }: { closeMenu: () => void }) => {
           ))}
           {!isAuthenticated && (
             <>
-              <li className="font-normal cursor-pointer w-full">
+              <li className="cursor-pointer w-full">
                 <Link to={ROUTES.LOGIN}>login</Link>
               </li>
-              <li className="font-normal cursor-pointer w-full">
+              <li className="cursor-pointer w-full">
                 <Link to={ROUTES.REGISTER}>register</Link>
               </li>
             </>
