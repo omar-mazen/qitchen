@@ -49,7 +49,7 @@ const MakeOrder = () => {
         </div>
         <ul className=" space-y-5">
           {isLoading && <SmallSpinner color="white" className="mx-auto" />}
-          {(addresses?.addresses || []).length > 0 ? (
+          {(addresses?.addresses || []).length > 0 && !isLoading ? (
             (addresses?.addresses || []).map((address) => (
               <Address
                 type="presentation"
