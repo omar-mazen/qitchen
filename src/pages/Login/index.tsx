@@ -58,7 +58,7 @@ const Login = () => {
     [handleError]
   );
   useEffect(() => {
-    if (!!email && !!password)
+    if (!!email && !!password) {
       handleInput({
         key: "email",
         value: email,
@@ -66,13 +66,14 @@ const Login = () => {
         regex: regex.email.regex,
         message: regex.email.message,
       });
-    handleInput({
-      key: "password",
-      value: password,
-      setValue: () => {},
-      regex: regex.password.regex,
-      message: regex.password.message,
-    });
+      handleInput({
+        key: "password",
+        value: password,
+        setValue: () => {},
+        regex: regex.password.regex,
+        message: regex.password.message,
+      });
+    }
   }, [handleError]);
   if (isAuthenticated) return <Navigate to={ROUTES.HOME} />;
   return (
@@ -123,7 +124,7 @@ const Login = () => {
             <Button
               type="primary"
               className="ml-auto"
-              disabled={!!errorMessage || isLoading}
+              disabled={!!errorMessage || isLoading || !email || !password}
             >
               Login {isLoading && <DotsLoader />}
             </Button>
