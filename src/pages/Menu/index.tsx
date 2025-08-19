@@ -37,7 +37,7 @@ const Menu = () => {
             {categories?.map((category) =>
               category.products.length > 0 ? (
                 <Category category={category} key={category._id} />
-              ) : null,
+              ) : null
             )}
           </>
         ) : (
