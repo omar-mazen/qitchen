@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import PageLayout from "@components/PageLayout";
 import Button from "@components/Button";
@@ -18,7 +18,7 @@ import { ROUTES } from "@/constants/routes";
 
 const MakeOrder = () => {
   const [selectAddressId, setSelectedAddressId] = useState("");
-  const queryClient = useQueryClient();
+  const { cart, clearCart } = useCart();
   const { data: addresses, isLoading } = useQuery({
     queryKey: ["addresses"],
     queryFn: getUserAdresses,
@@ -32,9 +32,8 @@ const MakeOrder = () => {
     isPending: isCheckoutLoading,
   } = useMutation({
     mutationFn: makeOrder,
-    onSuccess: () => queryClient.removeQueries({ queryKey: ["cart"] }),
+    onSuccess: clearCart,
   });
-  const { cart } = useCart();
   useEffect(() => {
     if (addresses && addresses.addresses)
       setSelectedAddressId(addresses?.addresses[0]?._id || "");

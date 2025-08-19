@@ -38,6 +38,7 @@ interface ICartContext {
   addToCart: ({ product, quantity }: IAddProps) => void;
   removeFromCart: ({ product, quantity }: IRemoveProps) => void;
   updateCartProductQuantity: ({ product, quantity }: IUpdateProps) => void;
+  clearCart: () => void;
 }
 
 const initialCart: TCart = {
@@ -52,6 +53,7 @@ const initialState: ICartContext = {
   addToCart: () => {},
   removeFromCart: () => {},
   updateCartProductQuantity: () => {},
+  clearCart: () => {},
 };
 const CartContext = createContext<ICartContext>(initialState);
 
@@ -175,7 +177,14 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     },
     [isAuthenticated, updateCartProductQuantityAPI]
   );
-
+  const clearCart = useCallback(() => {
+    if (isAuthenticated) {
+      queryClient.setQueryData(["cart"], initialCart);
+    } else {
+      setGuestCart(initialCart);
+      localStorage.setItem("cart", JSON.stringify(initialCart));
+    }
+  }, [isAuthenticated, queryClient]);
   return (
     <CartContext
       value={{
@@ -184,6 +193,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         addToCart,
         removeFromCart,
         updateCartProductQuantity,
+        clearCart,
       }}
     >
       {children}
@@ -200,6 +210,7 @@ export const useCart = () => {
     addToCart,
     updateCartProductQuantity,
     removeFromCart,
+    clearCart,
   } = context;
   return {
     isLoading,
@@ -207,6 +218,7 @@ export const useCart = () => {
     addToCart,
     updateCartProductQuantity,
     removeFromCart,
+    clearCart,
   };
 };
 
