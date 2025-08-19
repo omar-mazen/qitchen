@@ -6,14 +6,14 @@ import type { TProduct } from "@cTypes/product";
 
 const Categoryitem = (props: TProduct) => {
   return (
-    <li>
+    <li className="py-10">
       <Link to={`/product/${props._id}`}>
-        <div className="flex items-center gap-10">
-          <figure className="w-[150px] h-[100px]">
+        <div className="flex flex-col md:flex-row items-center gap-10">
+          <figure className="md:w-[120px] md:h-[70px] shrink-0">
             <img
               src={props.images[0]}
               alt={`Image of ${props.name}`}
-              className="rounded-2xl w-full h-full"
+              className="rounded-2xl w-full !h-full object-cover"
             />
           </figure>
           <div className="w-full">

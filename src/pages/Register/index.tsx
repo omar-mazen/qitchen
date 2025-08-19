@@ -79,6 +79,7 @@ const Register = () => {
     [handleError]
   );
   useEffect(() => {
+    if (!name && !email && !phone && !password && !confPassword) return;
     handleInput({
       key: "name",
       value: name,
@@ -227,7 +228,11 @@ const Register = () => {
             <Button
               type="primary"
               className="ml-auto"
-              disabled={!!errorMessage || isLoading}
+              disabled={
+                !!errorMessage ||
+                isLoading ||
+                (!name && !email && !phone && !password && !confPassword)
+              }
             >
               register {isLoading && <DotsLoader />}
             </Button>

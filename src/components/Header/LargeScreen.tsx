@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 
 import Icons from "../Icons";
 import Button from "../Button";
@@ -6,13 +6,10 @@ import Logo from "@icons/logo.svg?react";
 
 import { useAuth } from "@/context/Auth";
 
-import { logout } from "@services/auth";
-
 import { ROUTES } from "@constants/routes";
 
 const LargeScreen = ({ openMenu }: { openMenu: () => void }) => {
   const { isAuthenticated, user } = useAuth();
-  const navigate = useNavigate();
   return (
     <div className="fixed top-20 left-20 z-10 flex items-center gap-10 bg-background/70 backdrop-blur-sm rounded-2xl p-4 shadow-primary/2 shadow-lg">
       <Icons.Menu
@@ -38,15 +35,6 @@ const LargeScreen = ({ openMenu }: { openMenu: () => void }) => {
               </li>
               <li className="font-normal cursor-pointer">
                 <Link to={ROUTES.PROFILE}>Profile</Link>
-              </li>
-              <li
-                className="font-normal cursor-pointer"
-                onClick={async () => {
-                  await logout();
-                  navigate(ROUTES.HOME, { replace: true });
-                }}
-              >
-                logout
               </li>
             </>
           ) : (

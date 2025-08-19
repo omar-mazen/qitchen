@@ -58,22 +58,21 @@ const Login = () => {
     [handleError]
   );
   useEffect(() => {
-    if (!!email && !!password) {
-      handleInput({
-        key: "email",
-        value: email,
-        setValue: () => {},
-        regex: regex.email.regex,
-        message: regex.email.message,
-      });
-      handleInput({
-        key: "password",
-        value: password,
-        setValue: () => {},
-        regex: regex.password.regex,
-        message: regex.password.message,
-      });
-    }
+    if (!email && !password) return;
+    handleInput({
+      key: "email",
+      value: email,
+      setValue: () => {},
+      regex: regex.email.regex,
+      message: regex.email.message,
+    });
+    handleInput({
+      key: "password",
+      value: password,
+      setValue: () => {},
+      regex: regex.password.regex,
+      message: regex.password.message,
+    });
   }, [handleError]);
   if (isAuthenticated) return <Navigate to={ROUTES.HOME} />;
   return (
