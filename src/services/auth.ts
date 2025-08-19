@@ -3,13 +3,18 @@ import { privateApi, publicApi } from "./axios";
 import { handleError } from "@/utils";
 
 type RegisterProps = Omit<TUser, "_id"> & { password: string };
+type RegisterResult = {
+  message?: string;
+  error?: string;
+  success?: boolean;
+};
 export const register = async ({
   name,
   email,
   phoneNumber,
   role,
   password,
-}: RegisterProps) => {
+}: RegisterProps): Promise<RegisterResult> => {
   try {
     const res = await publicApi.post("/user/register", {
       name,
@@ -40,7 +45,7 @@ export const login = async ({
     const res = await publicApi.post<LoginResponse>(
       "/user/login",
       { email, password },
-      { withCredentials: true },
+      { withCredentials: true }
     );
     return {
       user: res.data.user,

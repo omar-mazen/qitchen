@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 
-import type { TOrderStatusColors, TPaymentStatusColors } from "@cTypes/orders";
+import { TOrderStatusColors, TPaymentStatusColors } from "@cTypes/orders";
 
 import Loader from "@components/Loader";
 import Table from "@components/Table";

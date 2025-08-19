@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  type FormEvent,
+} from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 
@@ -42,11 +48,11 @@ const Register = () => {
     ({ key, value }: { key: TKey; value: string }) => {
       setError((state) => ({ ...state, [key]: value }));
     },
-    [],
+    []
   );
   const errorMessage = useMemo(
     () => Object.values(error).filter((str) => str)[0],
-    [error],
+    [error]
   );
   const handleInput = useCallback(
     ({
@@ -70,7 +76,7 @@ const Register = () => {
         handleError({ key, value: message });
       }
     },
-    [handleError],
+    [handleError]
   );
   useEffect(() => {
     handleInput({
@@ -121,9 +127,9 @@ const Register = () => {
         value: "password and confirm password must match.",
       });
     }
-  }, [password, confPassword, handleError]);
+  }, [password, confPassword, handleError, error]);
   const handleSubmit = useCallback(
-    async (e) => {
+    async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (!errorMessage)
         await register({
@@ -134,7 +140,7 @@ const Register = () => {
           role: "User",
         });
     },
-    [name, password, email, password, phone],
+    [name, password, email, phone, errorMessage, register]
   );
   return (
     <PageLayout banner={banner} caption="register">

@@ -41,19 +41,19 @@ interface ICartContext {
 }
 
 const initialCart: TCart = {
-  _id: "",
   products: [],
   totalPrice: 0,
   totalQuantity: 0,
 };
 
-const CartContext = createContext<ICartContext>({
+const initialState: ICartContext = {
   isLoading: false,
   cart: initialCart,
   addToCart: () => {},
   removeFromCart: () => {},
   updateCartProductQuantity: () => {},
-});
+};
+const CartContext = createContext<ICartContext>(initialState);
 
 const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
@@ -69,7 +69,12 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     enabled: isAuthenticated,
     staleTime: Infinity,
   });
-  const userCart = { ...data?.cart, id: data?.cart?._id };
+  const userCart = {
+    products: data?.cart?.products || [],
+    totalQuantity: data?.cart?.totalQuantity ?? 0,
+    totalPrice: data?.cart?.totalPrice ?? 0,
+    _id: data?.cart?._id ?? "",
+  };
   const { mutate: addToCartAPI, isPending: isAdding } = useMutation({
     mutationKey: ["cart"],
     mutationFn: addProductToCart,
@@ -98,7 +103,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         addToCartAPI({ productId: product._id, quantity });
       } else {
         const isExist = guestCart.products.some(
-          (cartProduct) => cartProduct.product._id === product._id,
+          (cartProduct) => cartProduct.product._id === product._id
         );
         if (!isExist) {
           setGuestCart((state) => {
@@ -112,7 +117,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         }
       }
     },
-    [isAuthenticated, guestCart, addToCartAPI],
+    [isAuthenticated, guestCart, addToCartAPI]
   );
 
   const removeFromCart = useCallback(
@@ -123,14 +128,14 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         setGuestCart((state) => ({
           ...state,
           products: state.products.filter(
-            (localProduct) => localProduct.product._id != product._id,
+            (localProduct) => localProduct.product._id != product._id
           ),
           totalPrice: Number(state.totalPrice) - product.price * quantity,
           totalQuantity: Number(state.totalQuantity) - quantity,
         }));
       }
     },
-    [isAuthenticated, removeFromCartAPI],
+    [isAuthenticated, removeFromCartAPI]
   );
 
   const updateCartProductQuantity = useCallback(
@@ -151,7 +156,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
                         ? localProduct.quantity
                         : localProduct.quantity - 1,
                 }
-              : localProduct,
+              : localProduct
           ),
           totalQuantity:
             action == "increase"
@@ -168,7 +173,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         }));
       }
     },
-    [isAuthenticated, updateCartProductQuantityAPI],
+    [isAuthenticated, updateCartProductQuantityAPI]
   );
 
   return (

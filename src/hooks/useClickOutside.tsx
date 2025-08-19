@@ -1,11 +1,11 @@
-import { useEffect, useRef, RefObject } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 
 export default function useClickOutside<T extends HTMLElement>(
   event: keyof DocumentEventMap = "click",
   handler?: () => void,
-  listenCapturing: boolean = true,
-): RefObject<T> {
-  const ref = useRef<T>(null);
+  listenCapturing: boolean = true
+): RefObject<T | null> {
+  const ref = useRef<T | null>(null);
 
   useEffect(() => {
     function handleClick(e: Event) {

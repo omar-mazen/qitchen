@@ -6,14 +6,14 @@ import { verifyPament } from "@services/order";
 
 const PaymentScuccessfulRedirect = () => {
   const [searchParams] = useSearchParams();
-  const sessionId = searchParams.get("session_id");
-  const orderId = searchParams.get("order_id");
-  const { isSuccess, isError, data } = useQuery({
+  const sessionId = searchParams.get("session_id") || "";
+  const orderId = searchParams.get("order_id") || "";
+  const { isSuccess, data } = useQuery({
     queryKey: [""],
     queryFn: () => verifyPament({ sessionId, orderId }),
     enabled: !!sessionId && !!orderId,
   });
-  if (isError) return <p>{data?.error}</p>;
+  if (data?.error) return <p>{data.error}</p>;
   if (isSuccess) return <Navigate to={`${ROUTES.ORDERS}/${orderId}`} />;
 };
 

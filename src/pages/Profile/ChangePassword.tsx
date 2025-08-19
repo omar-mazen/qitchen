@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  type FormEvent,
+} from "react";
 import { useMutation } from "@tanstack/react-query";
 
 import Button from "@components/Button";
@@ -25,13 +31,13 @@ const ChangePassword = () => {
   });
   const errorMessage = useMemo(
     () => Object.values(error).filter((str) => str)[0],
-    [error],
+    [error]
   );
   const handleError = useCallback(
     ({ key, value }: { key: TKey; value: string }) => {
       setError((state) => ({ ...state, [key]: value }));
     },
-    [],
+    []
   );
   const handlePassword = useCallback(
     ({
@@ -55,11 +61,11 @@ const ChangePassword = () => {
         handleError({ key, value: message });
       }
     },
-    [handleError],
+    [handleError]
   );
   const disabled = useMemo(
     () => !!errorMessage || !(oldPassword || newPassword || confirmPassword),
-    [errorMessage, oldPassword, newPassword, confirmPassword],
+    [errorMessage, oldPassword, newPassword, confirmPassword]
   );
   useEffect(() => {
     if (!!newPassword && !!confirmPassword && !error.confirm) {
@@ -77,7 +83,7 @@ const ChangePassword = () => {
     }
   }, [handleError, oldPassword, confirmPassword, newPassword, error]);
   const handleSubmit = useCallback(
-    (e) => {
+    (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (disabled) return;
       updatePassword({ oldPassword, newPassword });
@@ -93,7 +99,7 @@ const ChangePassword = () => {
       setConfirmPassword,
       oldPassword,
       newPassword,
-    ],
+    ]
   );
   return (
     <div className=" space-y-5">

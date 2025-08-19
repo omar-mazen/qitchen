@@ -47,7 +47,7 @@ const NewAddress = ({
         />
         <Input
           placeholder="building number"
-          value={newAddress.buildingNumber}
+          value={`${newAddress.buildingNumber}`}
           setValue={(value) =>
             setNewAddress((state) => ({
               ...state,
@@ -57,7 +57,7 @@ const NewAddress = ({
         />
         <Input
           placeholder="flat number"
-          value={newAddress.flatNumber}
+          value={`${newAddress.flatNumber}`}
           setValue={(value) =>
             setNewAddress((state) => ({ ...state, flatNumber: value }))
           }
