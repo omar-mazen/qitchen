@@ -35,7 +35,7 @@ const MakeOrder = () => {
   const { cart } = useCart();
   useEffect(() => {
     if (addresses && addresses.addresses)
-      setSelectedAddressId(addresses?.addresses[0]._id || "");
+      setSelectedAddressId(addresses?.addresses[0]?._id || "");
   }, [addresses]);
   if (data?.error) return <Error message={data.error} />;
   return (
@@ -49,8 +49,8 @@ const MakeOrder = () => {
         </div>
         <ul className=" space-y-5">
           {isLoading && <SmallSpinner color="white" className="mx-auto" />}
-          {addresses?.addresses ? (
-            addresses?.addresses.map((address) => (
+          {(addresses?.addresses || []).length > 0 ? (
+            (addresses?.addresses || []).map((address) => (
               <Address
                 type="presentation"
                 address={address}
@@ -59,17 +59,23 @@ const MakeOrder = () => {
               />
             ))
           ) : (
-            <p>
-              You don’t have a saved address yet. Please add one to continue
-              with your order.
-            </p>
+            <div>
+              <p className=" text-heading-h4 my-20">
+                You don’t have a saved address yet. Please add one to continue
+                with your order.
+              </p>
+            </div>
           )}
         </ul>
         <div className="flex items-center justify-between my-10">
           <p className="both">Total: {totalPrice}$</p>
           <Button
             type="primary"
-            disabled={!totalPrice || isCheckoutLoading}
+            disabled={
+              !totalPrice ||
+              isCheckoutLoading ||
+              (addresses?.addresses || [])?.length <= 0
+            }
             onClick={async () => {
               if (!totalPrice) return;
               if (cart._id)
