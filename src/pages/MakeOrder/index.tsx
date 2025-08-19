@@ -18,7 +18,7 @@ import { ROUTES } from "@/constants/routes";
 
 const MakeOrder = () => {
   const [selectAddressId, setSelectedAddressId] = useState("");
-  const { cart, clearCart } = useCart();
+  const { cart } = useCart();
   const { data: addresses, isLoading } = useQuery({
     queryKey: ["addresses"],
     queryFn: getUserAdresses,
@@ -32,7 +32,6 @@ const MakeOrder = () => {
     isPending: isCheckoutLoading,
   } = useMutation({
     mutationFn: makeOrder,
-    onMutate: clearCart,
   });
   useEffect(() => {
     if (addresses && addresses.addresses)
