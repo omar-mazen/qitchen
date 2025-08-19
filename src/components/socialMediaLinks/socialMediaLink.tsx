@@ -1,5 +1,5 @@
-import type { TSocialMediaLink } from "@cTypes/socialMediaLink";
 import Badge from "@components/Badge";
+import type { TSocialMediaLink } from "@cTypes/socialMediaLink";
 
 const SocialMediaLink = ({ name, Icon }: TSocialMediaLink) => {
   return (

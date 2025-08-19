@@ -1,6 +1,8 @@
-import DotsFill from "@components/DotsFill";
-import type { TProduct } from "@cTypes/product";
 import { Link } from "react-router";
+
+import DotsFill from "@components/DotsFill";
+
+import type { TProduct } from "@cTypes/product";
 
 const Categoryitem = (props: TProduct) => {
   return (

@@ -1,8 +1,9 @@
-import { HomeImages } from "@constants/images";
 import ImageCard from "./ImageCard";
 import SocialMediaLinks from "@components/socialMediaLinks";
+
 import { socialMediaLinks } from "@constants/socialMediaLinks";
 import { ROUTES } from "@/constants/routes";
+import { HomeImages } from "@constants/images";
 
 const cards = [
   { image: HomeImages.menu, label: "Menu", link: ROUTES.MENU },
@@ -32,7 +33,7 @@ const Home = () => {
           label={card.label}
           image={card.image}
           link={card.link}
-          key={card.label}
+          key={`home card for ${card.label}`}
         />
       ))}
     </main>

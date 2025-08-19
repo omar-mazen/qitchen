@@ -1,10 +1,13 @@
+import { useAuth } from "./context/Auth";
 import { RouterProvider } from "react-router";
 import appRoutes from "./routes";
-import { useAuth } from "./context/Auth";
 import Loader from "./components/Loader";
+import Error from "./components/Error";
 
 function App() {
-  const { isLoading } = useAuth();
+  const { isLoading, logout } = useAuth();
+  // logout();
+  // return <Error />;
   if (isLoading) return <Loader />;
   return <RouterProvider router={appRoutes} />;
 }

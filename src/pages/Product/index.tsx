@@ -5,25 +5,36 @@ import Loader from "@components/Loader";
 import PageLayout from "@components/PageLayout";
 import Button from "@components/Button";
 import Badge from "@components/Badge";
+import Error from "@components/Error";
 
 import type { GetProductByIdResult } from "@cTypes/product";
 
 import { getProductById } from "@services/product";
 
 import banner from "@images/menu/menu.png";
+import { useState } from "react";
+import { useCart } from "@/context/CartContext";
+import DotsLoader from "@/components/DotsLoader";
 
 const Product = () => {
+  const { addToCart, isLoading: cartIsLoading } = useCart();
+  const [quantity, setQuantity] = useState<number>(1);
   const { id } = useParams();
   const { data, isLoading } = useQuery<GetProductByIdResult>({
     queryKey: ["product", id],
     queryFn: () => getProductById({ id: id ?? "" }),
     enabled: !!id,
+    staleTime: Infinity,
   });
+
   if (isLoading) return <Loader />;
-  if (data?.error) return <p>Error...</p>;
-  if (!data?.product) return <p>Product not found...</p>;
+  if (data?.error) return <Error message={data.error} />;
+  if (!data?.product)
+    return <Error message={`No Product was found with the ID #${id}.`} />;
+
   const { name, ingredients, images, isAvailable, description, price } =
     data.product;
+
   return (
     <PageLayout banner={banner} caption="Menu">
       <div className="w-full flex gap-10 p-12 sm:p-24">
@@ -51,19 +62,37 @@ const Product = () => {
           <div className="grid grid-cols-[auto_1fr] gap-5 items-center">
             <span className="font-bold">quantity:</span>
             <span className="flex flex-wrap gap-y-5">
-              <Badge>1</Badge>
-              <Badge>2</Badge>
-              <Badge>3</Badge>
-              <Badge>4</Badge>
-              <Badge>5</Badge>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Badge
+                  isActive={i + 1 == quantity}
+                  onClick={() => setQuantity(i + 1)}
+                >
+                  {i + 1}
+                </Badge>
+              ))}
             </span>
           </div>
           <p>
             <span className=" font-bold">price: </span>
             <span className="font-normal">{price}$</span>
           </p>
-          <Button type="primary" disabled={!isAvailable}>
-            {isAvailable ? "Add to cart" : "this product not avilable"}
+          <Button
+            type="primary"
+            disabled={!isAvailable || cartIsLoading}
+            onClick={() => {
+              if (data.product) addToCart({ product: data.product, quantity });
+            }}
+          >
+            {cartIsLoading ? (
+              <>
+                adding
+                <DotsLoader />
+              </>
+            ) : isAvailable ? (
+              "Add to cart"
+            ) : (
+              "this product not avilable"
+            )}
           </Button>
         </div>
       </div>

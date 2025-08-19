@@ -1,13 +1,24 @@
+import type React from "react";
+
 interface IProps {
+  type?: React.HTMLInputTypeAttribute;
   placeholder: string;
   value: string;
   setValue: (value: string) => void;
+  disabled?: boolean;
 }
 
-const Input = ({ placeholder, value, setValue }: IProps) => {
+const Input = ({
+  type = "text",
+  placeholder,
+  value,
+  setValue,
+  disabled = false,
+}: IProps) => {
   return (
     <input
-      type="text"
+      type={type}
+      disabled={disabled}
       placeholder={placeholder}
       defaultValue={value}
       value={value}

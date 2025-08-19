@@ -1,43 +1,37 @@
 import type { GetCategoriesResult, TCategory } from "@cTypes/categories";
-import { privateApi } from "./axios";
-import axios, { AxiosError } from "axios";
+import { publicApi } from "./axios";
+import { handleError } from "@/utils";
 
-interface GetCategoriesParams {
+type GetCategoriesParams = {
   page?: number;
   pageSize?: number;
-}
+};
 
-interface GetCategoriesResponse {
+type GetCategoriesResponse = {
   success: boolean;
   totalPages: number;
   data: TCategory[];
-}
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+};
 
 export const getCategories = async ({
   page = 1,
   pageSize = 10,
 }: GetCategoriesParams = {}): Promise<GetCategoriesResult> => {
   try {
-    const res = await privateApi.get<GetCategoriesResponse>(
+    const res = await publicApi.get<GetCategoriesResponse>(
       "/category/all-categories",
       {
         params: { page, limit: pageSize },
-      }
+      },
     );
 
     return {
       totalPages: res.data.totalPages,
       data: res.data.data,
     };
-  } catch (err: unknown) {
-    if (axios.isAxiosError(err)) {
-      const axiosError = err as AxiosError<{ message?: string }>;
-      return {
-        error:
-          axiosError.response?.data?.message ||
-          `Request failed with status ${axiosError.response?.status}`,
-      };
-    }
-    return { error: "Unexpected error occurred" };
+  } catch (error) {
+    return handleError(error);
   }
 };

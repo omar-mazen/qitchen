@@ -1,8 +1,15 @@
 export const ROUTES = {
+  REGISTER: "/register",
+  LOGIN: "/login",
   HOME: "/home",
   MENU: "/menu",
   CONTACT: "/contact",
   RESERVATION: "/reservation",
   ABOUT: "/about",
   PRODUCT: "/product/:id",
+  CART: "/cart",
+  PROFILE: "/profile",
+  MAKE_ORDER: "/make-order",
+  ORDERS: "/orders",
+  ORDER_DETAILS: "/orders/:id",
 } as const;

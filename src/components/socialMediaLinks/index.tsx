@@ -1,5 +1,5 @@
-import type { TSocialMediaLink } from "@cTypes/socialMediaLink";
 import SocialMediaLink from "./socialMediaLink";
+import type { TSocialMediaLink } from "@cTypes/socialMediaLink";
 
 const SocialMediaLinks = ({ links }: { links: TSocialMediaLink[] }) => {
   return (

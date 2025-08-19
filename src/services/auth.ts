@@ -1,22 +1,37 @@
-import type { TUser } from "@/types/user";
+import type { LoginParams, LoginResult, TUser } from "@/types/user";
 import { privateApi, publicApi } from "./axios";
-import axios from "axios";
+import { handleError } from "@/utils";
 
-interface LoginParams {
-  email: string;
-  password: string;
-}
-interface LoginResponse {
+type RegisterProps = Omit<TUser, "_id"> & { password: string };
+export const register = async ({
+  name,
+  email,
+  phoneNumber,
+  role,
+  password,
+}: RegisterProps) => {
+  try {
+    const res = await publicApi.post("/user/register", {
+      name,
+      email,
+      phoneNumber,
+      role,
+      password,
+    });
+    return {
+      message: res.data.message,
+      success: res.data.success,
+    };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+type LoginResponse = {
   success: boolean;
   message: string;
   user?: TUser;
-}
-interface LoginResult {
-  success?: boolean;
-  message?: string;
-  user?: TUser;
-  error?: string;
-}
+};
 export const login = async ({
   email,
   password,
@@ -25,7 +40,7 @@ export const login = async ({
     const res = await publicApi.post<LoginResponse>(
       "/user/login",
       { email, password },
-      { withCredentials: true }
+      { withCredentials: true },
     );
     return {
       user: res.data.user,
@@ -33,28 +48,31 @@ export const login = async ({
       success: res.data.success,
     };
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return {
-        error:
-          error.response?.data?.message ||
-          `Request failed with status ${error.response?.status}`,
-      };
-    }
-    return { error: "Unexpected error occurred" };
+    return handleError(error);
   }
 };
+
+type LogoutResponse = {
+  success: boolean;
+  message: string;
+};
+export const logout = async () => {
+  try {
+    const res = await privateApi.post<LogoutResponse>("/user/logout");
+    return {
+      message: res.data.message,
+      success: res.data.success,
+    };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
 export const refreshToken = async () => {
   try {
     const res = await privateApi.post("/user/refresh-token");
     return res.data.success;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return {
-        error:
-          error.response?.data?.message ||
-          `Request failed with status ${error.response?.status}`,
-      };
-    }
-    return { error: "Unexpected error occurred" };
+    return handleError(error);
   }
 };

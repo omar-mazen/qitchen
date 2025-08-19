@@ -1,11 +1,11 @@
 import SectionHeader from "@components/SectionHeader";
 import { awards } from "@constants/awards";
 import PageLayout from "@components/PageLayout";
+import AwardCard from "./AwardCard";
 
 import banner from "@images/about/about.png";
 import restaurant from "@images/about/Image (4).png";
 import team from "@images/about/Image (9).png";
-import AwardCard from "./AwardCard";
 const About = () => {
   return (
     <PageLayout banner={banner} caption="About">

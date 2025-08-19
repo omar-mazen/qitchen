@@ -1,11 +1,20 @@
+import { Link, useNavigate } from "react-router";
+
 import Icons from "../Icons";
 import Button from "../Button";
 import Logo from "@icons/logo.svg?react";
-import { Link } from "react-router";
+
+import { useAuth } from "@/context/Auth";
+
+import { logout } from "@services/auth";
+
+import { ROUTES } from "@constants/routes";
 
 const LargeScreen = ({ openMenu }: { openMenu: () => void }) => {
+  const { isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
   return (
-    <div className="fixed top-20 left-20 z-10 flex items-center gap-10 bg-background/80 backdrop-blur-sm rounded-2xl p-4 shadow-primary/5 shadow-lg">
+    <div className="fixed top-20 left-20 z-10 flex items-center gap-10 bg-background/70 backdrop-blur-sm rounded-2xl p-4 shadow-primary/2 shadow-lg">
       <Icons.Menu
         className=" cursor-pointer"
         onClick={openMenu}
@@ -17,14 +26,42 @@ const LargeScreen = ({ openMenu }: { openMenu: () => void }) => {
       <nav>
         <ul className="flex items-center gap-5">
           <li className="font-normal cursor-pointer">
-            <Link to={"menu"}>Menu</Link>
+            <Link to={ROUTES.MENU}>Menu</Link>
           </li>
           <li className="font-normal cursor-pointer">
-            <Link to={"about"}>About</Link>
+            <Link to={ROUTES.CART}>Cart</Link>
           </li>
+          {isAuthenticated && user?.role == "User" ? (
+            <>
+              <li className="font-normal cursor-pointer">
+                <Link to={ROUTES.ORDERS}>Orders</Link>
+              </li>
+              <li className="font-normal cursor-pointer">
+                <Link to={ROUTES.PROFILE}>Profile</Link>
+              </li>
+              <li
+                className="font-normal cursor-pointer"
+                onClick={async () => {
+                  await logout();
+                  navigate(ROUTES.HOME, { replace: true });
+                }}
+              >
+                logout
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="font-normal cursor-pointer">
+                <Link to={ROUTES.LOGIN}>Login</Link>
+              </li>
+              <li className="font-normal cursor-pointer">
+                <Link to={ROUTES.REGISTER}>Register</Link>
+              </li>
+            </>
+          )}
           <li>
             <Button type="outline">
-              <Link to={"reservation"}>Book a table</Link>
+              <Link to={ROUTES.RESERVATION}>Book a table</Link>
             </Button>
           </li>
         </ul>

@@ -1,6 +1,8 @@
-import Logo from "@icons/logo.svg?react";
-import Icons from "../Icons";
 import { useNavigate } from "react-router";
+
+import Icons from "../Icons";
+
+import Logo from "@icons/logo.svg?react";
 
 const SmallScreen = ({ openMenu }: { openMenu: () => void }) => {
   const navigate = useNavigate();

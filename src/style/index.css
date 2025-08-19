@@ -92,7 +92,8 @@ button {
   cursor: pointer;
 }
 
-*:disabled {
+*:disabled,
+*[area-disabled="true"] {
   cursor: not-allowed;
   opacity: 0.5;
 }
@@ -137,6 +138,7 @@ table {
 }
 ::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
   background-color: rgba(var(--background-muted-color), 100%);
 }
 
@@ -181,4 +183,71 @@ table {
   content: " ....................................................................................................................................................................";
   position: absolute;
   width: 100%;
+}
+
+.small-spinner {
+  position: relative;
+  width: 18px;
+  height: 18px;
+}
+.small-spinner::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  margin: 0 5px;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.small-spinner.black::after {
+  border: 2px solid rgba(var(--background-muted-color), 1);
+  border-bottom-color: transparent;
+}
+.small-spinner.white::after {
+  border: 2px solid rgba(var(--primary-color), 1);
+  border-bottom-color: transparent;
+}
+
+.dots-loader {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  text-align: left;
+  margin: 0 5px;
+}
+.dots-loader::after {
+  content: "○○○";
+  width: 100%;
+  text-align: left;
+  left: 0;
+  font-size: 0.8rem;
+  animation: loading 2s infinite ease-in-out;
+}
+@keyframes loading {
+  0% {
+    content: " ●";
+  }
+  50% {
+    content: " ● ● ";
+  }
+  100% {
+    content: " ● ● ●";
+  }
+}
+.-dots-loader.black {
+  color: rgba(var(--background-muted-color), 1);
+}
+.dots-loader.white {
+  color: rgba(var(--primary-color), 1);
 }

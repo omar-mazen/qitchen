@@ -1,5 +1,6 @@
 import SectionHeader from "@components/SectionHeader";
 import Categoryitem from "./CategoryItem";
+
 import type { TCategory } from "@cTypes/categories";
 
 const Category = ({ category }: { category: TCategory }) => {
