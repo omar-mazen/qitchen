@@ -51,7 +51,7 @@ const NavMenu = ({ closeMenu }: { closeMenu: () => void }) => {
           )}
           {isAuthenticated && (
             <li
-              className="font-normal cursor-pointer w-full"
+              className="cursor-pointer w-full"
               onClick={async () => {
                 await logout();
                 closeMenu();
