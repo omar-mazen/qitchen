@@ -63,7 +63,10 @@ const appRoutes = createBrowserRouter([
         path: ROUTES.CART,
         element: <Cart />,
       },
-
+      {
+        path: "/payment/success",
+        element: <PaymentScuccessfulRedirect />,
+      },
       {
         element: <ProtectedRoute role="User" />,
         children: [
@@ -74,10 +77,6 @@ const appRoutes = createBrowserRouter([
           {
             path: ROUTES.MAKE_ORDER,
             element: <MakeOrder />,
-          },
-          {
-            path: "/payment/success",
-            element: <PaymentScuccessfulRedirect />,
           },
           {
             path: ROUTES.ORDERS,
