@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { Link } from "react-router";
 
 import PageLayout from "@components/PageLayout";
 import Button from "@components/Button";
@@ -14,9 +15,9 @@ import { makeOrder } from "@services/order";
 
 import { useCart } from "@/context/CartContext";
 
-import banner from "@images/menu/menu.png";
-import { Link } from "react-router";
 import { ROUTES } from "@/constants/routes";
+
+import banner from "@images/menu/menu.png";
 
 const MakeOrder = () => {
   const [selectAddressId, setSelectedAddressId] = useState("");

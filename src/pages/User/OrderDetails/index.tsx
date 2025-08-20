@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import { TOrderStatusColors, TPaymentStatusColors } from "@cTypes/orders";
 
 import Loader from "@components/Loader";
-import CartProduct from "@/pages/Cart/CartProduct";
+import CartProduct from "@pages/User/Cart/CartProduct";
 import Error from "@components/Error";
 import OrderTable from "./OrderTable";
 

@@ -1,13 +1,13 @@
 import { Link } from "react-router";
 
 import Button from "@components/Button";
-import CartProduct from "./CartProduct";
 import Loader from "@components/Loader";
+import CartProduct from "./CartProduct";
+import CartTable from "./CartTable";
 
 import { useCart } from "@/context/CartContext";
 
 import texture from "@images/texture.png";
-import CartTable from "./CartTable";
 
 const Cart = () => {
   const { cart, isLoading } = useCart();

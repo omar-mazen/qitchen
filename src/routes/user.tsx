@@ -1,29 +1,29 @@
 import { createBrowserRouter, Navigate } from "react-router";
 import { ROUTES } from "@constants/routes";
-import AppLayout from "@components/AppLayout";
+import { UserAppLayout } from "@/components/Layouts";
 import { lazy } from "react";
 import PaymentScuccessfulRedirect from "@components/PaymentScuccessfulRedirect";
 import Error from "@/components/Error";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
-const Register = lazy(() => import("@pages/Register"));
-const Login = lazy(() => import("@pages/Login"));
-const Home = lazy(() => import("@pages/Home"));
-const Menu = lazy(() => import("@pages/Menu"));
-const Contact = lazy(() => import("@pages/Contact"));
-const Reservation = lazy(() => import("@pages/Reservation"));
-const About = lazy(() => import("@pages/About"));
-const Profile = lazy(() => import("@pages/Profile"));
-const Product = lazy(() => import("@pages/Product"));
-const Cart = lazy(() => import("@pages/Cart"));
-const MakeOrder = lazy(() => import("@pages/MakeOrder"));
-const Orders = lazy(() => import("@pages/Orders"));
-const OrderDetails = lazy(() => import("@pages/OrderDetails"));
+const Register = lazy(() => import("@/pages/User/Register"));
+const Login = lazy(() => import("@/pages/User/Login"));
+const Home = lazy(() => import("@/pages/User/Home"));
+const Menu = lazy(() => import("@/pages/User/Menu"));
+const Contact = lazy(() => import("@/pages/User/Contact"));
+const Reservation = lazy(() => import("@/pages/User/Reservation"));
+const About = lazy(() => import("@/pages/User/About"));
+const Profile = lazy(() => import("@/pages/User/Profile"));
+const Product = lazy(() => import("@/pages/User/Product"));
+const Cart = lazy(() => import("@/pages/User/Cart"));
+const MakeOrder = lazy(() => import("@/pages/User/MakeOrder"));
+const Orders = lazy(() => import("@/pages/User/Orders"));
+const OrderDetails = lazy(() => import("@/pages/User/OrderDetails"));
 
-const appRoutes = createBrowserRouter([
+const userRoutes = createBrowserRouter([
   {
     path: "/",
-    element: <AppLayout />,
+    element: <UserAppLayout />,
     children: [
       { index: true, element: <Navigate to={ROUTES.HOME} /> },
       {
@@ -93,4 +93,4 @@ const appRoutes = createBrowserRouter([
   },
 ]);
 
-export default appRoutes;
+export default userRoutes;

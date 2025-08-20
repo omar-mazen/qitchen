@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import Loader from "@components/Loader";
 import PageLayout from "@components/PageLayout";
+import Error from "@components/Error";
 import MenuLabels from "./MenuLabels";
 import Category from "./Category";
 
@@ -10,7 +11,6 @@ import type { GetCategoriesResult } from "@cTypes/categories";
 import banner from "@images/menu/menu.png";
 
 import { getCategories } from "@services/categories";
-import Error from "@/components/Error";
 
 const Menu = () => {
   const { isLoading, isError, data } = useQuery<GetCategoriesResult>({

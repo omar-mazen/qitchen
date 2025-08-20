@@ -1,10 +1,13 @@
 import React from "react";
-import Table from "@components/Table";
-import { ROUTES } from "@/constants/routes";
-import { useAuth } from "@/context/Auth";
 import { Link } from "react-router";
-import Button from "@/components/Button";
-import Icons from "@/components/Icons";
+
+import Table from "@components/Table";
+import Button from "@components/Button";
+import Icons from "@components/Icons";
+
+import { useAuth } from "@/context/Auth";
+
+import { ROUTES } from "@constants/routes";
 
 const CartTable = ({
   children,

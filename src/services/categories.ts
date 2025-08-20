@@ -24,7 +24,7 @@ export const getCategories = async ({
       "/category/all-categories",
       {
         params: { page, limit: pageSize },
-      },
+      }
     );
 
     return {

@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 import Loader from "@components/Loader";
 import Error from "@components/Error";
-import Button from "@/components/Button";
+import Button from "@components/Button";
 
 import { getCurrentUserOrders } from "@services/order";
 

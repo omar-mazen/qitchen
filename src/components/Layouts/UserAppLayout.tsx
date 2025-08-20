@@ -1,10 +1,10 @@
 import { Suspense } from "react";
 import { Outlet } from "react-router";
 
-import Header from "./Header";
-import Loader from "./Loader";
+import Header from "@/components/Header";
+import Loader from "@components/Loader";
 
-const AppLayout = () => {
+const UserAppLayout = () => {
   return (
     <div className="grid grid-rows-[auto_1fr] lg:block h-full">
       <Header />
@@ -13,4 +13,4 @@ const AppLayout = () => {
   );
 };
 
-export default AppLayout;
+export default UserAppLayout;

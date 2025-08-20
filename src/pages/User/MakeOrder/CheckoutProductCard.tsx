@@ -1,4 +1,4 @@
-import type { TCARTProduct } from "@/types/cart";
+import type { TCARTProduct } from "@cTypes/cart";
 
 const CheckoutProductCard = ({ product }: { product: TCARTProduct }) => {
   return (

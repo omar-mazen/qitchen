@@ -4,10 +4,10 @@ import clsx from "clsx";
 
 import ContextMenu from "@components/ContextMenu";
 import Icons from "@components/Icons";
-import NewAddress from "../pages/Profile/NewAddress";
+import NewAddress from "../pages/User/Profile/NewAddress";
 
 import type { TAddress } from "@cTypes/address";
-import type { TNewAddress } from "../pages/Profile/Addresses";
+import type { TNewAddress } from "../pages/User/Profile/Addresses";
 
 import { updateAddress as updateAddressAPI } from "@services/address";
 
@@ -63,7 +63,7 @@ const Address = (props: TProps) => {
         "font-normal border border-border rounded-2xl py-4 px-6 cursor-pointer text-xlarge grid grid-cols-[1fr_auto] gap-5",
         props.type == "presentation" &&
           props.isSelected &&
-          "bg-primary text-background",
+          "bg-primary text-background"
       )}
       onClick={() => {
         if (props.type == "presentation")

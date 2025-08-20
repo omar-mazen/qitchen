@@ -13,3 +13,11 @@ export const ROUTES = {
   ORDERS: "/orders",
   ORDER_DETAILS: "/orders/:id",
 } as const;
+
+export const DASHBOARD = {
+  HOME: "/dashboard/home",
+  PRODUCTS: "/dashboard/products",
+  ORDERS: "/dashboard/orders",
+  TABLES: "/dashboard/tables",
+  RESERVATION: "/dashboard/reservation",
+};
