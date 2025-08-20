@@ -19,4 +19,18 @@ export const regex = {
     message:
       "Password must be 8-16 characters long, include at least one uppercase letter, one lowercase letter, one number, one special character, and contain no spaces.",
   },
+  title: {
+    regex: /^[a-zA-Z\s.]+$/,
+    message: "Product Name must be only letters, spaces, and '.' are allowed.",
+  },
+  description: {
+    regex: /^[a-zA-Z\s.,;]+$/,
+    message:
+      "Description must be only letters, spaces, '.', ',' and ';' are allowed.",
+  },
+  ingredients: {
+    regex: /^[a-zA-Z\s,]+$/,
+    message:
+      "Ingredients must be only letters, spaces, and commas are allowed.",
+  },
 };

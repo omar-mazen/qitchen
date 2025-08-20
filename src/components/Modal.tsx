@@ -96,10 +96,7 @@ function Window({ name, children }: WindowProps) {
       }}
     >
       {/* modal */}
-      <div
-        onClick={(e) => e.preventDefault()}
-        className=" fixed left-1/2 top-1/2 w-full translate-x-[-50%] translate-y-[-50%] overflow-x-hidden overflow-y-auto rounded-lg bg-background px-16 pb-5 sm:max-h-[80%] sm:w-auto sm:min-w-[500px] "
-      >
+      <div className=" fixed left-1/2 top-1/2 w-full translate-x-[-50%] translate-y-[-50%] overflow-x-hidden overflow-y-auto rounded-lg bg-background px-16 pb-5 sm:max-h-[80%] sm:w-auto sm:min-w-[500px] ">
         <button className="absolute right-4 top-4 p-2" onClick={close}>
           x
         </button>

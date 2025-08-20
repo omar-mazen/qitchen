@@ -34,7 +34,7 @@ const Orders = () => {
                     {order.products
                       .reduce<
                         string[]
-                      >((prev, curr) => [...prev, curr.product.name], [])
+                      >((prev, curr) => [...prev, curr.product?.name], [])
                       .join(",")}
                   </span>
                 </p>

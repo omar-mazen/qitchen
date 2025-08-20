@@ -5,8 +5,31 @@ import Modal from "@/components/Modal";
 import Toggler from "@/components/Toggler";
 import type { TProduct } from "@/types/product";
 import EditProduct from "./EditProduct";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteProduct as deleteProductAPI } from "@/services/product";
+import type { GetCategoriesResult } from "@/types/categories";
+import { toast } from "react-toastify";
 
 const ProductCard = ({ product }: { product: TProduct }) => {
+  const queryClient = useQueryClient();
+  const { mutateAsync: deleteProduct } = useMutation({
+    mutationKey: ["products"],
+    mutationFn: deleteProductAPI,
+    onSuccess: () => {
+      queryClient.setQueryData(["products"], (oldData: GetCategoriesResult) => {
+        if (!oldData.data) return oldData;
+        return {
+          ...oldData,
+          data: oldData?.data.map((cat) => ({
+            ...cat,
+            products: cat.products.filter(
+              (catProduct) => catProduct._id != product._id
+            ),
+          })),
+        };
+      });
+    },
+  });
   return (
     <>
       <div className="inline-block border border-border rounded-2xl overflow-hidden relative">
@@ -17,15 +40,11 @@ const ProductCard = ({ product }: { product: TProduct }) => {
             </div>
           </ContextMenu.Toggle>
           <ContextMenu.List name={product._id}>
-            <Modal.Open opens="edit">
-              <ContextMenu.Item icon={<Icons.Pencil />} onClick={() => {}}>
-                edit
-              </ContextMenu.Item>
+            <Modal.Open opens={`edit-${product._id}`}>
+              <ContextMenu.Item icon={<Icons.Pencil />}>edit</ContextMenu.Item>
             </Modal.Open>
             <Modal.Open opens="delete">
-              <ContextMenu.Item icon={<Icons.Trash />} onClick={() => {}}>
-                delete
-              </ContextMenu.Item>
+              <ContextMenu.Item icon={<Icons.Trash />}>delete</ContextMenu.Item>
             </Modal.Open>
           </ContextMenu.List>
         </div>
@@ -59,14 +78,19 @@ const ProductCard = ({ product }: { product: TProduct }) => {
           </div>
         </div>
       </div>
-      <Modal.Window name="edit">
-        <EditProduct />
+      <Modal.Window name={`edit-${product._id}`}>
+        <EditProduct product={product} />
       </Modal.Window>
       <Modal.Window name="delete">
         <ConfirmDelete
           resourceName={product.name}
-          onCloseModal={() => {}}
-          onConfirm={() => {}}
+          onConfirm={async () => {
+            await toast.promise(deleteProduct({ productId: product._id }), {
+              pending: "Deleting product...",
+              success: "Product deleted",
+              error: "Failed to delete product",
+            });
+          }}
         />
       </Modal.Window>
     </>

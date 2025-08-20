@@ -2,7 +2,7 @@ import Button from "@components/Button";
 
 type ConfirmDeleteProps = {
   resourceName: string;
-  onCloseModal: () => void;
+  onCloseModal?: () => void;
   onConfirm: () => void;
 };
 
@@ -22,7 +22,7 @@ export default function ConfirmDelete({
           type="primary"
           onClick={() => {
             onConfirm();
-            onCloseModal();
+            onCloseModal?.();
           }}
         >
           Delete

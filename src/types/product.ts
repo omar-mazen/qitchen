@@ -17,3 +17,7 @@ export type GetProductByIdResult = {
   error?: string;
   product?: TProduct | undefined;
 };
+export type UpdateProductResult = {
+  error?: string;
+  product?: TProduct;
+};

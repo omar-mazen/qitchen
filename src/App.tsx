@@ -4,11 +4,13 @@ import Loader from "./components/Loader";
 import { dashboardRoutes, userRoutes } from "./routes";
 
 function App() {
-  const { isLoading, user } = useAuth();
+  const { isLoading, user, isAuthenticated } = useAuth();
   if (isLoading) return <Loader />;
   return (
     <RouterProvider
-      router={user?.role == "Admin" ? dashboardRoutes : userRoutes}
+      router={
+        user?.role == "User" || !isAuthenticated ? userRoutes : dashboardRoutes
+      }
     />
   );
 }
