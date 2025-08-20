@@ -8,7 +8,6 @@ import {
   useRef,
 } from "react";
 import { createPortal } from "react-dom";
-import useClickOutside from "../hooks/useClickOutside";
 import useKeystroke from "@hooks/useKeyStroke";
 
 // ------------------- Context -------------------
