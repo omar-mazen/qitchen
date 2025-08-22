@@ -6,13 +6,13 @@ import CategoryForm from "./CategoryForm";
 import { addCategory as addCategoryAPI } from "@services/categories";
 
 import type { TCategory } from "@cTypes/categories";
-const AddCategory = () => {
+const AddCategory = ({ onCloseModal }: { onCloseModal?: () => void }) => {
   const queryClient = useQueryClient();
 
   const { mutateAsync: addCategory, isPending: isAdding } = useMutation({
     mutationKey: ["products"],
     mutationFn: addCategoryAPI,
-    onSuccess: (newData) =>
+    onSuccess: (newData) => {
       queryClient.setQueryData(
         ["products"],
         (oldData: { data: TCategory[] }) => {
@@ -22,7 +22,9 @@ const AddCategory = () => {
             data: [...oldData.data, newData.category],
           };
         }
-      ),
+      );
+      onCloseModal?.();
+    },
   });
   return (
     <CategoryForm

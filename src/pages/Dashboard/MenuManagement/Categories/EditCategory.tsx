@@ -7,13 +7,19 @@ import { updateCategory as updateCategoryAPI } from "@/services/categories";
 
 import type { TCategory } from "@cTypes/categories";
 
-const EditCategory = ({ category }: { category: TCategory }) => {
+const EditCategory = ({
+  category,
+  onCloseModal,
+}: {
+  category: TCategory;
+  onCloseModal?: () => void;
+}) => {
   const queryClient = useQueryClient();
 
   const { mutateAsync: updateCategory, isPending: isUpdating } = useMutation({
     mutationKey: ["products"],
     mutationFn: updateCategoryAPI,
-    onSuccess: (newData) =>
+    onSuccess: (newData) => {
       queryClient.setQueryData(
         ["products"],
         (oldData: { data: TCategory[] }) => {
@@ -24,7 +30,9 @@ const EditCategory = ({ category }: { category: TCategory }) => {
             ),
           };
         }
-      ),
+      );
+      onCloseModal?.();
+    },
   });
   return (
     <CategoryForm
