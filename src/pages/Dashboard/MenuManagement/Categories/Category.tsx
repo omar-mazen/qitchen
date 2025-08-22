@@ -63,9 +63,6 @@ const Category = ({ category }: { category: TCategory }) => {
         </div>
       </section>
       <ContextMenu.List name={category._id}>
-        <Modal.Open opens={`add product to-"${category._id}`}>
-          <ContextMenu.Item icon={<Icons.Add />}>add product</ContextMenu.Item>
-        </Modal.Open>
         <Modal.Open opens={`edit category-${category._id}`}>
           <ContextMenu.Item icon={<Icons.Pencil />}>
             edit category
@@ -76,10 +73,11 @@ const Category = ({ category }: { category: TCategory }) => {
             delete category
           </ContextMenu.Item>
         </Modal.Open>
+        <Modal.Open opens={`add product to-"${category._id}`}>
+          <ContextMenu.Item icon={<Icons.Add />}>add product</ContextMenu.Item>
+        </Modal.Open>
       </ContextMenu.List>
-      <Modal.Window name={`add product to-"${category._id}`}>
-        <AddProduct categoryId={category._id} />
-      </Modal.Window>
+
       <Modal.Window name={`add category`}>
         <AddCategory />
       </Modal.Window>
@@ -100,6 +98,9 @@ const Category = ({ category }: { category: TCategory }) => {
             )
           }
         />
+      </Modal.Window>
+      <Modal.Window name={`add product to-"${category._id}`}>
+        <AddProduct categoryId={category._id} />
       </Modal.Window>
     </>
   );

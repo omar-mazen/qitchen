@@ -39,7 +39,7 @@ const AddProduct = ({
   return (
     <div>
       <SectionHeader className="my-10">
-        <h2>Add product</h2>
+        <h2>Add item</h2>
       </SectionHeader>
       <ProductForm
         isLoading={isLoading}

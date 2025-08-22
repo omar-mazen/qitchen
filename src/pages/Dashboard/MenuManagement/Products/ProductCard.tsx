@@ -108,12 +108,17 @@ const ProductCard = ({ product }: { product: TProduct }) => {
       </div>
       <ContextMenu.List name={product._id}>
         <Modal.Open opens={`edit-${product._id}`}>
-          <ContextMenu.Item icon={<Icons.Pencil />}>edit</ContextMenu.Item>
+          <ContextMenu.Item icon={<Icons.Pencil />}>
+            edit {product.name}
+          </ContextMenu.Item>
         </Modal.Open>
         <Modal.Open opens="delete">
-          <ContextMenu.Item icon={<Icons.Trash />}>delete</ContextMenu.Item>
+          <ContextMenu.Item icon={<Icons.Trash />}>
+            delete {product.name}
+          </ContextMenu.Item>
         </Modal.Open>
       </ContextMenu.List>
+
       <Modal.Window name={`edit-${product._id}`}>
         <EditProduct product={product} />
       </Modal.Window>

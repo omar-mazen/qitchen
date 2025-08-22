@@ -39,7 +39,7 @@ const EditProduct = ({
   return (
     <>
       <SectionHeader className="my-10">
-        <h2>Edit product</h2>
+        <h2>Edit item</h2>
       </SectionHeader>
       <ProductForm
         product={{
