@@ -7,7 +7,7 @@ import ProtectedRoute from "@components/ProtectedRoute";
 
 import { DASHBOARD } from "@constants/routes";
 
-const Products = lazy(() => import("@pages/Dashboard/Products"));
+const MenuManagement = lazy(() => import("@/pages/Dashboard/MenuManagement"));
 
 const dashboardRoutes = createBrowserRouter([
   {
@@ -20,7 +20,7 @@ const dashboardRoutes = createBrowserRouter([
         children: [
           { path: DASHBOARD.HOME, element: <p>home</p> },
           { path: DASHBOARD.ORDERS, element: <p>orders</p> },
-          { path: DASHBOARD.PRODUCTS, element: <Products /> },
+          { path: DASHBOARD.MENU_MANAGEMENT, element: <MenuManagement /> },
           { path: DASHBOARD.TABLES, element: <p>tables</p> },
           { path: DASHBOARD.RESERVATION, element: <p>reservation</p> },
         ],

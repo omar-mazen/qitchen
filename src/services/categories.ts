@@ -1,5 +1,9 @@
-import type { GetCategoriesResult, TCategory } from "@cTypes/categories";
-import { publicApi } from "./axios";
+import type {
+  AddCategoryResult,
+  GetCategoriesResult,
+  TCategory,
+} from "@cTypes/categories";
+import { privateApi, publicApi } from "./axios";
 import { handleError } from "@/utils";
 
 type GetCategoriesParams = {
@@ -31,6 +35,69 @@ export const getCategories = async ({
       totalPages: res.data.totalPages,
       data: res.data.data,
     };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+type AddCategoryProps = {
+  name: string;
+  description: string;
+};
+type AddCategoryResponse = {
+  success: boolean;
+  message: string;
+  data: TCategory;
+};
+
+export const addCategory = async ({
+  name,
+  description,
+}: AddCategoryProps): Promise<AddCategoryResult> => {
+  try {
+    const { data } = await privateApi.post<AddCategoryResponse>(
+      `category/create-category`,
+      {
+        name,
+        description,
+      }
+    );
+    return { category: data.data };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+type UpdateCategoryProps = {
+  categoryId: string;
+  name: string;
+  description: string;
+};
+export const updateCategory = async ({
+  categoryId,
+  name,
+  description,
+}: UpdateCategoryProps): Promise<AddCategoryResult> => {
+  try {
+    const { data } = await privateApi.patch<AddCategoryResponse>(
+      `category/${categoryId}`,
+      {
+        name,
+        description,
+      }
+    );
+    return { category: data.data };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+export const deleteCategory = async ({
+  categoryId,
+}: {
+  categoryId: string;
+}) => {
+  try {
+    await privateApi.delete(`category/${categoryId}`);
   } catch (error) {
     return handleError(error);
   }

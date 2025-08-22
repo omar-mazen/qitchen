@@ -21,3 +21,7 @@ export type UpdateProductResult = {
   error?: string;
   product?: TProduct;
 };
+export type AddProductResult = {
+  error?: string;
+  product?: TProduct;
+};

@@ -90,7 +90,7 @@ function Window({ name, children }: WindowProps) {
     // modal overlay
     <div
       ref={ref}
-      className="fixed left-0 top-0 z-[999] min-h-full min-w-full bg-neutral-800/10 backdrop-blur-[0.5px] transition-all duration-[0.5s]"
+      className="fixed left-0 top-0 z-[999] min-h-full min-w-full bg-neutral-800/10 backdrop-blur-[2px] transition-all duration-[0.5s]"
       onClick={(e) => {
         if (e.target === e.currentTarget) close();
       }}

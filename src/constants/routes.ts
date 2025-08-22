@@ -16,7 +16,7 @@ export const ROUTES = {
 
 export const DASHBOARD = {
   HOME: "/dashboard/home",
-  PRODUCTS: "/dashboard/products",
+  MENU_MANAGEMENT: "/dashboard/menu-management",
   ORDERS: "/dashboard/orders",
   TABLES: "/dashboard/tables",
   RESERVATION: "/dashboard/reservation",

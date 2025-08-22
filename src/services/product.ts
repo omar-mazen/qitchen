@@ -1,4 +1,5 @@
 import type {
+  AddProductResult,
   GetProductByIdResult,
   TProduct,
   UpdateProductResult,
@@ -25,6 +26,48 @@ export const getProductById = async ({
   }
 };
 
+type AddProduct = {
+  categoryId: string;
+  name: string;
+  description: string;
+  price: string;
+  ingredients: string[];
+  productImage: File;
+};
+type AddProductResponse = {
+  success: true;
+  data: TProduct;
+  message: string;
+};
+export const addProduct = async ({
+  categoryId,
+  name,
+  description,
+  price,
+  ingredients,
+  productImage,
+}: AddProduct): Promise<AddProductResult> => {
+  try {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("price", price.toString());
+    formData.append("ingredients", JSON.stringify(ingredients));
+    formData.append("productImages", productImage);
+    const res = await privateApi.post<AddProductResponse>(
+      `/product/product-listing/${categoryId}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return { product: res.data.data };
+  } catch (error) {
+    return handleError(error);
+  }
+};
 type UpdateProductProps = {
   productId: string;
   name?: string;
@@ -49,6 +92,17 @@ export const updateProduct = async ({
       { name, description, price, ingredients }
     );
     return { product: res.data.data };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+export const toggleProductAvailability = async ({
+  productId,
+}: {
+  productId: string;
+}) => {
+  try {
+    await privateApi.patch(`/product/product-toggle-availability/${productId}`);
   } catch (error) {
     return handleError(error);
   }

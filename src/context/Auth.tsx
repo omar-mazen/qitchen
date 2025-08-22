@@ -49,7 +49,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { mutateAsync: logout, isPending: isLogoutLoading } = useMutation({
     mutationKey: ["user"],
     mutationFn: logoutAPI,
-    onSuccess: () => queryClient.removeQueries({ queryKey: ["user"] }),
+    onSuccess: () => {
+      queryClient.removeQueries({ queryKey: ["user"] });
+      window.location.pathname = "/";
+    },
   });
   if (isLoading || isLoginLoading || isLogoutLoading) return null;
   const user = data?.user ?? null;

@@ -3,15 +3,17 @@ import { Link, NavLink, Outlet } from "react-router";
 import texture from "@images/texture.png";
 import Logo from "@icons/logo.svg?react";
 import { DASHBOARD } from "@/constants/routes";
+import { useAuth } from "@/context/Auth";
 
 const links = [
   { Label: "home", link: DASHBOARD.HOME },
   { Label: "orders", link: DASHBOARD.ORDERS },
-  { Label: "products", link: DASHBOARD.PRODUCTS },
+  { Label: "menu management", link: DASHBOARD.MENU_MANAGEMENT },
   { Label: "tables", link: DASHBOARD.TABLES },
   { Label: "reservation", link: DASHBOARD.RESERVATION },
 ];
 export const DashboardLayout = () => {
+  const { logout } = useAuth();
   return (
     <div
       style={{ background: `url(${texture})` }}
@@ -36,13 +38,16 @@ export const DashboardLayout = () => {
                 </NavLink>
               </li>
             ))}
-            <li className="hover:text-background hover:bg-primary transition-colors cursor-pointer px-12 py-6">
+            <li
+              className="hover:text-background hover:bg-primary transition-colors cursor-pointer px-12 py-6"
+              onClick={logout}
+            >
               logout
             </li>
           </ul>
         </nav>
       </aside>
-      <main className="h-full overflow-auto p-8">
+      <main className="h-full overflow-y-auto overflow-x-hidden p-8">
         <Outlet />
       </main>
     </div>

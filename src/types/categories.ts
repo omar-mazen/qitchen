@@ -14,3 +14,7 @@ export type GetCategoriesResult = {
   totalPages?: number;
   data?: TCategory[];
 };
+export type AddCategoryResult = {
+  error?: string;
+  category?: TCategory;
+};
