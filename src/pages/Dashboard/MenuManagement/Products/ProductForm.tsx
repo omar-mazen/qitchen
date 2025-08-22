@@ -127,7 +127,9 @@ const ProductForm = ({
           />
           <div className=" opacity-0 group-hover:opacity-100 z-10 transition-opacity absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center gap-5">
             <Icons.Instagram />
-            <p className=" text-medium text-nowrap">update image</p>
+            <p className=" text-medium text-nowrap">
+              {product.type == "add" ? "Add" : "Update"} image
+            </p>
           </div>
           <figure className="absolute top-0 left-0">
             <img

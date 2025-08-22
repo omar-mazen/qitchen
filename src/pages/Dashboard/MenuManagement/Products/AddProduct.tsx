@@ -7,6 +7,8 @@ import { addProduct as addProductAPI } from "@services/product";
 
 import type { TCategory } from "@cTypes/categories";
 
+import DefaultImage from "@images/default-image.jpg";
+
 const AddProduct = ({
   onCloseModal,
   categoryId,
@@ -37,7 +39,7 @@ const AddProduct = ({
   return (
     <div>
       <SectionHeader className="my-10">
-        <h2>Edit product</h2>
+        <h2>Add product</h2>
       </SectionHeader>
       <ProductForm
         isLoading={isLoading}
@@ -45,7 +47,7 @@ const AddProduct = ({
           type: "add",
           categoryId: categoryId,
           description: "",
-          image: { file: null, url: "" },
+          image: { file: null, url: DefaultImage },
           ingredients: [],
           name: "",
           price: "",
