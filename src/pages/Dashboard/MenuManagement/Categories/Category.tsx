@@ -55,9 +55,11 @@ const Category = ({ category }: { category: TCategory }) => {
                 No products found in this category. Add new products to display
                 them here
               </p>
-              <Button type="primary" className="mx-auto">
-                add product
-              </Button>
+              <Modal.Open opens={`add product to-"${category._id}`}>
+                <Button type="primary" className="mx-auto">
+                  add product
+                </Button>
+              </Modal.Open>
             </div>
           )}
         </div>
