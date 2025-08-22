@@ -16,7 +16,6 @@ const AddCategory = ({ onCloseModal }: { onCloseModal?: () => void }) => {
       queryClient.setQueryData(
         ["products"],
         (oldData: { data: TCategory[] }) => {
-          console.log(newData, oldData);
           if (!oldData) return { data: [newData.category] };
           return {
             data: [...oldData.data, newData.category],

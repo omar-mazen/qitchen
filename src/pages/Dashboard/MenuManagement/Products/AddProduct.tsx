@@ -29,7 +29,10 @@ const AddProduct = ({
                 ...oldData,
                 data: oldData.data.map((cat) =>
                   cat._id === categoryId
-                    ? { ...cat, products: [...cat.products, newData?.product] }
+                    ? {
+                        ...cat,
+                        products: [...(cat.products ?? []), newData?.product],
+                      }
                     : cat
                 ),
               }

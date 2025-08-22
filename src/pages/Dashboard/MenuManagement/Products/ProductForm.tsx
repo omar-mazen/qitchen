@@ -112,6 +112,7 @@ const ProductForm = ({
       >
         <div className="group relative w-[150px] h-[100px] mx-auto my-10 rounded-2xl overflow-hidden cursor-pointer after:transition-colors after:absolute hover:after:bg-background/70 after:w-full after:h-full after:top-0 after:left-0 ">
           <input
+            accept="image/jpeg,image/png,image/jpg"
             title=""
             type="file"
             className="absolute top-0 left-0 !z-100 fill cursor-pointer"
