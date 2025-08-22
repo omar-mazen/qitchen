@@ -70,13 +70,13 @@ const Category = ({ category }: { category: TCategory }) => {
             edit category
           </ContextMenu.Item>
         </Modal.Open>
+        <Modal.Open opens={`add product to-"${category._id}`}>
+          <ContextMenu.Item icon={<Icons.Add />}>add product</ContextMenu.Item>
+        </Modal.Open>
         <Modal.Open opens={`delete category-${category._id}`}>
           <ContextMenu.Item icon={<Icons.Trash />}>
             delete category
           </ContextMenu.Item>
-        </Modal.Open>
-        <Modal.Open opens={`add product to-"${category._id}`}>
-          <ContextMenu.Item icon={<Icons.Add />}>add product</ContextMenu.Item>
         </Modal.Open>
       </ContextMenu.List>
 
