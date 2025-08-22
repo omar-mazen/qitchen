@@ -115,7 +115,7 @@ const CategoryForm = ({
           <Button
             type="primary"
             className="ml-auto"
-            disabled={!!errMessage || isLoading}
+            disabled={!!errMessage || isLoading || !name || !description}
           >
             Submit {isLoading && <DotsLoader />}
           </Button>

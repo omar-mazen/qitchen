@@ -194,7 +194,15 @@ const ProductForm = ({
           <Button
             type="primary"
             className="ml-auto"
-            disabled={!!errMessage || isLoading}
+            disabled={
+              !!errMessage ||
+              isLoading ||
+              !name ||
+              !description ||
+              !price ||
+              !ingredients.length ||
+              !image.file
+            }
           >
             Submit {isLoading && <DotsLoader />}
           </Button>
