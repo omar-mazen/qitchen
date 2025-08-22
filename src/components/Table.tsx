@@ -71,8 +71,8 @@ const Cell: React.FC<CellProps> = ({ children, head, bold, center = true }) => {
   }
   return (
     <th
-      className={`py-4 px-8 text-nowrap text-ellipsis ${
-        bold ? "font-semibold" : "font-normal"
+      className={`py-4 px-8 text-nowrap text-ellipsis font-normal ${
+        bold ? "font-semibold" : " font-[400]"
       } ${center ? "text-center" : "text-left"}`}
     >
       {children}

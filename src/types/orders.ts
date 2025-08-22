@@ -1,7 +1,8 @@
 import type { TAddress } from "./address";
 import type { TCARTProduct } from "./cart";
+import type { TBaseResponse, TPagination } from "./common";
 
-export type TPaymentStatus = "Pending" | "Completed" | "Failed";
+export type TPaymentStatus = "Pending" | "Completed" | "Failed" | "Cancelled";
 export type TOrderStatus =
   | "Processing"
   | "Paid"
@@ -19,6 +20,7 @@ export const TPaymentStatusColors: Record<TPaymentStatus, string> = {
   Pending: "bg-yellow-100 text-yellow-800 border border-yellow-200",
   Completed: "bg-green-100 text-green-800 border border-green-200",
   Failed: "bg-red-100 text-red-800 border border-red-200",
+  Cancelled: "bg-gray-100 text-gray-800 border border-gray-200",
 };
 export type TOrder = {
   _id: string;
@@ -43,15 +45,18 @@ export type TOrderDetailsResult = {
   order?: TOrder;
   error?: string;
 };
+export type TGetAllOrdersResult = {
+  orders?: TOrder[] | [];
+  pagination?: TPagination;
+  error?: string;
+};
 export type TOrdersResult = {
   orders?: TOrder[] | [];
   error?: string;
 };
 
-export type TVerifyPaymentResponse = {
-  success: boolean;
+export type TVerifyPaymentResponse = TBaseResponse & {
   paymentStatus: string;
   orderStatus: string;
-  message: string;
   order: TOrder[];
 };

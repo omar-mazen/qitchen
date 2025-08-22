@@ -6,10 +6,9 @@ import type {
 } from "@/types/product";
 import { privateApi, publicApi } from "./axios";
 import { handleError } from "@/utils";
-export type GetProductResponse = {
-  success: boolean;
+import type { TBaseResponse } from "@/types/common";
+export type GetProductResponse = TBaseResponse & {
   data?: TProduct;
-  message: string;
 };
 export const getProductById = async ({
   id,
@@ -34,10 +33,8 @@ type AddProduct = {
   ingredients: string[];
   productImage: File;
 };
-type AddProductResponse = {
-  success: true;
+type AddProductResponse = TBaseResponse & {
   data: TProduct;
-  message: string;
 };
 export const addProduct = async ({
   categoryId,
@@ -75,8 +72,7 @@ type UpdateProductProps = {
   price?: string;
   ingredients?: string[];
 };
-type UpdateProductResponse = {
-  message: string;
+type UpdateProductResponse = TBaseResponse & {
   data?: TProduct;
 };
 export const updateProduct = async ({

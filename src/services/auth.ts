@@ -1,12 +1,13 @@
 import type { LoginParams, LoginResult, TUser } from "@/types/user";
 import { privateApi, publicApi } from "./axios";
 import { handleError } from "@/utils";
+import type { TBaseResponse } from "@/types/common";
 
 type RegisterProps = Omit<TUser, "_id"> & { password: string };
 type RegisterResult = {
   message?: string;
-  error?: string;
   success?: boolean;
+  error?: string;
 };
 export const register = async ({
   name,
@@ -32,9 +33,7 @@ export const register = async ({
   }
 };
 
-type LoginResponse = {
-  success: boolean;
-  message: string;
+type LoginResponse = TBaseResponse & {
   user?: TUser;
 };
 export const login = async ({
@@ -57,13 +56,9 @@ export const login = async ({
   }
 };
 
-type LogoutResponse = {
-  success: boolean;
-  message: string;
-};
 export const logout = async () => {
   try {
-    const res = await privateApi.post<LogoutResponse>("/user/logout");
+    const res = await privateApi.post<TBaseResponse>("/user/logout");
     return {
       message: res.data.message,
       success: res.data.success,

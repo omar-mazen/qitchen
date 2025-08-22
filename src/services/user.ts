@@ -1,8 +1,8 @@
 import type { GetCurrentUserDataResult, TUser } from "@/types/user";
 import { privateApi } from "./axios";
 import { handleError } from "@/utils";
-type UserDataResponse = {
-  success: boolean;
+import type { TBaseResponse } from "@/types/common";
+type UserDataResponse = TBaseResponse & {
   user?: TUser;
 };
 export const getCurrentUserData =
@@ -25,7 +25,7 @@ export const updateUser = async ({
   try {
     const res = await privateApi.patch<UserDataResponse>(
       "/user/update-account-details",
-      { name, phoneNumber },
+      { name, phoneNumber }
     );
     return { user: res.data.user };
   } catch (error) {

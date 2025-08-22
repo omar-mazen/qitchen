@@ -1,4 +1,8 @@
-import type { TVerifyPaymentResponse } from "./../types/orders";
+import type {
+  TGetAllOrdersResult,
+  TOrderStatus,
+  TVerifyPaymentResponse,
+} from "./../types/orders";
 import { handleError } from "@/utils";
 import { privateApi } from "./axios";
 import type {
@@ -6,17 +10,49 @@ import type {
   TOrder,
   TOrderDetailsResult,
 } from "@cTypes/orders";
+import type { TBaseResponse, TPagination } from "@/types/common";
 
+type GetAllOrderProps = {
+  page?: number | string;
+  pageSize?: number | string;
+  orderStatus: TOrderStatus | undefined;
+};
+type GetAllOrdersResonse = TBaseResponse & {
+  data: TOrder[];
+  pagination: TPagination;
+};
+export const getAllOrders = async ({
+  page = 1,
+  pageSize = 20,
+  orderStatus,
+}: GetAllOrderProps): Promise<TGetAllOrdersResult> => {
+  try {
+    const { data } = await privateApi.get<GetAllOrdersResonse>(
+      "order/get-all-orders",
+      {
+        params: {
+          page,
+          limit: pageSize,
+          orderStatus,
+        },
+      }
+    );
+    return {
+      orders: data.data,
+      pagination: data.pagination,
+    };
+  } catch (error) {
+    return handleError(error);
+  }
+};
 type MakeOrderProps = {
   cartId: string;
   addressId: string;
 };
-type StripeCheckoutResponse = {
-  success: boolean;
+type StripeCheckoutResponse = TBaseResponse & {
   session_url: string;
   orderId: string;
   order: TOrder;
-  message: string;
 };
 export const makeOrder = async ({ cartId, addressId }: MakeOrderProps) => {
   try {
@@ -29,10 +65,8 @@ export const makeOrder = async ({ cartId, addressId }: MakeOrderProps) => {
   }
 };
 
-type OrderResponse = {
-  success: boolean;
+type OrderResponse = TBaseResponse & {
   order: TOrder;
-  message: string;
 };
 export const getOrderDetails = async (
   orderId: string
@@ -47,10 +81,8 @@ export const getOrderDetails = async (
   }
 };
 
-type OrdersResponse = {
-  success: boolean;
+type OrdersResponse = TBaseResponse & {
   data: TOrder[] | [];
-  message: string;
 };
 export const getCurrentUserOrders = async (): Promise<TOrdersResult> => {
   try {
@@ -78,6 +110,22 @@ export const verifyPament = async ({
       `order/verify/${sessionId}/${orderId}`
     );
     return { success: data.success };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+export const updateOrderStatus = async ({
+  orderId,
+  status,
+}: {
+  orderId: string;
+  status: TOrderStatus;
+}) => {
+  try {
+    await privateApi.patch(`order/update-order-status/${orderId}`, {
+      orderStatus: status,
+    });
   } catch (error) {
     return handleError(error);
   }

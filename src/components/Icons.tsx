@@ -12,6 +12,8 @@ import Pencil from "@icons/pencil.svg?react";
 import Dots from "@icons/dots.svg?react";
 import Warning from "@icons/warning.svg?react";
 import Add from "@icons/add.svg?react";
+import Search from "@icons/search.svg?react";
+import ArrowUp from "@icons/arrow-up.svg?react";
 
 const Icons = {
   Arrow,
@@ -28,5 +30,7 @@ const Icons = {
   Dots,
   Warning,
   Add,
+  ArrowUp,
+  Search,
 };
 export default Icons;

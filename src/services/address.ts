@@ -2,17 +2,16 @@ import type { TGetUserAdresses } from "./../types/address";
 import { handleError } from "@/utils";
 import { privateApi } from "./axios";
 import type { TAddAddressResult, TAddress } from "@/types/address";
+import type { TBaseResponse } from "@/types/common";
 
 // get addresses
-type GetUserAdressesResponse = {
-  success: boolean;
+type GetUserAdressesResponse = TBaseResponse & {
   data: TAddress[];
-  message: string;
 };
 export const getUserAdresses = async (): Promise<TGetUserAdresses> => {
   try {
     const res = await privateApi.get<GetUserAdressesResponse>(
-      "/address/get-user-addresses",
+      "/address/get-user-addresses"
     );
     return { addresses: res.data.data };
   } catch (error) {
@@ -28,10 +27,8 @@ type AddAddressProps = {
   buildingNumber: number | string;
   flatNumber: number | string;
 };
-type AddAddress = {
-  success: boolean;
+type AddAddress = TBaseResponse & {
   data: TAddress;
-  message: string;
 };
 export const addAddress = async ({
   governorate,

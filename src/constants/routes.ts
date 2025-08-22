@@ -18,6 +18,7 @@ export const DASHBOARD = {
   HOME: "/dashboard/home",
   MENU_MANAGEMENT: "/dashboard/menu-management",
   ORDERS: "/dashboard/orders",
+  ORDER: "/dashboard/orders/:id",
   TABLES: "/dashboard/tables",
   RESERVATION: "/dashboard/reservation",
 };

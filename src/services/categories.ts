@@ -5,14 +5,14 @@ import type {
 } from "@cTypes/categories";
 import { privateApi, publicApi } from "./axios";
 import { handleError } from "@/utils";
+import type { TBaseResponse } from "@/types/common";
 
 type GetCategoriesParams = {
   page?: number;
   pageSize?: number;
 };
 
-type GetCategoriesResponse = {
-  success: boolean;
+type GetCategoriesResponse = TBaseResponse & {
   totalPages: number;
   data: TCategory[];
   hasNextPage: boolean;
@@ -44,9 +44,7 @@ type AddCategoryProps = {
   name: string;
   description: string;
 };
-type AddCategoryResponse = {
-  success: boolean;
-  message: string;
+type AddCategoryResponse = TBaseResponse & {
   data: TCategory;
 };
 

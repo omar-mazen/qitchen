@@ -1,10 +1,10 @@
 import { handleError } from "@/utils";
 import { privateApi } from "./axios";
 import type { TCart, TCartProductAction, TCartResult } from "@cTypes/cart";
+import type { TBaseResponse } from "@/types/common";
 
 // get cart
-type GetCurrentUserCartResponse = {
-  success: boolean;
+type GetCurrentUserCartResponse = TBaseResponse & {
   cart: TCart;
 };
 export const getCurrentUserCart = async (): Promise<TCartResult> => {
@@ -23,8 +23,7 @@ type AddProductToCartProps = {
   quantity: number;
 };
 
-type AddProductToCartResponse = {
-  success: boolean;
+type AddProductToCartResponse = TBaseResponse & {
   data: TCart;
 };
 export const addProductToCart = async ({
@@ -36,7 +35,7 @@ export const addProductToCart = async ({
       `/cart/add-product/${productId}`,
       {
         quantity,
-      },
+      }
     );
     return { cart: res.data.data };
   } catch (error) {
@@ -58,7 +57,7 @@ export const updateCartProductQuantity = async ({
       `/cart/adjust-quantity/${productId}`,
       {
         action,
-      },
+      }
     );
     return { cart: res.data.data };
   } catch (error) {
@@ -68,11 +67,11 @@ export const updateCartProductQuantity = async ({
 
 // remove product
 export const removeCartProduct = async (
-  productId: string,
+  productId: string
 ): Promise<TCartResult> => {
   try {
     const res = await privateApi.patch<AddProductToCartResponse>(
-      `/cart/remove-all-same-products/${productId}`,
+      `/cart/remove-all-same-products/${productId}`
     );
     return { cart: res.data.data };
   } catch (error) {

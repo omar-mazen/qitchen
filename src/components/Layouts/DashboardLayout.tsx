@@ -47,7 +47,7 @@ export const DashboardLayout = () => {
           </ul>
         </nav>
       </aside>
-      <main className="h-full overflow-y-auto overflow-x-hidden p-8">
+      <main className="h-full overflow-y-auto overflow-x-hidden p-8 relative">
         <Outlet />
       </main>
     </div>
