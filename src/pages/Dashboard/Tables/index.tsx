@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import ContextMenu from "@components/ContextMenu";
 import Loader from "@components/Loader";
+import Error from "@components/Error";
+import ContextMenu from "@components/ContextMenu";
 import Modal from "@components/Modal";
 import Button from "@components/Button";
 import SectionHeader from "@components/SectionHeader";
@@ -36,6 +37,7 @@ const Tables = () => {
       ),
     }));
   }, [data]);
+  if (data?.error) return <Error message={data.error} />;
   if (isLoading) return <Loader />;
   return (
     <Modal>
