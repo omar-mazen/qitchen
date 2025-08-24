@@ -10,6 +10,7 @@ import OrderDetails from "@/pages/User/OrderDetails";
 
 const MenuManagement = lazy(() => import("@/pages/Dashboard/MenuManagement"));
 const Orders = lazy(() => import("@/pages/Dashboard/Orders"));
+const Tables = lazy(() => import("@/pages/Dashboard/Tables"));
 
 const dashboardRoutes = createBrowserRouter([
   {
@@ -24,7 +25,7 @@ const dashboardRoutes = createBrowserRouter([
           { path: DASHBOARD.ORDERS, element: <Orders /> },
           { path: DASHBOARD.ORDER, element: <OrderDetails /> },
           { path: DASHBOARD.MENU_MANAGEMENT, element: <MenuManagement /> },
-          { path: DASHBOARD.TABLES, element: <p>tables</p> },
+          { path: DASHBOARD.TABLES, element: <Tables /> },
           { path: DASHBOARD.RESERVATION, element: <p>reservation</p> },
         ],
       },

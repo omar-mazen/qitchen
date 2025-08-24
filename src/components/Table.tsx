@@ -24,6 +24,7 @@ interface BodyProps {
 interface RowProps {
   children: ReactNode;
   onClick?: MouseEventHandler<HTMLTableRowElement>;
+  disabled?: boolean;
 }
 
 interface FooterProps {
@@ -84,13 +85,13 @@ const Body: React.FC<BodyProps> = ({ children }) => {
   return <tbody>{children}</tbody>;
 };
 
-const Row: React.FC<RowProps> = ({ children, onClick }) => {
+const Row: React.FC<RowProps> = ({ children, onClick, disabled }) => {
   return (
     <tr
       onClick={onClick}
       className={` relative border-b last-of-type:border-0 border-border ${
         onClick ? "cursor-pointer" : ""
-      }`}
+      } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
     >
       {children}
     </tr>

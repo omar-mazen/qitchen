@@ -45,3 +45,39 @@ export const handleInput = <T>({
     handleInputError<T>({ key, value: regex.message, setError });
   }
 };
+
+export const isToday = ({ dateString }: { dateString: string }) => {
+  const inputDate = new Date(dateString);
+  const today = new Date();
+
+  return (
+    inputDate.getFullYear() === today.getFullYear() &&
+    inputDate.getMonth() === today.getMonth() &&
+    inputDate.getDate() === today.getDate()
+  );
+};
+
+export const isSameTime = ({
+  dateString,
+  timeString,
+}: {
+  dateString: string;
+  timeString: string;
+}) => {
+  const date = new Date(dateString);
+
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  const formattedTime = `${hours}:${minutes}`;
+  return formattedTime === timeString;
+};
+
+export const toLocalTime = ({ dateString }: { dateString: string }) => {
+  const date = new Date(dateString);
+
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  return `${hours}:${minutes}`;
+};

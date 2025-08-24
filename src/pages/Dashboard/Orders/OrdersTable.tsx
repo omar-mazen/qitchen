@@ -21,13 +21,13 @@ const OrdersTable = ({
     <Table>
       <Table.Head>
         <Table.Row>
-          <Table.Cell>#order id</Table.Cell>
-          <Table.Cell>payment status</Table.Cell>
-          <Table.Cell>order status</Table.Cell>
-          <Table.Cell>items</Table.Cell>
-          <Table.Cell>total quantity</Table.Cell>
-          <Table.Cell>total price</Table.Cell>
-          <Table.Cell>address</Table.Cell>
+          <Table.Cell head={true}>#order id</Table.Cell>
+          <Table.Cell head={true}>payment status</Table.Cell>
+          <Table.Cell head={true}>order status</Table.Cell>
+          <Table.Cell head={true}>items</Table.Cell>
+          <Table.Cell head={true}>total quantity</Table.Cell>
+          <Table.Cell head={true}>total price</Table.Cell>
+          <Table.Cell head={true}>address</Table.Cell>
         </Table.Row>
       </Table.Head>
       <Table.Body>{children}</Table.Body>
