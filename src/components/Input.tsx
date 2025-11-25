@@ -17,7 +17,7 @@ const Input = ({
   value,
   setValue,
   disabled = false,
-  ...rest
+  rest,
 }: IProps) => {
   return (
     <input
@@ -29,7 +29,7 @@ const Input = ({
       multiple={multiple}
       {...rest}
       onChange={(e) => setValue(e.target.value)}
-      className=" w-full border border-border bg-background-muted py-4 px-6 rounded-xl focus:outline-none focus:border-primary/50 focus:shadow-lg focus:shadow-primary/5"
+      className="font-normal w-full border border-border bg-background-muted py-4 px-6 rounded-xl focus:outline-none focus:border-primary/50 focus:shadow-lg focus:shadow-primary/5"
     />
   );
 };

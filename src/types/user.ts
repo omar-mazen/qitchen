@@ -6,6 +6,11 @@ export type TUser = {
   role: TRoles;
   phoneNumber?: string;
   address?: string;
+  isAccountVerified: boolean;
+  resetOtpExpireAt: number;
+  verifyOtpExpireAt: number;
+  resetOtpSendTime: number;
+  verifyOtpSendTime: number;
 };
 export type GetCurrentUserDataResult = {
   user?: TUser;

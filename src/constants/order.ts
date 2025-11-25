@@ -7,8 +7,8 @@ export const PaymentStatus: TPaymentStatus[] = [
   "Cancelled",
 ];
 export const OrderStatus: TOrderStatus[] = [
-  "Processing",
   "Paid",
+  "Processing",
   "Ready",
   "On the way",
   "Recieved",

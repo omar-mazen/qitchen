@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Navigate } from "react-router";
+import { Link, Navigate } from "react-router";
 
 import { useAuth } from "@/context/Auth";
 
@@ -12,7 +12,9 @@ import DotsLoader from "@components/DotsLoader";
 import { ROUTES } from "@constants/routes";
 import { regex } from "@constants/regex";
 
-import banner from "@images/contact/Image (10).png";
+import Modal from "@/components/Modal";
+import ResetPasswordModal from "./ResetPasswordModal";
+import { contactImages } from "@/constants/images";
 
 type TKey = "email" | "password";
 const Login = () => {
@@ -76,61 +78,76 @@ const Login = () => {
   }, [handleError]);
   if (isAuthenticated) return <Navigate to={ROUTES.HOME} />;
   return (
-    <PageLayout banner={banner} caption="Login">
-      <div className="w-full h-full overflow-y-auto flex flex-col justify-center px-8">
-        <SectionHeader className="mb-10">
-          <h2 className=" text-heading-h3">Login</h2>
-        </SectionHeader>
-        <form
-          className="space-y-5 "
-          onSubmit={async (e) => {
-            e.preventDefault();
-            if (!errorMessage) await login({ email, password });
-          }}
-        >
-          <Input
-            type="email"
-            placeholder="email"
-            value={email}
-            setValue={(value) =>
-              handleInput({
-                key: "email",
-                value,
-                setValue: setEmail,
-                regex: regex.email.regex,
-                message: regex.email.message,
-              })
-            }
-          />
-          <Input
-            type="password"
-            placeholder="password"
-            value={password}
-            setValue={(value) =>
-              handleInput({
-                key: "password",
-                value,
-                setValue: setPassword,
-                regex: regex.password.regex,
-                message: regex.password.message,
-              })
-            }
-          />
-          <div className="flex">
-            <p className=" font-normal text-red-400 capitalize">
-              {loginError || errorMessage}
-            </p>
+    <Modal>
+      <PageLayout banner={contactImages[0]} caption="Login">
+        <div className="w-full h-full overflow-y-auto flex flex-col justify-center px-8 max-w-[500px] mx-auto">
+          <SectionHeader className="mb-10" size="small">
+            <h2 className=" text-heading-h3">Login</h2>
+          </SectionHeader>
+          <form
+            className="space-y-5 "
+            onSubmit={async (e) => {
+              e.preventDefault();
+              if (!errorMessage) await login({ email, password });
+            }}
+          >
+            <Input
+              type="email"
+              placeholder="email"
+              value={email}
+              setValue={(value) =>
+                handleInput({
+                  key: "email",
+                  value,
+                  setValue: setEmail,
+                  regex: regex.email.regex,
+                  message: regex.email.message,
+                })
+              }
+            />
+            <Input
+              type="password"
+              placeholder="password"
+              value={password}
+              setValue={(value) =>
+                handleInput({
+                  key: "password",
+                  value,
+                  setValue: setPassword,
+                  regex: regex.password.regex,
+                  message: regex.password.message,
+                })
+              }
+            />
+            <Modal.Open opens="reset-password">
+              <p className=" font-normal text-large text-right cursor-pointer">
+                forgot your password?
+              </p>
+            </Modal.Open>
+
             <Button
               type="primary"
-              className="ml-auto"
+              className="w-full"
               disabled={!!errorMessage || isLoading || !email || !password}
             >
               Login {isLoading && <DotsLoader />}
             </Button>
-          </div>
-        </form>
-      </div>
-    </PageLayout>
+            <p className=" font-normal text-red-400 capitalize text-large min-h-32">
+              {loginError || errorMessage}
+            </p>
+          </form>
+          <p className="font-normal mt-2 text-center text-large">
+            <span className=" text-primary-muted">Don’t have an account? </span>
+            <Link to={"/register"} className=" font-normal !underline">
+              Sign up here
+            </Link>
+          </p>
+        </div>
+      </PageLayout>
+      <Modal.Window name="reset-password">
+        <ResetPasswordModal email={email} />
+      </Modal.Window>
+    </Modal>
   );
 };
 

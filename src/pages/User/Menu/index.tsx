@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 
-import Loader from "@components/Loader";
 import PageLayout from "@components/PageLayout";
 import Error from "@components/Error";
 import MenuLabels from "./MenuLabels";
@@ -8,24 +7,23 @@ import Category from "./Category";
 
 import type { GetCategoriesResult } from "@cTypes/categories";
 
-import banner from "@images/menu/menu.png";
-
 import { getCategories } from "@services/categories";
+import { MenuBanner } from "@/constants/images";
 
 const Menu = () => {
   const { isLoading, isError, data } = useQuery<GetCategoriesResult>({
     queryKey: ["categories"],
     queryFn: () => getCategories(),
+    suspense: true,
     staleTime: Infinity,
   });
 
   if (isError) return <Error message={data?.error} />;
-  if (isLoading) return <Loader />;
 
   const categories = data?.data?.filter((cat) => cat.products.length > 0) || [];
 
   return (
-    <PageLayout banner={banner} caption="Menu">
+    <PageLayout banner={MenuBanner} caption="Menu">
       <div className="border border-border rounded-2xl overflow-y-scroll h-full">
         {categories.length > 0 ? (
           <>

@@ -82,7 +82,7 @@ const ProductForm = ({
           }),
         {
           pending: `${product.type == "edit" ? "Updating" : "Adding"} product...`,
-          success: `Product ${product.type == "add" ? "updating" : "adding"}`,
+          success: `Product ${product.type == "edit" ? "updated" : "added"}`,
           error: `Failed to ${product.type == "edit" ? "update" : "add"} product`,
         }
       );

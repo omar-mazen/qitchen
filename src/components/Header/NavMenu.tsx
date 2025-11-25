@@ -6,14 +6,15 @@ import { useAuth } from "@/context/Auth";
 
 import { ROUTES } from "@constants/routes";
 
-import { logout } from "@/services/auth";
-
 import texture from "@images/texture.png";
+import { useQueryClient } from "@tanstack/react-query";
 const NavMenu = ({ closeMenu }: { closeMenu: () => void }) => {
-  const guestMenuItems = ["menu", "cart", "reservation", "about", "contact"];
-  const userMenuItems = [...guestMenuItems, "profile", "orders"];
+  const guestMenuItems = ["menu", "cart", "about", "contact"];
+  const userMenuItems = [...guestMenuItems, "profile", "orders", "reservation"];
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { logout } = useAuth();
 
   return (
     <div className="w-full h-full bg-background fixed left-0 top-0 z-50 brightness-150 p-6">
@@ -39,21 +40,16 @@ const NavMenu = ({ closeMenu }: { closeMenu: () => void }) => {
               </Link>
             </li>
           ))}
-          {!isAuthenticated && (
-            <>
-              <li className="cursor-pointer w-full" onClick={closeMenu}>
-                <Link to={ROUTES.LOGIN}>login</Link>
-              </li>
-              <li className="cursor-pointer w-full" onClick={closeMenu}>
-                <Link to={ROUTES.REGISTER}>register</Link>
-              </li>
-            </>
-          )}
           {isAuthenticated && (
             <li
               className="cursor-pointer w-full"
               onClick={async () => {
-                await logout();
+                await logout().then(() =>
+                  queryClient.removeQueries({
+                    queryKey: ["user"],
+                    exact: false,
+                  })
+                );
                 closeMenu();
                 navigate(ROUTES.HOME, { replace: true });
               }}

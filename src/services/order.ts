@@ -1,5 +1,6 @@
 import type {
   TGetAllOrdersResult,
+  TOrdersByStatusResponse,
   TOrderStatus,
   TVerifyPaymentResponse,
 } from "./../types/orders";
@@ -45,6 +46,39 @@ export const getAllOrders = async ({
     return handleError(error);
   }
 };
+
+type GetOrdersByStatus = {
+  page?: number | string;
+  pageSize?: number | string;
+  orderStatus: TOrderStatus[];
+};
+type GetOrdersByStatusResponse = TBaseResponse & {
+  data: TOrderStatus[];
+};
+export const getOrdersByStatus = async ({
+  page = 1,
+  pageSize = 10,
+  orderStatus,
+}: GetOrdersByStatus): Promise<TOrdersByStatusResponse> => {
+  const status = "orderStatus=" + orderStatus.join("&orderStatus=");
+  try {
+    const { data } = await privateApi.get<GetOrdersByStatusResponse>(
+      `order/get-orders-by-status?${status}`,
+      {
+        params: {
+          page,
+          limit: pageSize,
+        },
+      }
+    );
+    return {
+      orders: data.data,
+    };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
 type MakeOrderProps = {
   cartId: string;
   addressId: string;
@@ -126,6 +160,24 @@ export const updateOrderStatus = async ({
     await privateApi.patch(`order/update-order-status/${orderId}`, {
       orderStatus: status,
     });
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+type ReorderProps = {
+  addressId: string;
+  items: { quantity: number; productId: string }[];
+};
+export const reorder = async ({ addressId, items }: ReorderProps) => {
+  try {
+    const res = await privateApi.post(
+      `order/create-order-products-multiple/${addressId}`,
+      {
+        items,
+      }
+    );
+    if (res.data.session_url) location.href = res.data.session_url;
   } catch (error) {
     return handleError(error);
   }

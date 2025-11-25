@@ -1,4 +1,10 @@
-import { useContext, useState, type ReactNode, type MouseEvent } from "react";
+import {
+  useContext,
+  useState,
+  type ReactNode,
+  type MouseEvent,
+  useRef,
+} from "react";
 import { createContext } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "react-router";
@@ -18,6 +24,7 @@ interface MenuContextProps {
   alignment: Alignment;
   size: Size;
   fixedPosition: boolean;
+  positionRef: React.RefObject<null | HTMLElement>;
 }
 
 interface MenuProps {
@@ -40,12 +47,13 @@ interface ListProps {
 interface ItemProps {
   children: ReactNode;
   icon?: ReactNode;
-  onClick?: () => void;
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
   to?: string | null;
+  autoClose?: boolean;
 }
 
 const ContextMenuContext = createContext<MenuContextProps | undefined>(
-  undefined,
+  undefined
 );
 
 export default function ContextMenu({
@@ -59,7 +67,7 @@ export default function ContextMenu({
     x: 0,
     y: 0,
   });
-
+  const positionRef = useRef(null);
   const open = (name: string) => setOpenName(name);
   const close = () => setOpenName("");
 
@@ -74,6 +82,7 @@ export default function ContextMenu({
         alignment,
         size,
         fixedPosition,
+        positionRef,
       }}
     >
       {children}
@@ -82,7 +91,7 @@ export default function ContextMenu({
 }
 
 function Toggle({ children, name }: ToggleProps) {
-  const { close, open, setPosition, openName } = useContextMenu();
+  const { close, open, setPosition, openName, positionRef } = useContextMenu();
 
   function handleClick(e: MouseEvent<HTMLButtonElement>) {
     e.stopPropagation();
@@ -94,25 +103,35 @@ function Toggle({ children, name }: ToggleProps) {
     name === openName ? close() : open(name);
   }
 
-  return <button onClick={handleClick}>{children}</button>;
+  return (
+    <button ref={positionRef} onClick={handleClick}>
+      {children}
+    </button>
+  );
 }
 
 function List({ children, name }: ListProps) {
-  const { close, position, openName, alignment, size, fixedPosition } =
-    useContextMenu();
-  const ref = useClickOutside<HTMLUListElement>("click", close, false);
+  const {
+    close,
+    position,
+    openName,
+    alignment,
+    size,
+    fixedPosition,
+    positionRef,
+  } = useContextMenu();
+  const ref = useClickOutside<HTMLDivElement>("click", close, false);
 
   if (name !== openName) return null;
 
   return createPortal(
-    <ul
-      onScroll={(e) => e.stopPropagation()}
+    <div
       ref={ref}
       style={{
         top: `${position.y}px`,
         right: `${position.x}px`,
       }}
-      className={`${fixedPosition ? "fixed" : "absolute"} z-10 bg-background  ${
+      className={`${fixedPosition ? "fixed" : "absolute"} absolute z-10  ${
         size === "sm" ? "w-64" : size === "md" ? "w-96" : "w-[250px]"
       } ${
         alignment === "right"
@@ -120,28 +139,34 @@ function List({ children, name }: ListProps) {
           : alignment === "center"
             ? "translate-x-[50%]"
             : ""
-      } max-h-[300px] divide-y divide-primary/20 overflow-y-auto rounded-2xl drop-shadow-lg drop-shadow-primary/10`}
+      } max-h-[300px] rounded-2xl backdrop-blur-sm bg-background/90 `}
     >
-      {children}
-    </ul>,
-    document.body,
+      <ul className="overflow-y-auto divide-y divide-border">{children}</ul>
+    </div>,
+    positionRef.current
   );
 }
 
-function Item({ children, icon, onClick, to = null }: ItemProps) {
+function Item({
+  children,
+  icon,
+  onClick,
+  to = null,
+  autoClose = true,
+}: ItemProps) {
   const { close } = useContextMenu();
 
   const handleClick = () => {
     onClick?.();
-    close();
+    if (autoClose) close();
   };
 
   if (to)
     return (
-      <li onClick={handleClick}>
+      <li onClick={handleClick} className="w-full">
         <Link
           to={to}
-          className={`grid cursor-pointer text-xl hover:backdrop-brightness-200 ${
+          className={` w-full grid cursor-pointer text-xl hover:backdrop-brightness-200 ${
             icon ? "grid-cols-[30px_1fr]" : "grid-cols-1"
           } line-clamp-2 items-center gap-3 text-small hover:backdrop-brightness-90`}
         >

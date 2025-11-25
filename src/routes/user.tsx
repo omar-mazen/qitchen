@@ -1,13 +1,16 @@
 import { createBrowserRouter, Navigate } from "react-router";
 import { ROUTES } from "@constants/routes";
-import { UserAppLayout } from "@/components/Layouts";
-import { lazy } from "react";
+// import { UserAppLayout } from "@/components/Layouts";
+import { lazy, Suspense } from "react";
 import PaymentScuccessfulRedirect from "@components/PaymentScuccessfulRedirect";
 import Error from "@/components/Error";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import Loader from "@/components/Loader";
 
+const UserAppLayout = lazy(() => import("@components/Layouts/UserAppLayout"));
 const Register = lazy(() => import("@/pages/User/Register"));
 const Login = lazy(() => import("@/pages/User/Login"));
+const ResetPassword = lazy(() => import("@/pages/User/ResetPassword"));
 const Home = lazy(() => import("@/pages/User/Home"));
 const Menu = lazy(() => import("@/pages/User/Menu"));
 const Contact = lazy(() => import("@/pages/User/Contact"));
@@ -23,7 +26,11 @@ const OrderDetails = lazy(() => import("@/pages/User/OrderDetails"));
 const userRoutes = createBrowserRouter([
   {
     path: "/",
-    element: <UserAppLayout />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <UserAppLayout />
+      </Suspense>
+    ),
     children: [
       { index: true, element: <Navigate to={ROUTES.HOME} /> },
       {
@@ -33,6 +40,10 @@ const userRoutes = createBrowserRouter([
       {
         path: ROUTES.LOGIN,
         element: <Login />,
+      },
+      {
+        path: ROUTES.RESET_PASSWORD,
+        element: <ResetPassword />,
       },
       {
         path: ROUTES.HOME,
@@ -45,10 +56,6 @@ const userRoutes = createBrowserRouter([
       {
         path: ROUTES.CONTACT,
         element: <Contact />,
-      },
-      {
-        path: ROUTES.RESERVATION,
-        element: <Reservation />,
       },
       {
         path: ROUTES.ABOUT,
@@ -85,6 +92,10 @@ const userRoutes = createBrowserRouter([
           {
             path: ROUTES.ORDER_DETAILS,
             element: <OrderDetails />,
+          },
+          {
+            path: ROUTES.RESERVATION,
+            element: <Reservation />,
           },
         ],
       },

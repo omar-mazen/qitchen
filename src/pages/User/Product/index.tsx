@@ -27,7 +27,7 @@ const Product = () => {
     staleTime: Infinity,
   });
 
-  if (isLoading) return <Loader />;
+  //  if (isLoading) return <Loader />;
   if (data?.error) return <Error message={data.error} />;
   if (!data?.product)
     return <Error message={`No Product was found with the ID #${id}.`} />;

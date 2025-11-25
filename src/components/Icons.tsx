@@ -14,6 +14,23 @@ import Warning from "@icons/warning.svg?react";
 import Add from "@icons/add.svg?react";
 import Search from "@icons/search.svg?react";
 import ArrowUp from "@icons/arrow-up.svg?react";
+import Clipboard from "@icons/clipboard.svg?react";
+import Calendar from "@icons/calendar.svg?react";
+import ChartLine from "@icons/chart-line.svg?react";
+import Money from "@icons/money.svg?react";
+import Sushi from "@icons/sushi.svg?react";
+import Table from "@icons/table.svg?react";
+import Category from "@icons/category.svg?react";
+import Settings from "@icons/settings.svg?react";
+import Home from "@icons/home.svg?react";
+import Logout from "@icons/logout.svg?react";
+import XMark from "@icons/x-mark.svg?react";
+import EmailRead from "@icons/email-read.svg?react";
+import LockQuestion from "@icons/lock-question.svg?react";
+import LockReset from "@icons/lock-reset.svg?react";
+import UserShield from "@icons/user-shield.svg?react";
+import Receipt from "@icons/Receipt.svg?react";
+import Reload from "@icons/reload.svg?react";
 
 const Icons = {
   Arrow,
@@ -32,5 +49,22 @@ const Icons = {
   Add,
   ArrowUp,
   Search,
+  Clipboard,
+  Calendar,
+  ChartLine,
+  Money,
+  Sushi,
+  Table,
+  Category,
+  Settings,
+  Home,
+  Logout,
+  XMark,
+  EmailRead,
+  LockQuestion,
+  LockReset,
+  UserShield,
+  Receipt,
+  Reload,
 };
 export default Icons;

@@ -12,7 +12,7 @@ import TableForm from "./TableForm";
 
 import { getAllTables, addTable as addTableAPI } from "@services/tables";
 
-import { isToday, toLocalTime } from "@/utils";
+import { isToday } from "@/utils";
 
 const Tables = () => {
   const queryClient = useQueryClient();
@@ -32,13 +32,13 @@ const Tables = () => {
       ...table,
       reservations: table.reservations.filter((res) =>
         isToday({
-          dateString: toLocalTime({ dateString: res.reservationDate }),
+          dateString: res.reservationDate,
         })
       ),
     }));
   }, [data]);
   if (data?.error) return <Error message={data.error} />;
-  if (isLoading) return <Loader />;
+  //  if (isLoading) return <Loader />;
   return (
     <Modal>
       <ContextMenu alignment="left">

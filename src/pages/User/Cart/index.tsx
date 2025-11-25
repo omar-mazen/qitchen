@@ -11,7 +11,7 @@ import texture from "@images/texture.png";
 
 const Cart = () => {
   const { cart, isLoading } = useCart();
-  if (isLoading) return <Loader />;
+  //  if (isLoading) return <Loader />;
   return (
     <div
       className=" overflow-y-auto lg:pt-48 p-10 lg:px-14 w-full h-full overflow-hidden rounded-2xl backdrop-brightness-150"

@@ -43,6 +43,22 @@ export const addProductToCart = async ({
   }
 };
 
+export const addProductsToCart = async (
+  products: AddProductToCartProps[]
+): Promise<TCartResult> => {
+  try {
+    const res = await privateApi.post<AddProductToCartResponse>(
+      `/cart/add-multiple-products`,
+      {
+        items: products,
+      }
+    );
+    return { cart: res.data.data };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
 // update product qunatity
 type UpdateCartProductQuantityProps = {
   productId: string;

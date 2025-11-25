@@ -14,7 +14,7 @@ const Categories = () => {
     queryFn: () => getCategories({ page: 1, pageSize: 10 }),
     staleTime: Infinity,
   });
-  if (isLoading) return <Loader />;
+  //  if (isLoading) return <Loader />;
   if (data?.error) return <Error message={data.error} />;
   return (
     <div className="h-full">

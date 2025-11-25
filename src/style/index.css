@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source inline("rounded{,-t,-r,-b,-l,-tr,-tl,-br,-bl}{,-sm,-md,-lg,-xl,-2xl,-3xl,-full}");
 @theme {
   /* color */
   --color-primary: rgba(var(--primary-color), 100%);
@@ -96,6 +97,7 @@ button {
 *[area-disabled="true"] {
   cursor: not-allowed;
   opacity: 0.5;
+  pointer-events: none;
 }
 
 input:focus,
@@ -288,4 +290,64 @@ input[type="number"] {
 }
 .dots-loader.white {
   color: rgba(var(--primary-color), 1);
+}
+
+::-webkit-calendar-picker-indicator {
+  background-color: transparent;
+  filter: invert();
+}
+
+.w-fill {
+  width: 100%;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  width: stretch;
+}
+.logo-stroke path {
+  stroke: white;
+  stroke-width: 0.1px;
+  fill: none;
+}
+.logo-loader,
+.logo-stroke {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translatex(-50%) translateY(-50%);
+}
+.logo-loader path {
+  opacity: 0;
+  animation: fill-sequence 2.8s forwards infinite;
+  animation-direction: normal;
+}
+
+.logo-loader path:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.logo-loader path:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.logo-loader path:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.logo-loader path:nth-child(4) {
+  animation-delay: 0.8s;
+}
+.logo-loader path:nth-child(5) {
+  animation-delay: 1s;
+}
+.logo-loader path:nth-child(6) {
+  animation-delay: 1.2s;
+}
+.logo-loader path:nth-child(7) {
+  animation-delay: 1.4s;
+}
+
+@keyframes fill-sequence {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

@@ -8,7 +8,9 @@ import CartProvider from "./context/CartContext/index.tsx";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ToastContainer } from "react-toastify";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { suspense: true } },
+});
 declare global {
   interface Window {
     __TANSTACK_QUERY_CLIENT__: import("@tanstack/query-core").QueryClient;

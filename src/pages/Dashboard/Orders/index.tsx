@@ -43,10 +43,10 @@ const Orders = () => {
         queryClient.refetchQueries({ queryKey: ["orders", orderStatus, page] }),
     });
 
-  if (isLoading) return <Loader />;
+  //  if (isLoading) return <Loader />;
   if (data?.error) return <Error message={data.error} />;
   return (
-    <div className="h-full">
+    <div className="h-full relative">
       <div className="flex items-center justify-between mb-10">
         <h1 className=" text-heading-h2">Orders</h1>
         <SelectOption

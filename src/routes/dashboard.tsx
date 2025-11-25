@@ -6,11 +6,13 @@ import { DashboardLayout } from "@components/Layouts";
 import ProtectedRoute from "@components/ProtectedRoute";
 
 import { DASHBOARD } from "@constants/routes";
-import OrderDetails from "@/pages/User/OrderDetails";
 
+const Home = lazy(() => import("@/pages/Dashboard/Home"));
 const MenuManagement = lazy(() => import("@/pages/Dashboard/MenuManagement"));
 const Orders = lazy(() => import("@/pages/Dashboard/Orders"));
 const Tables = lazy(() => import("@/pages/Dashboard/Tables"));
+const Reservations = lazy(() => import("@/pages/Dashboard/Reservations"));
+const OrderDetails = lazy(() => import("@/pages/User/OrderDetails"));
 
 const dashboardRoutes = createBrowserRouter([
   {
@@ -21,12 +23,12 @@ const dashboardRoutes = createBrowserRouter([
       {
         element: <ProtectedRoute role="Admin" />,
         children: [
-          { path: DASHBOARD.HOME, element: <p>home</p> },
+          { path: DASHBOARD.HOME, element: <Home /> },
           { path: DASHBOARD.ORDERS, element: <Orders /> },
           { path: DASHBOARD.ORDER, element: <OrderDetails /> },
           { path: DASHBOARD.MENU_MANAGEMENT, element: <MenuManagement /> },
           { path: DASHBOARD.TABLES, element: <Tables /> },
-          { path: DASHBOARD.RESERVATION, element: <p>reservation</p> },
+          { path: DASHBOARD.RESERVATION, element: <Reservations /> },
         ],
       },
     ],

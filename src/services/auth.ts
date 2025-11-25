@@ -29,7 +29,7 @@ export const register = async ({
       success: res.data.success,
     };
   } catch (error) {
-    return handleError(error);
+    throw new Error(handleError(error).error);
   }
 };
 
@@ -52,7 +52,7 @@ export const login = async ({
       success: res.data.success,
     };
   } catch (error) {
-    return handleError(error);
+    throw new Error(handleError(error).error);
   }
 };
 
@@ -64,7 +64,7 @@ export const logout = async () => {
       success: res.data.success,
     };
   } catch (error) {
-    return handleError(error);
+    throw new Error(handleError(error).error);
   }
 };
 
@@ -73,6 +73,95 @@ export const refreshToken = async () => {
     const res = await privateApi.post("/user/refresh-token");
     return res.data.success;
   } catch (error) {
-    return handleError(error);
+    throw new Error(handleError(error).error);
+  }
+};
+
+type SendVerificationCodeProps = {
+  userId: string;
+};
+type VerfiyEmailProps = {
+  userId: string;
+  otp: string;
+};
+type VerfiyEmailResult = {
+  error?: string;
+  data?: { success: boolean; message: string };
+};
+
+export const sendVerfictionCode = async ({
+  userId,
+}: SendVerificationCodeProps): Promise<VerfiyEmailResult> => {
+  try {
+    const response = await publicApi.post<TBaseResponse>(
+      "user/send-verify-otp",
+      {
+        userId,
+      }
+    );
+    if (!response.data.success) throw new Error(response.data.message);
+    return { data: response.data };
+  } catch (error) {
+    throw new Error(handleError(error).error);
+  }
+};
+export const verfiyEmail = async ({
+  userId,
+  otp,
+}: VerfiyEmailProps): Promise<VerfiyEmailResult> => {
+  try {
+    const response = await publicApi.post<TBaseResponse>(
+      "user/verify-account",
+      {
+        userId,
+        otp,
+      }
+    );
+    return { data: response.data };
+  } catch (error) {
+    throw new Error(handleError(error).error);
+  }
+};
+
+type SendResetCodeProps = { email: string };
+export const sendResetCode = async ({
+  email,
+}: SendResetCodeProps): Promise<VerfiyEmailResult> => {
+  try {
+    const response = await publicApi.post<TBaseResponse>(
+      "user/send-reset-otp",
+      {
+        email,
+      }
+    );
+    return { data: response.data };
+  } catch (error) {
+    throw new Error(handleError(error).error);
+  }
+};
+
+type RestPasswordProp = {
+  email: string;
+  newPassword: string;
+  otp: string;
+};
+export const resetPassword = async ({
+  email,
+  newPassword,
+  otp,
+}: RestPasswordProp): Promise<VerfiyEmailResult> => {
+  try {
+    const response = await publicApi.post<TBaseResponse>(
+      "user/reset-password",
+      {
+        email,
+        newPassword,
+        otp,
+      }
+    );
+    if (!response.data.success) throw new Error(response.data.message);
+    return { data: response.data };
+  } catch (error) {
+    throw new Error(handleError(error).error);
   }
 };

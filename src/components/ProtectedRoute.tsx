@@ -10,7 +10,7 @@ import Loader from "./Loader";
 const ProtectedRoute = ({ role }: { role: TRoles }) => {
   const { isAuthenticated, user, isLoading } = useAuth();
   if (isAuthenticated && user?.role == role) return <Outlet />;
-  if (isLoading) return <Loader />;
+  //  if (isLoading) return <Loader />;
   else
     return (
       <Error statusCode="401" message="You do not have access to this page." />

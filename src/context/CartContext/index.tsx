@@ -59,6 +59,7 @@ const CartContext = createContext<ICartContext>(initialState);
 
 const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
+  console.log(isAuthenticated);
   const queryClient = useQueryClient();
   const [guestCart, setGuestCart] = useState<TCart>(() => {
     const cart = localStorage.getItem("cart");
@@ -66,9 +67,9 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   });
   // remote cart
   const { data, isLoading } = useQuery<TCartResult>({
+    enabled: isAuthenticated === true,
     queryKey: ["cart"],
     queryFn: getCurrentUserCart,
-    enabled: isAuthenticated,
     staleTime: Infinity,
   });
   const userCart = {

@@ -12,7 +12,7 @@ import TableForm from "./TableForm";
 
 import type { TTableWithReservations } from "@cTypes/table";
 
-import { isSameTime, toLocalTime } from "@/utils";
+import { isSameTime } from "@/utils";
 
 import {
   deleteTable as deleteTableAPI,
@@ -52,14 +52,25 @@ const TablesTable = ({ tables }: { tables: TTableWithReservations[] }) => {
               <Table.Cell>Table {table.number}</Table.Cell>
               <Table.Cell>{table.capacity}</Table.Cell>
               <Table.Cell>
-                {<Toggler checked={table.isActive} toggle={() => {}} />}
+                {
+                  <Toggler
+                    checked={table.isActive}
+                    disabled={isUpdating}
+                    toggle={() =>
+                      updateTable({
+                        tableId: table._id,
+                        isActive: !table.isActive,
+                        capacity: table.capacity,
+                        number: table.number,
+                      })
+                    }
+                  />
+                }
               </Table.Cell>
               <Table.Cell>
                 {table.reservations.filter((res) =>
                   isSameTime({
-                    dateString: toLocalTime({
-                      dateString: res.reservationDate,
-                    }),
+                    dateString: res.reservationDate,
                     timeString: "16:00",
                   })
                 )?.[0]?.user?.name ?? "-"}
@@ -67,9 +78,7 @@ const TablesTable = ({ tables }: { tables: TTableWithReservations[] }) => {
               <Table.Cell>
                 {table.reservations.filter((res) =>
                   isSameTime({
-                    dateString: toLocalTime({
-                      dateString: res.reservationDate,
-                    }),
+                    dateString: res.reservationDate,
                     timeString: "18:00",
                   })
                 )?.[0]?.user?.name ?? "-"}
@@ -77,9 +86,7 @@ const TablesTable = ({ tables }: { tables: TTableWithReservations[] }) => {
               <Table.Cell>
                 {table.reservations.filter((res) =>
                   isSameTime({
-                    dateString: toLocalTime({
-                      dateString: res.reservationDate,
-                    }),
+                    dateString: res.reservationDate,
                     timeString: "20:00",
                   })
                 )?.[0]?.user?.name ?? "-"}
@@ -87,9 +94,7 @@ const TablesTable = ({ tables }: { tables: TTableWithReservations[] }) => {
               <Table.Cell>
                 {table.reservations.filter((res) =>
                   isSameTime({
-                    dateString: toLocalTime({
-                      dateString: res.reservationDate,
-                    }),
+                    dateString: res.reservationDate,
                     timeString: "22:00",
                   })
                 )?.[0]?.user?.name ?? "-"}
@@ -159,72 +164,63 @@ const TablesTable = ({ tables }: { tables: TTableWithReservations[] }) => {
           <Table.Cell children />
           <Table.Cell>
             avilable:{" "}
-            {tables?.length ||
-              0 -
-                tables?.reduce(
-                  (prev, curr) =>
-                    prev +
-                    curr.reservations.filter(
-                      (res) =>
-                        isSameTime({
-                          dateString: res.reservationDate,
-                          timeString: "16:00",
-                        }) && curr.isActive
-                    )?.length,
-                  0
-                ) ||
-              0}
+            {(tables?.length || 0) -
+              tables?.reduce(
+                (prev, curr) =>
+                  prev +
+                  curr.reservations.filter((res) => {
+                    return isSameTime({
+                      dateString: res.reservationDate,
+                      timeString: "16:00",
+                    });
+                  })?.length,
+                0
+              ) || 0}
           </Table.Cell>
           <Table.Cell>
             avilable:{" "}
-            {tables?.length ||
-              0 -
-                tables?.reduce(
-                  (prev, curr) =>
-                    prev +
-                    curr.reservations.filter((res) =>
-                      isSameTime({
-                        dateString: res.reservationDate,
-                        timeString: "18:00",
-                      })
-                    )?.length,
-                  0
-                ) ||
-              0}
+            {(tables?.length || 0) -
+              tables?.reduce(
+                (prev, curr) =>
+                  prev +
+                  curr.reservations.filter((res) =>
+                    isSameTime({
+                      dateString: res.reservationDate,
+                      timeString: "18:00",
+                    })
+                  )?.length,
+                0
+              ) || 0}
           </Table.Cell>
           <Table.Cell>
             avilable:{" "}
-            {tables?.length ||
-              0 -
-                tables?.reduce(
-                  (prev, curr) =>
-                    prev +
-                    curr.reservations.filter((res) =>
-                      isSameTime({
-                        dateString: res.reservationDate,
-                        timeString: "20:00",
-                      })
-                    )?.length,
-                  0
-                ) ||
-              0}
+            {(tables?.length || 0) -
+              tables?.reduce(
+                (prev, curr) =>
+                  prev +
+                  curr.reservations.filter((res) =>
+                    isSameTime({
+                      dateString: res.reservationDate,
+                      timeString: "20:00",
+                    })
+                  )?.length,
+                0
+              ) || 0}
           </Table.Cell>
           <Table.Cell>
             avilable:{" "}
-            {tables?.length ||
-              0 -
-                tables?.reduce(
-                  (prev, curr) =>
-                    prev +
-                    curr.reservations.filter((res) =>
-                      isSameTime({
-                        dateString: res.reservationDate,
-                        timeString: "22:00",
-                      })
-                    )?.length,
-                  0
-                ) ||
-              0}
+            {(tables?.length || 0) -
+              tables?.reduce(
+                (prev, curr) =>
+                  prev +
+                  curr.reservations.filter((res) =>
+                    isSameTime({
+                      dateString: res.reservationDate,
+                      timeString: "22:00",
+                    })
+                  )?.length,
+                0
+              )}
           </Table.Cell>
         </Table.Row>
       </Table.Footer>

@@ -1,10 +1,10 @@
 import clsx from "clsx";
 
 export default function SmallSpinner({
-  color,
+  color = "white",
   className,
 }: {
-  color: "black" | "white";
+  color?: "black" | "white";
   className?: string;
 }) {
   return <div className={clsx("small-spinner", color, className)}></div>;

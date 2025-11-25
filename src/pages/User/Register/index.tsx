@@ -6,7 +6,7 @@ import {
   type FormEvent,
 } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 import PageLayout from "@components/PageLayout";
 import Input from "@components/Input";
@@ -18,8 +18,7 @@ import SectionHeader from "@components/SectionHeader";
 import { register as registerAPI } from "@services/auth";
 
 import { regex } from "@constants/regex";
-
-import banner from "@images/contact/Image (10).png";
+import { contactImages } from "@/constants/images";
 
 type TKey = "name" | "email" | "password" | "confPassword" | "phone";
 const Register = () => {
@@ -144,9 +143,9 @@ const Register = () => {
     [name, password, email, phone, errorMessage, register]
   );
   return (
-    <PageLayout banner={banner} caption="register">
-      <div className="w-full h-full overflow-y-auto px-8 flex flex-col justify-center">
-        <SectionHeader className="my-10">
+    <PageLayout banner={contactImages[0]} caption="register">
+      <div className="w-full h-full overflow-y-auto px-8 flex flex-col justify-center max-w-[500px] mx-auto">
+        <SectionHeader className="my-10" size="small">
           <h1 className=" text-heading-h3"> create account </h1>
         </SectionHeader>
         <form className="space-y-5" onSubmit={handleSubmit}>
@@ -221,23 +220,27 @@ const Register = () => {
             }
           />
 
-          <div className="flex">
-            <p className=" font-normal text-red-400 capitalize">
-              {data?.error || errorMessage}
-            </p>
-            <Button
-              type="primary"
-              className="ml-auto"
-              disabled={
-                !!errorMessage ||
-                isLoading ||
-                (!name && !email && !phone && !password && !confPassword)
-              }
-            >
-              register {isLoading && <DotsLoader />}
-            </Button>
-          </div>
+          <Button
+            type="primary"
+            className="w-full"
+            disabled={
+              !!errorMessage ||
+              isLoading ||
+              (!name && !email && !phone && !password && !confPassword)
+            }
+          >
+            register {isLoading && <DotsLoader />}
+          </Button>
         </form>
+        <p className=" font-normal text-red-400 mt-2 capitalize min-h-30">
+          {data?.error || errorMessage}
+        </p>
+        <p className="font-normal mt-2 text-center text-large">
+          <span className=" text-primary-muted">Already have an account? </span>
+          <Link to={"/login"} className=" font-normal !underline">
+            Login here
+          </Link>
+        </p>
       </div>
     </PageLayout>
   );

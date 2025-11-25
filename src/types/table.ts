@@ -26,3 +26,16 @@ export type TGetAllTablesReuslt = {
   tables?: TTableWithReservations[];
   error?: string;
 };
+
+export type TTableSlots = {
+  tableNumber: number;
+  capacity: number;
+  isActive: boolean;
+  reservedSlots: string[] | [];
+  availableSlots: string[] | [];
+};
+
+export type TGetSlotsForTables = {
+  tables?: TTableSlots[] | [];
+  error?: string;
+};

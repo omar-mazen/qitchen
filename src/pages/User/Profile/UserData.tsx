@@ -11,6 +11,8 @@ import { useAuth } from "@/context/Auth";
 import { regex } from "@constants/regex";
 
 import { updateUser as updateUserAPI } from "@services/user";
+import Modal from "@/components/Modal";
+import OTPInput from "@/components/OTPInput";
 
 type TKey = "name" | "phone" | "email" | "submit";
 const UserData = () => {
@@ -34,14 +36,14 @@ const UserData = () => {
     !(error.name && error.phone);
   const errorMessage = useMemo(
     () => Object.values(error).filter((str) => str)[0],
-    [error],
+    [error]
   );
 
   const handleError = useCallback(
     ({ key, value }: { key: TKey; value: string }) => {
       setError((state) => ({ ...state, [key]: value }));
     },
-    [],
+    []
   );
   const handleInput = useCallback(
     ({
@@ -65,7 +67,7 @@ const UserData = () => {
         handleError({ key, value: message });
       }
     },
-    [handleError],
+    [handleError]
   );
   useEffect(() => {
     handleInput({
@@ -91,58 +93,73 @@ const UserData = () => {
     });
   }, [handleInput, user]);
   const handleSubmit = useCallback(async () => {
+    window.alert();
     if (!hasUpdate) return;
     updateUser({ name, phoneNumber: phone });
   }, []);
   return (
-    <div className=" space-y-5">
-      <SectionHeader>User</SectionHeader>
-      <form action="" className="space-y-5" onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          placeholder="user name"
-          value={name}
-          disabled={isUpdating}
-          setValue={(value) => {
-            handleInput({
-              key: "name",
-              value,
-              setValue: setName,
-              regex: regex.userName.regex,
-              message: regex.userName.message,
-            });
-          }}
-        />
-        <Input
-          type="email"
-          disabled={true}
-          placeholder="email"
-          value={email}
-          setValue={() => {}}
-        />
-        <Input
-          type="text"
-          placeholder="phone"
-          value={phone}
-          disabled={isUpdating}
-          setValue={(value) => {
-            handleInput({
-              key: "phone",
-              value,
-              setValue: setPhone,
-              regex: regex.phone.regex,
-              message: regex.phone.message,
-            });
-          }}
-        />
-        <div className="flex items-center justify-between">
-          <p className=" font-normal text-red-400 capitalize">{errorMessage}</p>
-          <Button type="primary" disabled={!hasUpdate || isUpdating}>
-            update {isUpdating ? <DotsLoader /> : ""}
-          </Button>
-        </div>
-      </form>
-    </div>
+    <Modal>
+      <div className=" space-y-5">
+        <SectionHeader>User</SectionHeader>
+        <form action="" className="space-y-5" onSubmit={handleSubmit}>
+          <Input
+            type="text"
+            placeholder="user name"
+            value={name}
+            disabled={isUpdating}
+            setValue={(value) => {
+              handleInput({
+                key: "name",
+                value,
+                setValue: setName,
+                regex: regex.userName.regex,
+                message: regex.userName.message,
+              });
+            }}
+          />
+          <div className=" flex items-center gap-3">
+            <Input
+              type="email"
+              disabled={true}
+              placeholder="email"
+              value={email}
+              setValue={() => {}}
+            />
+            <Modal.Open opens="verify">
+              <Button rest={{ type: "button" }} type="primary">
+                Verify
+              </Button>
+            </Modal.Open>
+          </div>
+          <Input
+            type="text"
+            placeholder="phone"
+            value={phone}
+            disabled={isUpdating}
+            setValue={(value) => {
+              handleInput({
+                key: "phone",
+                value,
+                setValue: setPhone,
+                regex: regex.phone.regex,
+                message: regex.phone.message,
+              });
+            }}
+          />
+          <div className="flex items-center justify-between">
+            <p className=" font-normal text-red-400 capitalize">
+              {errorMessage}
+            </p>
+            <Button type="primary" disabled={!hasUpdate || isUpdating}>
+              update {isUpdating ? <DotsLoader /> : ""}
+            </Button>
+          </div>
+        </form>
+      </div>
+      <Modal.Window name="verify">
+        <OTPInput length={6} onComplete={(otp) => console.log(otp)} />
+      </Modal.Window>
+    </Modal>
   );
 };
 
