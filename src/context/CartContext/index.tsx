@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { useAuth } from "../Auth";
+import { useAuth } from "@/hooks/useAuth";
 
 import type { TProduct } from "@/types/product";
 import type { TCartResult, TCart, TCartProductAction } from "@cTypes/cart";

@@ -5,7 +5,7 @@ import Categories from "./Categories";
 const MenuManagement = () => {
   return (
     <Modal>
-      <ContextMenu alignment="left" size="md">
+      <ContextMenu alignment="left" size="md" fixedPosition>
         <Categories />
       </ContextMenu>
     </Modal>

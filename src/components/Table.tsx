@@ -89,7 +89,7 @@ const Row: React.FC<RowProps> = ({ children, onClick, disabled }) => {
   return (
     <tr
       onClick={onClick}
-      className={` relative border-b last-of-type:border-0 border-border ${
+      className={` relative border-b last-of-type:border-0 border-border bg-background-muted ${
         onClick ? "cursor-pointer" : ""
       } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
     >

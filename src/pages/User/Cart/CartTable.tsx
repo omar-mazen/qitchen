@@ -5,16 +5,20 @@ import Table from "@components/Table";
 import Button from "@components/Button";
 import Icons from "@components/Icons";
 
-import { useAuth } from "@/context/Auth";
+import { useAuth } from "@/hooks/useAuth";
 
 import { ROUTES } from "@constants/routes";
 
 const CartTable = ({
   children,
   totalPrice,
+  totalQuantity,
+  isLoading = false,
 }: {
   children: React.ReactNode;
   totalPrice: number;
+  totalQuantity: number;
+  isLoading?: boolean;
 }) => {
   const { isAuthenticated } = useAuth();
   return (
@@ -33,17 +37,16 @@ const CartTable = ({
 
       <Table.Footer>
         <Table.Row>
-          <Table.Cell center={false}>
-            <p className="py-3">Total: {totalPrice}$</p>
-          </Table.Cell>
           <Table.Cell children="" />
           <Table.Cell children="" />
           <Table.Cell children="" />
-          <Table.Cell children="" />
+          <Table.Cell children={<p className="py-3">{totalQuantity}</p>} />
+          <Table.Cell children={<p className="py-3">{totalPrice}$</p>} />
           <Table.Cell>
             <Link to={ROUTES.MAKE_ORDER}>
               {isAuthenticated ? (
                 <Button
+                  disabled={isLoading}
                   type="primary"
                   className=" absolute top-1/2 -translate-y-1/2 right-10"
                 >
@@ -51,7 +54,11 @@ const CartTable = ({
                 </Button>
               ) : (
                 <Link to={"/login"}>
-                  <Button type="icon" icon={<Icons.Arrow />}>
+                  <Button
+                    disabled={isLoading}
+                    type="icon"
+                    icon={<Icons.Arrow />}
+                  >
                     Login to continue
                   </Button>
                 </Link>

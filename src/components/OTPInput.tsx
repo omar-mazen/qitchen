@@ -7,9 +7,9 @@ import {
   type ClipboardEvent,
 } from "react";
 import Icons from "./Icons";
-import { useAuth } from "@/context/Auth";
+import { useAuth } from "@/hooks/useAuth";
 import Button from "./Button";
-import { formatTime } from "@/utils";
+import { formatDuration } from "@/utils";
 
 interface OTPInputProps {
   /**
@@ -226,7 +226,7 @@ const OTPInput = ({
           <p className="mb-5">
             Send again after{" "}
             <strong className="w-20 text-left inline-block">
-              {formatTime(remaining)}
+              {formatDuration(remaining)}
             </strong>
           </p>
         ) : (

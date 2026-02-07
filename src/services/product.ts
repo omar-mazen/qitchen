@@ -5,7 +5,7 @@ import type {
   UpdateProductResult,
 } from "@/types/product";
 import { privateApi, publicApi } from "./axios";
-import { handleError } from "@/utils";
+import { extractErrorMessage } from "@/utils";
 import type { TBaseResponse } from "@/types/common";
 export type GetProductResponse = TBaseResponse & {
   data?: TProduct;
@@ -21,7 +21,7 @@ export const getProductById = async ({
     );
     return { product: res.data.data };
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -62,7 +62,7 @@ export const addProduct = async ({
     );
     return { product: res.data.data };
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 type UpdateProductProps = {
@@ -89,7 +89,7 @@ export const updateProduct = async ({
     );
     return { product: res.data.data };
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 export const toggleProductAvailability = async ({
@@ -100,7 +100,7 @@ export const toggleProductAvailability = async ({
   try {
     await privateApi.patch(`/product/product-toggle-availability/${productId}`);
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -108,6 +108,6 @@ export const deleteProduct = async ({ productId }: { productId: string }) => {
   try {
     await privateApi.delete(`/product/delete-product/${productId}`);
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };

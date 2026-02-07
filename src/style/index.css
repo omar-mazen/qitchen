@@ -66,6 +66,8 @@
   --primary-color: 239, 231, 210;
   --background-color: 10, 11, 10;
   --background-muted-color: 24, 24, 24;
+  --toastify-color-light: rgba(var(--background-muted-color), 0.8);
+  --toastify-text-color-light: rgba(var(--color-primary), 1);
 }
 html {
   font-size: 62.5%; /* 1rem = 10px */

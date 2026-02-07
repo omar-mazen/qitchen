@@ -1,16 +1,30 @@
-import axios from "axios";
+import axios, { type AxiosError } from "axios";
 import type React from "react";
 
-export const handleError = (error: unknown): { error: string } => {
+// ============================================================================
+// ERROR HANDLING
+// ============================================================================
+
+export const extractErrorMessage = (error: unknown): string => {
   if (axios.isAxiosError(error)) {
-    return {
-      error:
-        error.response?.data?.message ||
-        `Request failed with status ${error.response?.status}`,
-    };
+    const err = error as AxiosError<any>;
+    return (
+      err.response?.data?.message ||
+      err.response?.statusText ||
+      `Request failed with status ${err.response?.status}`
+    );
   }
-  return { error: "Unexpected error occurred" };
+
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return "Unexpected error occurred";
 };
+
+// ============================================================================
+// FORM INPUT HANDLING
+// ============================================================================
 
 export const handleInputError = <T>({
   key,
@@ -46,6 +60,88 @@ export const handleInput = <T>({
   }
 };
 
+// ============================================================================
+// DATE FORMATTING
+// ============================================================================
+
+export const toBackendDateFormat = (d: Date) => d.toISOString().split("T")[0]; // e.g. "2025-08-24"
+
+export const toFrontendDateLabel = (d: Date) => {
+  const now = new Date();
+
+  // check "today" / "yesterday"
+  const diffDays = Math.floor(
+    (d.setHours(0, 0, 0, 0) - now.setHours(0, 0, 0, 0)) / (1000 * 60 * 60 * 24)
+  );
+
+  if (diffDays === 0) return "today";
+  if (diffDays === -1) return "yesterday";
+
+  // fallback: day + weekday
+  return d.toLocaleDateString("en-US", {
+    day: "numeric",
+    weekday: "long",
+  });
+};
+
+export const formatDate = (dateStr: string) => {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+};
+
+export const formatShortDate = (dateStr: string) => {
+  const date = new Date(dateStr);
+  return date
+    .toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      timeZone: "UTC",
+    })
+    .toUpperCase();
+};
+
+// ============================================================================
+// TIME FORMATTING
+// ============================================================================
+
+export const formatDuration = (seconds: number) => {
+  const m = Math.floor(seconds / 60)
+    .toString()
+    .padStart(2, "0");
+  const s = (seconds % 60).toString().padStart(2, "0");
+  return `${m}:${s}`;
+};
+
+export const formatTime = (dateStr: string) => {
+  const date = new Date(dateStr);
+  return date.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+    timeZone: "UTC",
+  });
+};
+
+export const toLocalTime = ({ dateString }: { dateString: string }) => {
+  const date = new Date(dateString);
+
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  return `${hours}:${minutes}`;
+};
+
+// ============================================================================
+// DATE/TIME COMPARISON
+// ============================================================================
+
 export const isToday = ({ dateString }: { dateString: string }) => {
   const inputDate = new Date(dateString);
   const today = new Date();
@@ -73,45 +169,18 @@ export const isSameTime = ({
   return formattedTime === timeString;
 };
 
-export const toLocalTime = ({ dateString }: { dateString: string }) => {
-  const date = new Date(dateString);
-
-  const hours = date.getHours().toString().padStart(2, "0");
-  const minutes = date.getMinutes().toString().padStart(2, "0");
-
-  return `${hours}:${minutes}`;
-};
-
-export const toBackendDateFormat = (d: Date) => d.toISOString().split("T")[0]; // e.g. "2025-08-24"
-
-// helper to format frontend labels
-export const toFrontendDateLabel = (d: Date) => {
-  const now = new Date();
-
-  // check "today" / "yesterday"
-  const diffDays = Math.floor(
-    (d.setHours(0, 0, 0, 0) - now.setHours(0, 0, 0, 0)) / (1000 * 60 * 60 * 24)
-  );
-
-  if (diffDays === 0) return "today";
-  if (diffDays === -1) return "yesterday";
-
-  // fallback: day + weekday
-  return d.toLocaleDateString("en-US", {
-    day: "numeric",
-    weekday: "long",
-  });
-};
-
 export function isCurrentSlot(dateStr: string): boolean {
   const slotStart = new Date(dateStr);
-
   const slotEnd = new Date(slotStart.getTime() + 24 * 60 * 60 * 1000);
-
   const now = new Date();
 
   return now >= slotStart && now <= slotEnd;
 }
+
+// ============================================================================
+// DOM UTILITIES
+// ============================================================================
+
 export function getScrollParentAfterRoot(
   el: HTMLElement | null
 ): HTMLElement | Window {
@@ -168,10 +237,3 @@ export function getRelativeOffset(
     left: elRect.left - parentRect.left + (parent as HTMLElement).scrollLeft,
   };
 }
-export const formatTime = (seconds: number) => {
-  const m = Math.floor(seconds / 60)
-    .toString()
-    .padStart(2, "0");
-  const s = (seconds % 60).toString().padStart(2, "0");
-  return `${m}:${s}`;
-};

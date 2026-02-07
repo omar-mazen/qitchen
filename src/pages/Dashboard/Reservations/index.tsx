@@ -4,7 +4,7 @@ import SmallSpinner from "@/components/SmallSpinner";
 import Table from "@/components/Table";
 import { ReservationsStatus } from "@/constants/reservations";
 import {
-  getAllReservations,
+  getAllReservationsByDate,
   updateReservation as updateReservationAPI,
 } from "@/services/reservations";
 import { toBackendDateFormat, toFrontendDateLabel } from "@/utils";
@@ -32,7 +32,7 @@ const Reservations = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["reservations", dateParam],
     queryFn: () =>
-      getAllReservations({
+      getAllReservationsByDate({
         date: dates.filter((date) => date.frontend == dateParam)[0].backend,
       }),
   });

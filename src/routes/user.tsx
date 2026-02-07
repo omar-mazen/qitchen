@@ -1,11 +1,11 @@
 import { createBrowserRouter, Navigate } from "react-router";
 import { ROUTES } from "@constants/routes";
-// import { UserAppLayout } from "@/components/Layouts";
 import { lazy, Suspense } from "react";
 import PaymentScuccessfulRedirect from "@components/PaymentScuccessfulRedirect";
 import Error from "@/components/Error";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Loader from "@/components/Loader";
+import { RouteWithSuspense } from "./RouteWithSuspense";
 
 const UserAppLayout = lazy(() => import("@components/Layouts/UserAppLayout"));
 const Register = lazy(() => import("@/pages/User/Register"));
@@ -15,6 +15,8 @@ const Home = lazy(() => import("@/pages/User/Home"));
 const Menu = lazy(() => import("@/pages/User/Menu"));
 const Contact = lazy(() => import("@/pages/User/Contact"));
 const Reservation = lazy(() => import("@/pages/User/Reservation"));
+const Reservations = lazy(() => import("@/pages/User/Reservations"));
+// const ReservationDetails = lazy(() => import("@/pages/User/Reservation"));
 const About = lazy(() => import("@/pages/User/About"));
 const Profile = lazy(() => import("@/pages/User/Profile"));
 const Product = lazy(() => import("@/pages/User/Product"));
@@ -35,67 +37,71 @@ const userRoutes = createBrowserRouter([
       { index: true, element: <Navigate to={ROUTES.HOME} /> },
       {
         path: ROUTES.REGISTER,
-        element: <Register />,
+        element: <RouteWithSuspense element={<Register />} />,
       },
       {
         path: ROUTES.LOGIN,
-        element: <Login />,
+        element: <RouteWithSuspense element={<Login />} />,
       },
       {
         path: ROUTES.RESET_PASSWORD,
-        element: <ResetPassword />,
+        element: <RouteWithSuspense element={<ResetPassword />} />,
       },
       {
         path: ROUTES.HOME,
-        element: <Home />,
+        element: <RouteWithSuspense element={<Home />} />,
       },
       {
         path: ROUTES.MENU,
-        element: <Menu />,
+        element: <RouteWithSuspense element={<Menu />} />,
       },
       {
         path: ROUTES.CONTACT,
-        element: <Contact />,
+        element: <RouteWithSuspense element={<Contact />} />,
       },
       {
         path: ROUTES.ABOUT,
-        element: <About />,
+        element: <RouteWithSuspense element={<About />} />,
       },
 
       {
         path: ROUTES.PRODUCT,
-        element: <Product />,
+        element: <RouteWithSuspense element={<Product />} />,
       },
       {
         path: ROUTES.CART,
-        element: <Cart />,
+        element: <RouteWithSuspense element={<Cart />} />,
       },
       {
         path: "/payment/success",
-        element: <PaymentScuccessfulRedirect />,
+        element: <RouteWithSuspense element={<PaymentScuccessfulRedirect />} />,
       },
       {
         element: <ProtectedRoute role="User" />,
         children: [
           {
             path: ROUTES.PROFILE,
-            element: <Profile />,
+            element: <RouteWithSuspense element={<Profile />} />,
           },
           {
             path: ROUTES.MAKE_ORDER,
-            element: <MakeOrder />,
+            element: <RouteWithSuspense element={<MakeOrder />} />,
           },
           {
             path: ROUTES.ORDERS,
-            element: <Orders />,
+            element: <RouteWithSuspense element={<Orders />} />,
           },
           {
             path: ROUTES.ORDER_DETAILS,
-            element: <OrderDetails />,
+            element: <RouteWithSuspense element={<OrderDetails />} />,
           },
           {
             path: ROUTES.RESERVATION,
-            element: <Reservation />,
+            element: <RouteWithSuspense element={<Reservation />} />,
+          },
+          {
+            path: ROUTES.RESERVATIONS,
+            element: <RouteWithSuspense element={<Reservations />} />,
           },
         ],
       },

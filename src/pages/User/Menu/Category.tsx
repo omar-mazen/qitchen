@@ -5,7 +5,7 @@ import type { TCategory } from "@cTypes/categories";
 
 const Category = ({ category }: { category: TCategory }) => {
   return (
-    <section className=" px-24 py-14" id={category.name}>
+    <section className="px-24 pb-6" id={category.name}>
       <SectionHeader>
         <h2 className=" text-heading-h2 text-center my-12">{category?.name}</h2>
       </SectionHeader>

@@ -11,20 +11,25 @@ import texture from "@images/texture.png";
 
 const Cart = () => {
   const { cart, isLoading } = useCart();
-  //  if (isLoading) return <Loader />;
+  if (isLoading) return <Loader />;
   return (
     <div
       className=" overflow-y-auto lg:pt-48 p-10 lg:px-14 w-full h-full overflow-hidden rounded-2xl backdrop-brightness-150"
       style={{ backgroundImage: `url(${texture})` }}
     >
       {cart.products.length > 0 ? (
-        <CartTable totalPrice={cart.totalPrice}>
+        <CartTable
+          totalPrice={cart.totalPrice}
+          totalQuantity={cart.totalQuantity}
+          isLoading={isLoading}
+        >
           {cart.products.map((cartItem) => (
             <CartProduct
               product={cartItem.product}
               quantity={cartItem.quantity}
-              key={cartItem.product._id}
+              key={cartItem.product?._id}
               mutationEnabled={true}
+              isLoading={isLoading}
             />
           ))}
         </CartTable>

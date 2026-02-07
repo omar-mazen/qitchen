@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "@/context/Auth";
+import { useAuth } from "@/hooks/useAuth";
 import {
   sendVerfictionCode as sendVerfictionCodeApi,
   verfiyEmail as verfiyEmailApi,

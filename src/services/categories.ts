@@ -4,7 +4,7 @@ import type {
   TCategory,
 } from "@cTypes/categories";
 import { privateApi, publicApi } from "./axios";
-import { handleError } from "@/utils";
+import { extractErrorMessage } from "@/utils";
 import type { TBaseResponse } from "@/types/common";
 
 type GetCategoriesParams = {
@@ -36,7 +36,7 @@ export const getCategories = async ({
       data: res.data.data,
     };
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -62,7 +62,7 @@ export const addCategory = async ({
     );
     return { category: data.data };
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -86,7 +86,7 @@ export const updateCategory = async ({
     );
     return { category: data.data };
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 export const deleteCategory = async ({
@@ -97,6 +97,6 @@ export const deleteCategory = async ({
   try {
     await privateApi.delete(`category/${categoryId}`);
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };

@@ -31,6 +31,17 @@ import LockReset from "@icons/lock-reset.svg?react";
 import UserShield from "@icons/user-shield.svg?react";
 import Receipt from "@icons/Receipt.svg?react";
 import Reload from "@icons/reload.svg?react";
+import Cog from "@icons/cog.svg?react";
+import CashOnDelivery from "@icons/cash-on-delivery.svg?react";
+import Stripe from "@icons/stripe.svg?react";
+import MapIcon from "@icons/map-icon.svg?react";
+import Store from "@icons/store.svg?react";
+import NotAllowed from "@icons/not-allowed.svg?react";
+import CheckCircle from "@icons/check-circle.svg?react";
+import XCircle from "@icons/x-circle.svg?react";
+import Delivery from "@icons/delivery.svg?react";
+import ForkAndKnife from "@icons/fork-and-knife.svg?react";
+import Takeaway from "@icons/takeaway.svg?react";
 
 const Icons = {
   Arrow,
@@ -66,5 +77,16 @@ const Icons = {
   UserShield,
   Receipt,
   Reload,
+  Cog,
+  CashOnDelivery,
+  Stripe,
+  MapIcon,
+  Store,
+  NotAllowed,
+  CheckCircle,
+  XCircle,
+  Delivery,
+  ForkAndKnife,
+  Takeaway,
 };
 export default Icons;

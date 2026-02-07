@@ -9,7 +9,7 @@ import { OrderStatus } from "@/constants/order";
 import React, { useState } from "react";
 import ContextMenu from "@/components/ContextMenu";
 import ActiveOrders from "./Orders";
-import { getAllReservations } from "@/services/reservations";
+import { getAllReservationsByDate } from "@/services/reservations";
 import { isSameTime } from "@/utils";
 import Table from "@/components/Table";
 import SectionHeader from "@/components/SectionHeader";
@@ -30,7 +30,7 @@ const Home = () => {
   const { data: reservations, isLoading: tableLoading } = useQuery({
     queryKey: ["slots"],
     queryFn: () =>
-      getAllReservations({
+      getAllReservationsByDate({
         date: new Date()
           .toLocaleDateString("sv-SE", {
             day: "2-digit",

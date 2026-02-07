@@ -13,6 +13,8 @@ export const ROUTES = {
   MAKE_ORDER: "/make-order",
   ORDERS: "/orders",
   ORDER_DETAILS: "/orders/:id",
+  RESERVATIONS: "/reservations",
+  RESERVATION_DETAILS: "/reservations/:id",
 } as const;
 
 export const DASHBOARD = {
@@ -22,4 +24,5 @@ export const DASHBOARD = {
   ORDER: "/dashboard/orders/:id",
   TABLES: "/dashboard/tables",
   RESERVATION: "/dashboard/reservation",
+  SETTINGS: "/dashboard/settings",
 };

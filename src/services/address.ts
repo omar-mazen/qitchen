@@ -1,5 +1,5 @@
 import type { TGetUserAdresses } from "./../types/address";
-import { handleError } from "@/utils";
+import { extractErrorMessage } from "@/utils";
 import { privateApi } from "./axios";
 import type { TAddAddressResult, TAddress } from "@/types/address";
 import type { TBaseResponse } from "@/types/common";
@@ -15,7 +15,7 @@ export const getUserAdresses = async (): Promise<TGetUserAdresses> => {
     );
     return { addresses: res.data.data };
   } catch (error) {
-    return handleError(error);
+    return { error: extractErrorMessage(error) };
   }
 };
 
@@ -47,7 +47,7 @@ export const addAddress = async ({
     });
     return { address: res.data.data };
   } catch (error) {
-    return handleError(error);
+    return { error: extractErrorMessage(error) };
   }
 };
 
@@ -71,7 +71,7 @@ export const updateAddress = async ({
     });
     return { address: res.data.data };
   } catch (error) {
-    return handleError(error);
+    return { error: extractErrorMessage(error) };
   }
 };
 // remove address
@@ -79,6 +79,6 @@ export const removeAddress = async ({ addressId }: { addressId: string }) => {
   try {
     await privateApi.delete(`/address/${addressId}`);
   } catch (error) {
-    return handleError(error);
+    return { error: extractErrorMessage(error) };
   }
 };

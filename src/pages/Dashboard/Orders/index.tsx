@@ -79,6 +79,7 @@ const Orders = () => {
                   </span>
                 </Table.Cell>
                 <Table.Cell>{order.paymentStatus}</Table.Cell>
+                <Table.Cell>{order.paymentMethod}</Table.Cell>
                 <Table.Cell>
                   <SelectOption
                     full={true}
@@ -105,6 +106,7 @@ const Orders = () => {
                     disable={orderStatusLoading}
                   />
                 </Table.Cell>
+                <Table.Cell>{order.placeType}</Table.Cell>
                 <Table.Cell>
                   {order.products?.map((product) => (
                     <>

@@ -1,4 +1,4 @@
-import { handleError } from "@/utils";
+import { extractErrorMessage } from "@/utils";
 import { privateApi } from "./axios";
 import type { TCart, TCartProductAction, TCartResult } from "@cTypes/cart";
 import type { TBaseResponse } from "@/types/common";
@@ -13,7 +13,7 @@ export const getCurrentUserCart = async (): Promise<TCartResult> => {
       await privateApi.get<GetCurrentUserCartResponse>("/cart/get-cart");
     return { cart: res.data.cart };
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -39,7 +39,7 @@ export const addProductToCart = async ({
     );
     return { cart: res.data.data };
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -55,7 +55,7 @@ export const addProductsToCart = async (
     );
     return { cart: res.data.data };
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -77,7 +77,7 @@ export const updateCartProductQuantity = async ({
     );
     return { cart: res.data.data };
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -91,6 +91,6 @@ export const removeCartProduct = async (
     );
     return { cart: res.data.data };
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };

@@ -1,18 +1,20 @@
-import Badge from "@components/Badge";
 import Icons from "@components/Icons";
 import Table from "@components/Table";
 
 import { useCart } from "@/context/CartContext";
 
 import type { TProduct } from "@cTypes/product";
+import QuantitySelector from "@/components/QuantitySelector";
 const CartProduct = ({
   product,
   quantity,
   mutationEnabled = false,
+  isLoading = false,
 }: {
   product: TProduct;
   quantity: number;
   mutationEnabled?: boolean;
+  isLoading?: boolean;
 }) => {
   const { removeFromCart, updateCartProductQuantity } = useCart();
   return (
@@ -29,41 +31,32 @@ const CartProduct = ({
       <Table.Cell>{product.name}</Table.Cell>
       <Table.Cell>{product.price}$</Table.Cell>
       <Table.Cell>
-        {mutationEnabled && (
-          <Badge
-            onClick={() =>
+        {mutationEnabled ? (
+          <QuantitySelector
+            quantity={quantity}
+            isAvailable={mutationEnabled}
+            isAccelerates={false}
+            onChange={(q) =>
               updateCartProductQuantity({
                 action: "decrease",
                 product,
-                quantity,
+                quantity: q,
               })
             }
-          >
-            -
-          </Badge>
-        )}
-        <span>× {quantity}</span>
-        {mutationEnabled && (
-          <Badge
-            onClick={() =>
-              updateCartProductQuantity({
-                action: "increase",
-                product,
-                quantity,
-              })
-            }
-          >
-            +
-          </Badge>
+          />
+        ) : (
+          `× ${quantity}`
         )}
       </Table.Cell>
       <Table.Cell>{product.price * quantity}</Table.Cell>
       {mutationEnabled && (
         <Table.Cell>
-          <Icons.Trash
-            onClick={() => removeFromCart({ product, quantity })}
-            className=" cursor-pointer hover:text-red-700 transition-colors ease-in-out lg:w-full"
-          />
+          <button disabled={isLoading}>
+            <Icons.Trash
+              onClick={() => removeFromCart({ product, quantity })}
+              className=" cursor-pointer hover:text-red-700 transition-colors ease-in-out lg:w-full"
+            />
+          </button>
         </Table.Cell>
       )}
     </Table.Row>

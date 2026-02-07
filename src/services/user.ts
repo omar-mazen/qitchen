@@ -1,6 +1,6 @@
 import type { GetCurrentUserDataResult, TUser } from "@/types/user";
 import { privateApi } from "./axios";
-import { handleError } from "@/utils";
+import { extractErrorMessage } from "@/utils";
 import type { TBaseResponse } from "@/types/common";
 type UserDataResponse = TBaseResponse & {
   user?: TUser;
@@ -11,7 +11,7 @@ export const getCurrentUserData =
       const res = await privateApi.get<UserDataResponse>("/user/current-user");
       return { user: res.data.user };
     } catch (error) {
-      return handleError(error);
+      return { error: extractErrorMessage(error) };
     }
   };
 
@@ -29,7 +29,7 @@ export const updateUser = async ({
     );
     return { user: res.data.user };
   } catch (error) {
-    return handleError(error);
+    return { error: extractErrorMessage(error) };
   }
 };
 export const updatePassword = async ({
@@ -45,6 +45,6 @@ export const updatePassword = async ({
       newPassword,
     });
   } catch (error) {
-    return handleError(error);
+    return { error: extractErrorMessage(error) };
   }
 };

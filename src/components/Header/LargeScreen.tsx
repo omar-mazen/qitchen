@@ -4,7 +4,7 @@ import Icons from "../Icons";
 import Button from "../Button";
 import Logo from "@icons/logo.svg?react";
 
-import { useAuth } from "@/context/Auth";
+import { useAuth } from "@/hooks/useAuth";
 
 import { ROUTES } from "@constants/routes";
 
@@ -23,6 +23,9 @@ const LargeScreen = ({ openMenu }: { openMenu: () => void }) => {
       <nav>
         <ul className="flex items-center gap-5">
           <li className="font-normal cursor-pointer">
+            <Link to={ROUTES.HOME}>Home</Link>
+          </li>
+          <li className="font-normal cursor-pointer">
             <Link to={ROUTES.MENU}>Menu</Link>
           </li>
           <li className="font-normal cursor-pointer">
@@ -38,20 +41,21 @@ const LargeScreen = ({ openMenu }: { openMenu: () => void }) => {
               </li>
             </>
           ) : (
-            <>
-              <li className="font-normal cursor-pointer">
-                <Link to={ROUTES.LOGIN}>Login</Link>
-              </li>
-              <li className="font-normal cursor-pointer">
-                <Link to={ROUTES.REGISTER}>Register</Link>
-              </li>
-            </>
+            <></>
           )}
-          <li>
-            <Button type="outline">
-              <Link to={ROUTES.RESERVATION}>Book a table</Link>
-            </Button>
-          </li>
+          {isAuthenticated ? (
+            <li>
+              <Button type="outline">
+                <Link to={ROUTES.RESERVATION}>Book a table</Link>
+              </Button>
+            </li>
+          ) : (
+            <li className="font-normal cursor-pointer">
+              <Button type="outline">
+                <Link to={ROUTES.LOGIN}>Login</Link>
+              </Button>
+            </li>
+          )}
         </ul>
       </nav>
     </div>

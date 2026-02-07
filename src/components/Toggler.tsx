@@ -9,7 +9,7 @@ const Toggler = ({
 }) => {
   return (
     <label
-      className="inline-flex items-center cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+      className="inline-flex items-center cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50 scale-75 origin-right"
       aria-disabled={disabled}
     >
       <input

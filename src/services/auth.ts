@@ -1,6 +1,6 @@
 import type { LoginParams, LoginResult, TUser } from "@/types/user";
 import { privateApi, publicApi } from "./axios";
-import { handleError } from "@/utils";
+import { extractErrorMessage } from "@/utils";
 import type { TBaseResponse } from "@/types/common";
 
 type RegisterProps = Omit<TUser, "_id"> & { password: string };
@@ -29,7 +29,7 @@ export const register = async ({
       success: res.data.success,
     };
   } catch (error) {
-    throw new Error(handleError(error).error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -52,7 +52,7 @@ export const login = async ({
       success: res.data.success,
     };
   } catch (error) {
-    throw new Error(handleError(error).error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -64,7 +64,7 @@ export const logout = async () => {
       success: res.data.success,
     };
   } catch (error) {
-    throw new Error(handleError(error).error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -73,7 +73,7 @@ export const refreshToken = async () => {
     const res = await privateApi.post("/user/refresh-token");
     return res.data.success;
   } catch (error) {
-    throw new Error(handleError(error).error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -102,7 +102,7 @@ export const sendVerfictionCode = async ({
     if (!response.data.success) throw new Error(response.data.message);
     return { data: response.data };
   } catch (error) {
-    throw new Error(handleError(error).error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 export const verfiyEmail = async ({
@@ -119,7 +119,7 @@ export const verfiyEmail = async ({
     );
     return { data: response.data };
   } catch (error) {
-    throw new Error(handleError(error).error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -136,7 +136,7 @@ export const sendResetCode = async ({
     );
     return { data: response.data };
   } catch (error) {
-    throw new Error(handleError(error).error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -162,6 +162,6 @@ export const resetPassword = async ({
     if (!response.data.success) throw new Error(response.data.message);
     return { data: response.data };
   } catch (error) {
-    throw new Error(handleError(error).error);
+    throw new Error(extractErrorMessage(error));
   }
 };

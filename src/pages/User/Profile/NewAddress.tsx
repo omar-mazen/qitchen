@@ -4,6 +4,7 @@ import Input from "@components/Input";
 import Button from "@components/Button";
 import DotsLoader from "@components/DotsLoader";
 import type { TNewAddress } from "./Addresses";
+import SectionHeader from "@/components/SectionHeader";
 
 interface IProps {
   isLoading: boolean;
@@ -11,7 +12,8 @@ interface IProps {
   newAddress: TNewAddress;
   setNewAddress: React.Dispatch<React.SetStateAction<TNewAddress>>;
   onSubmit: () => void;
-  onCancel: () => void;
+  onCancel?: () => void;
+  onCloseModal?: () => void;
 }
 const NewAddress = ({
   newAddress,
@@ -20,9 +22,11 @@ const NewAddress = ({
   disabled,
   isLoading,
   onCancel,
+  onCloseModal,
 }: IProps) => {
   return (
-    <>
+    <div className="my-5">
+      <SectionHeader className="mb-5">Add new Address</SectionHeader>
       <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
         <Input
           placeholder="governorate"
@@ -75,13 +79,16 @@ const NewAddress = ({
             disabled={isLoading}
             type="primary"
             className="inline-block"
-            onClick={onCancel}
+            onClick={() => {
+              onCancel?.();
+              onCloseModal?.();
+            }}
           >
             cancel
           </Button>
         </div>
       </form>
-    </>
+    </div>
   );
 };
 

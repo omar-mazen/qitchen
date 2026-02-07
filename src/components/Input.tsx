@@ -1,13 +1,15 @@
 import type React from "react";
+import type { UseFormRegisterReturn } from "react-hook-form";
 
 interface IProps {
   type?: React.HTMLInputTypeAttribute;
   placeholder: string;
-  value: string;
-  setValue: (value: string) => void;
+  value?: string;
+  setValue?: (value: string) => void;
   disabled?: boolean;
   multiple?: boolean;
-  rest?: React.InputHTMLAttributes<HTMLInputElement>;
+  htmlAttributes?: React.InputHTMLAttributes<HTMLInputElement>;
+  register?: UseFormRegisterReturn;
 }
 
 const Input = ({
@@ -17,7 +19,8 @@ const Input = ({
   value,
   setValue,
   disabled = false,
-  rest,
+  htmlAttributes,
+  register,
 }: IProps) => {
   return (
     <input
@@ -27,8 +30,9 @@ const Input = ({
       defaultValue={value}
       value={value}
       multiple={multiple}
-      {...rest}
-      onChange={(e) => setValue(e.target.value)}
+      {...htmlAttributes}
+      onChange={setValue ? (e) => setValue(e.target.value) : undefined}
+      {...register}
       className="font-normal w-full border border-border bg-background-muted py-4 px-6 rounded-xl focus:outline-none focus:border-primary/50 focus:shadow-lg focus:shadow-primary/5"
     />
   );

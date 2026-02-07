@@ -60,7 +60,7 @@ export default function ContextMenu({
   children,
   alignment = "right",
   size = "sm",
-  fixedPosition = false,
+  fixedPosition = true,
 }: MenuProps) {
   const [openName, setOpenName] = useState<string | false>(false);
   const [position, setPosition] = useState<{ x: number; y: number }>({
@@ -97,8 +97,8 @@ function Toggle({ children, name }: ToggleProps) {
     e.stopPropagation();
     const rect = e.currentTarget.getBoundingClientRect();
     setPosition({
-      x: window.innerWidth - (rect.right + rect.left) / 2,
-      y: rect.height + rect.y + 8,
+      x: window.innerWidth - (rect.right + rect.left + 20) / 2,
+      y: rect.height + rect.y - 10,
     });
     name === openName ? close() : open(name);
   }
@@ -123,7 +123,7 @@ function List({ children, name }: ListProps) {
   const ref = useClickOutside<HTMLDivElement>("click", close, false);
 
   if (name !== openName) return null;
-
+  console.log(ref);
   return createPortal(
     <div
       ref={ref}
@@ -166,9 +166,9 @@ function Item({
       <li onClick={handleClick} className="w-full">
         <Link
           to={to}
-          className={` w-full grid cursor-pointer text-xl hover:backdrop-brightness-200 ${
+          className={` w-full grid cursor-pointer text-xl ${
             icon ? "grid-cols-[30px_1fr]" : "grid-cols-1"
-          } line-clamp-2 items-center gap-3 text-small hover:backdrop-brightness-90`}
+          } line-clamp-2 items-center gap-3 text-small`}
         >
           {icon && (
             <span className="m-auto self-center justify-self-start">
@@ -187,7 +187,7 @@ function Item({
   return (
     <li
       onClick={handleClick}
-      className={`grid cursor-pointer ${icon ? "grid-cols-[50px_1fr]" : "grid-cols-1"} line-clamp-2 items-center gap-3 text-xl hover:backdrop-brightness-200`}
+      className={`grid cursor-pointer ${icon ? "grid-cols-[50px_1fr]" : "grid-cols-1"} line-clamp-2 items-center gap-3 text-xl`}
     >
       {icon && (
         <span className="m-auto self-center justify-self-start">{icon}</span>

@@ -23,7 +23,9 @@ const OrdersTable = ({
         <Table.Row>
           <Table.Cell head={true}>#order id</Table.Cell>
           <Table.Cell head={true}>payment status</Table.Cell>
+          <Table.Cell head={true}>payment method</Table.Cell>
           <Table.Cell head={true}>order status</Table.Cell>
+          <Table.Cell head={true}>place type</Table.Cell>
           <Table.Cell head={true}>items</Table.Cell>
           <Table.Cell head={true}>total quantity</Table.Cell>
           <Table.Cell head={true}>total price</Table.Cell>
@@ -53,6 +55,8 @@ const OrdersTable = ({
                 </Button>
               )}
             </Table.Cell>
+            <Table.Cell children />
+            <Table.Cell children />
             <Table.Cell children />
             <Table.Cell children />
             <Table.Cell children />

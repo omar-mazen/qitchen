@@ -9,7 +9,8 @@ export type TOrderStatus =
   | "Ready"
   | "On the way"
   | "Recieved";
-
+export type TPlaceType = "Online" | "In-Place" | "Takeaway";
+export type TPaymentMethod = "Card" | "COD";
 export const TOrderStatusColors: Record<TOrderStatus, string> = {
   Paid: "bg-green-100 text-green-800 border border-green-200 hover:bg-green-200 hover:text-green-800 transition-colors duration-200",
   Processing:
@@ -51,6 +52,8 @@ export type TOrder = {
   createdAt: string;
   updatedAt: string;
   __v: number;
+  placeType: TPlaceType;
+  paymentMethod: TPaymentMethod;
 };
 export type TOrderDetailsResult = {
   order?: TOrder;
@@ -63,6 +66,7 @@ export type TGetAllOrdersResult = {
 };
 export type TOrdersResult = {
   orders?: TOrder[] | [];
+  pagination?: TPagination;
   error?: string;
 };
 

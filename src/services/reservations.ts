@@ -1,4 +1,4 @@
-import { handleError } from "@/utils";
+import { extractErrorMessage } from "@/utils";
 import { privateApi } from "./axios";
 import type { TBaseResponse } from "@/types/common";
 import type {
@@ -7,31 +7,65 @@ import type {
   TReservationsResult,
 } from "@/types/reservations";
 import type { TGetSlotsForTables, TTableSlots } from "@/types/table";
+type GetUserReservationsResponse = TBaseResponse & {
+  data?: TReservation[];
+  pagination?: {
+    currentPage: number;
+    totalPages: number;
+    totalItems: number;
+  };
+};
 
-type GetAllReservations = TBaseResponse & {
+export const getUserReservations = async ({
+  page = 1,
+}: {
+  page: number;
+}): Promise<{
+  reservations?: TReservation[];
+  pagination?: {
+    currentPage: number;
+    totalPages: number;
+    totalItems: number;
+  };
+  error?: string;
+}> => {
+  try {
+    const { data } = await privateApi.get<GetUserReservationsResponse>(
+      `reservation/get-all-reservation-for-user?page=${page}`
+    );
+    return {
+      reservations: data?.data,
+      pagination: data?.pagination,
+    };
+  } catch (error) {
+    return { error: extractErrorMessage(error) };
+  }
+};
+
+type GetAllReservationsByDate = TBaseResponse & {
   data?: TReservation[] | [];
 };
-export const getAllReservations = async ({
+export const getAllReservationsByDate = async ({
   date,
 }: {
   date: string;
 }): Promise<TReservationsResult> => {
   try {
-    const { data } = await privateApi.get<GetAllReservations>(
+    const { data } = await privateApi.get<GetAllReservationsByDate>(
       `reservation/get-all-reservation-day/${date}`
     );
     return { reservations: data?.data };
   } catch (error) {
-    return handleError(error);
+    return { error: extractErrorMessage(error) };
   }
 };
-type GetUpdateReservations = {
+type UpdateReservationsProps = {
   reservationId: string;
   status: string;
   date?: string;
   slot?: string;
 };
-type UpdateReservations = TBaseResponse & {
+type UpdateReservationsResponse = TBaseResponse & {
   data?: TReservation;
 };
 export const updateReservation = async ({
@@ -39,9 +73,9 @@ export const updateReservation = async ({
   status,
   date,
   slot,
-}: GetUpdateReservations) => {
+}: UpdateReservationsProps) => {
   try {
-    const { data } = await privateApi.patch<UpdateReservations>(
+    const { data } = await privateApi.patch<UpdateReservationsResponse>(
       `reservation/update-reservation/${reservationId}`,
       {
         status,
@@ -51,7 +85,7 @@ export const updateReservation = async ({
     );
     return { reservation: data.data };
   } catch (error) {
-    return handleError(error);
+    return { error: extractErrorMessage(error) };
   }
 };
 
@@ -63,14 +97,13 @@ export const getSlotsForTables = async ({
 }: {
   date: string;
 }): Promise<TGetSlotsForTables> => {
-  console.log(date);
   try {
     const { data } = await privateApi.get<GetSlotsForTablesResponse>(
       `/reservation/get-all-slots-for-all-tables/${date}`
     );
     return { tables: data.data };
   } catch (error) {
-    return handleError(error);
+    return { error: extractErrorMessage(error) };
   }
 };
 
@@ -98,6 +131,24 @@ export const createReservation = async ({
     );
     return { reservation: data?.data };
   } catch (error) {
-    return handleError(error);
+    return { error: extractErrorMessage(error) };
+  }
+};
+
+// Delete reservation
+type DeleteReservationResponse = TBaseResponse & {
+  message?: string;
+};
+
+export const deleteReservation = async (
+  reservationId: string
+): Promise<{ success?: boolean; error?: string }> => {
+  try {
+    const { data } = await privateApi.delete<DeleteReservationResponse>(
+      `reservation/delete-reservation/${reservationId}`
+    );
+    return { success: true };
+  } catch (error) {
+    return { error: extractErrorMessage(error) };
   }
 };

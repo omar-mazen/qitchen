@@ -1,4 +1,4 @@
-import { handleError } from "@/utils";
+import { extractErrorMessage } from "@/utils";
 import { privateApi } from "./axios";
 import type { TBaseResponse } from "@/types/common";
 import type {
@@ -20,7 +20,7 @@ export const getAllTables = async (): Promise<TGetAllTablesReuslt> => {
       tables: data.data,
     };
   } catch (error) {
-    return handleError(error);
+    return { error: extractErrorMessage(error) };
   }
 };
 
@@ -40,7 +40,7 @@ export const addTable = async ({ number, capacity }: AddTableProps) => {
     );
     return { table: data.data };
   } catch (error) {
-    return handleError(error);
+    return { error: extractErrorMessage(error) };
   }
 };
 
@@ -68,7 +68,7 @@ export const updateTable = async ({
     );
     return { table: data.data };
   } catch (error) {
-    return handleError(error);
+    return { error: extractErrorMessage(error) };
   }
 };
 
@@ -82,6 +82,6 @@ export const deleteTable = async ({ tableId }: { tableId: string }) => {
       success: data.success,
     };
   } catch (error) {
-    handleError(error);
+    return { error: extractErrorMessage(error) };
   }
 };

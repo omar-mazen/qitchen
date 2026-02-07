@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 
-import { useAuth } from "@/context/Auth";
+import { useAuth } from "@/hooks/useAuth";
 
 import Error from "./Error";
 

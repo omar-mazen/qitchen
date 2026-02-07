@@ -6,7 +6,7 @@ import DotsLoader from "@components/DotsLoader";
 import Input from "@components/Input";
 import SectionHeader from "@components/SectionHeader";
 
-import { useAuth } from "@/context/Auth";
+import { useAuth } from "@/hooks/useAuth";
 
 import { regex } from "@constants/regex";
 

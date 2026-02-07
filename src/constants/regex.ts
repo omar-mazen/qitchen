@@ -34,3 +34,24 @@ export const regex = {
       "Ingredients must be only letters, spaces, and commas are allowed.",
   },
 };
+
+export const passwordRules = [
+  {
+    label: "8-16 characters",
+    test: (pw: string) => pw.length >= 8 && pw.length <= 16,
+  },
+  {
+    label: "At least one uppercase letter",
+    test: (pw: string) => /[A-Z]/.test(pw),
+  },
+  {
+    label: "At least one lowercase letter",
+    test: (pw: string) => /[a-z]/.test(pw),
+  },
+  { label: "At least one number", test: (pw: string) => /[0-9]/.test(pw) },
+  {
+    label: "At least one special character",
+    test: (pw: string) => /[!@#$%^&*(),.?":{}|<>]/.test(pw),
+  },
+  { label: "No spaces", test: (pw: string) => !/\s/.test(pw) },
+];

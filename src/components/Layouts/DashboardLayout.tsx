@@ -3,11 +3,13 @@ import { Link, NavLink, Outlet } from "react-router";
 import texture from "@images/texture.png";
 import Logo from "@icons/logo.svg?react";
 import { DASHBOARD } from "@/constants/routes";
-import { useAuth } from "@/context/Auth";
+import { useAuth } from "@/hooks/useAuth";
 import Icons from "../Icons";
 import { Suspense, useState } from "react";
 import clsx from "clsx";
 import Loader from "../Loader";
+import { useNavigationLoader } from "@/hooks/useNavigationLoader";
+import { useLoading } from "@/hooks/useLoading";
 
 const links = [
   { Label: "home", link: DASHBOARD.HOME, icon: Icons.Home },
@@ -19,10 +21,14 @@ const links = [
   },
   { Label: "tables", link: DASHBOARD.TABLES, icon: Icons.Table },
   { Label: "reservation", link: DASHBOARD.RESERVATION, icon: Icons.Calendar },
+  { Label: "settings", link: DASHBOARD.SETTINGS, icon: Icons.Cog },
 ];
 export const DashboardLayout = () => {
   const { logout } = useAuth();
   const [isSideMenuOpened, setIsSideMenuOpened] = useState(false);
+  useNavigationLoader();
+  const { isLoading } = useLoading();
+
   return (
     <div
       style={{ background: `url(${texture})` }}
@@ -33,6 +39,7 @@ export const DashboardLayout = () => {
           : " grid-cols-[calc(6rem+20px)_1fr]"
       )}
     >
+      {isLoading && <Loader />}
       <aside>
         <div
           className={clsx(

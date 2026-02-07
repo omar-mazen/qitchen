@@ -6,7 +6,7 @@ import type { ReceiptRef } from "@/components/Receipt";
 import Receipt from "@/components/Receipt";
 import SmallSpinner from "@/components/SmallSpinner";
 import { OrderStatus } from "@/constants/order";
-import { useAuth } from "@/context/Auth";
+import { useAuth } from "@/hooks/useAuth";
 import { getOrdersByStatus, updateOrderStatus } from "@/services/order";
 import {
   TOrderStatusColors,
@@ -64,7 +64,7 @@ const ActiveOrders = ({ status }) => {
                 <p>{order?.status}</p>
               </div>
               {!isCollapsed(order.status) && (
-                <div className="grid grid-cols-2 gap-7">
+                <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-7">
                   {order?.orders.map((order) => (
                     <OrderCard order={order} />
                   ))}
@@ -120,6 +120,18 @@ const OrderCard = ({ order }: { order: TOrder }) => {
           </span>
         </div>
         <ul className="space-y-2">
+          <li>
+            payment method:
+            <span className="ml-2 font-normal font-thin text-xlarge text-primary/70">
+              {order.paymentMethod}
+            </span>
+          </li>
+          <li>
+            place type:
+            <span className="ml-2 font-normal font-thin text-xlarge text-primary/70">
+              {order.placeType}
+            </span>
+          </li>
           <li>
             time:
             <span className="ml-2 font-thin text-xlarge text-primary/70">

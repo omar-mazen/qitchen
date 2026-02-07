@@ -2,12 +2,13 @@ import { Link, useNavigate } from "react-router";
 
 import SectionHeader from "../SectionHeader";
 
-import { useAuth } from "@/context/Auth";
+import { useAuth } from "@/hooks/useAuth";
 
 import { ROUTES } from "@constants/routes";
 
 import texture from "@images/texture.png";
 import { useQueryClient } from "@tanstack/react-query";
+import Icons from "../Icons";
 const NavMenu = ({ closeMenu }: { closeMenu: () => void }) => {
   const guestMenuItems = ["menu", "cart", "about", "contact"];
   const userMenuItems = [...guestMenuItems, "profile", "orders", "reservation"];
@@ -23,7 +24,7 @@ const NavMenu = ({ closeMenu }: { closeMenu: () => void }) => {
         onClick={closeMenu}
         aria-label="Close menu"
       >
-        x
+        <Icons.XMark />
       </span>
       <div
         style={{ backgroundImage: `url(${texture})` }}
@@ -32,10 +33,13 @@ const NavMenu = ({ closeMenu }: { closeMenu: () => void }) => {
         <ul className="text-center text-heading-h1 space-y-5 rounded-2xl border border-border h-full w-full flex flex-col items-center justify-center">
           {(isAuthenticated ? userMenuItems : guestMenuItems).map((item) => (
             <li className="group cursor-pointer w-full" onClick={closeMenu}>
-              <Link to={ROUTES[item.toUpperCase() as keyof typeof ROUTES]}>
-                <span className="block group-hover:hidden">{item}</span>
-                <SectionHeader className="!hidden group-hover:!flex">
-                  {item}
+              <Link
+                className="block h-24 relative"
+                to={ROUTES[item.toUpperCase() as keyof typeof ROUTES]}
+              >
+                <span className="block absolute inset-0">{item}</span>
+                <SectionHeader className="absolute inset-0 opacity-0 scale-150 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500">
+                  <span className=" opacity-0">{item}</span>
                 </SectionHeader>
               </Link>
             </li>

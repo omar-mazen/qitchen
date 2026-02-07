@@ -1,6 +1,6 @@
 import type { TBaseResponse } from "@/types/common";
 import { privateApi } from "./axios";
-import { handleError } from "@/utils";
+import { extractErrorMessage } from "@/utils";
 import type { TDashboardStats, TGetDashboardStats } from "@/types/stats";
 
 type GetStatsResponse = TBaseResponse & {
@@ -12,6 +12,6 @@ export const getStats = async (): Promise<TGetDashboardStats> => {
     const { data } = await privateApi.get<GetStatsResponse>("home/home-data");
     return { data: data.data };
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };

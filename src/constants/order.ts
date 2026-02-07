@@ -1,4 +1,9 @@
-import type { TOrderStatus, TPaymentStatus } from "@/types/orders";
+import type {
+  TOrderStatus,
+  TPaymentMethod,
+  TPaymentStatus,
+  TPlaceType,
+} from "@/types/orders";
 
 export const PaymentStatus: TPaymentStatus[] = [
   "Pending",
@@ -13,3 +18,5 @@ export const OrderStatus: TOrderStatus[] = [
   "On the way",
   "Recieved",
 ];
+export const PlaceType: TPlaceType[] = ["Online", "In-Place", "Takeaway"];
+export const PaymentMethod: TPaymentMethod[] = ["Card", "COD"];

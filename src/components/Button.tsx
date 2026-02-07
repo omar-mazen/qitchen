@@ -38,7 +38,7 @@ const Button = (props: ButtonProps) => {
       disabled={props.disabled}
       id={props.id}
       className={clsx(
-        "h-fit focus:outline-0",
+        "h-fit focus:outline-0 font-normal",
         styles[props.type || "primary"],
         props.withAngle &&
           "with-angle absolute bottom-0 right-0 bg-background py-4 px-4 rounded-tl-4xl",

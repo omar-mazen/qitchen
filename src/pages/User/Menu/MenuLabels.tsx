@@ -2,7 +2,7 @@ import Label from "@components/Label";
 
 const MenuLabels = ({ labels }: { labels: string[] }) => {
   return (
-    <div className="text-center space-x-5 mt-10">
+    <div className="text-center space-x-5 overflow-x-auto sticky top-0 py-5 z-[2]">
       {labels.map((label) => (
         <Label
           key={label}

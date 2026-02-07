@@ -2,9 +2,10 @@ import type {
   TGetAllOrdersResult,
   TOrdersByStatusResponse,
   TOrderStatus,
+  TPlaceType,
   TVerifyPaymentResponse,
 } from "./../types/orders";
-import { handleError } from "@/utils";
+import { extractErrorMessage } from "@/utils";
 import { privateApi } from "./axios";
 import type {
   TOrdersResult,
@@ -12,6 +13,7 @@ import type {
   TOrderDetailsResult,
 } from "@cTypes/orders";
 import type { TBaseResponse, TPagination } from "@/types/common";
+import type { TPaymentMethod } from "@/types/payment-methods";
 
 type GetAllOrderProps = {
   page?: number | string;
@@ -43,7 +45,7 @@ export const getAllOrders = async ({
       pagination: data.pagination,
     };
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -75,27 +77,47 @@ export const getOrdersByStatus = async ({
       orders: data.data,
     };
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
 type MakeOrderProps = {
   cartId: string;
   addressId: string;
+  paymentMethod: TPaymentMethod;
+  placeType: TPlaceType;
+  governorate?: string;
+  city?: string;
+  tableId?: string;
 };
 type StripeCheckoutResponse = TBaseResponse & {
   session_url: string;
   orderId: string;
   order: TOrder;
 };
-export const makeOrder = async ({ cartId, addressId }: MakeOrderProps) => {
+export const makeOrder = async ({
+  cartId,
+  addressId,
+  paymentMethod,
+  placeType,
+  governorate,
+  city,
+  tableId,
+}: MakeOrderProps) => {
   try {
     const res = await privateApi.post<StripeCheckoutResponse>(
-      `/order/create-order-cart/${cartId}/${addressId}`
+      `/order/create-order-cart/${cartId}/${addressId}`,
+      {
+        paymentMethod,
+        placeType,
+        governorate,
+        city,
+        ...(placeType === "In-Place" && { tableId }),
+      }
     );
-    if (res.data.session_url) location.href = res.data.session_url;
+    return res.data;
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -111,23 +133,30 @@ export const getOrderDetails = async (
       order: data.order,
     };
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
 type OrdersResponse = TBaseResponse & {
-  data: TOrder[] | [];
+  data: TOrder[];
+  pagination: TPagination;
 };
-export const getCurrentUserOrders = async (): Promise<TOrdersResult> => {
+
+export const getCurrentUserOrders = async ({
+  page = 1,
+}: {
+  page: number | string;
+}): Promise<TOrdersResult> => {
   try {
     const { data } = await privateApi.get<OrdersResponse>(
-      `/order/get-all-orders-for-current-user`
+      `/order/get-all-orders-for-current-user?page=${page}&limit=10`
     );
     return {
       orders: data.data,
+      pagination: data.pagination,
     };
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -145,7 +174,7 @@ export const verifyPament = async ({
     );
     return { success: data.success };
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
@@ -161,24 +190,51 @@ export const updateOrderStatus = async ({
       orderStatus: status,
     });
   } catch (error) {
-    return handleError(error);
+    throw new Error(extractErrorMessage(error));
   }
 };
 
-type ReorderProps = {
-  addressId: string;
-  items: { quantity: number; productId: string }[];
+type ReorderItem = {
+  productId: string;
+  quantity: number;
 };
-export const reorder = async ({ addressId, items }: ReorderProps) => {
-  try {
-    const res = await privateApi.post(
-      `order/create-order-products-multiple/${addressId}`,
-      {
-        items,
-      }
-    );
-    if (res.data.session_url) location.href = res.data.session_url;
-  } catch (error) {
-    return handleError(error);
+
+type BaseReorderProps = {
+  addressId: string;
+  items: ReorderItem[];
+  paymentMethod: TPaymentMethod;
+};
+
+type OnlineReorderProps = BaseReorderProps & {
+  placeType: "Online";
+  governorate: string;
+  city: string;
+};
+
+type OfflineReorderProps = BaseReorderProps & {
+  placeType: "In-Place" | "Takeaway";
+};
+
+export type ReorderProps = OnlineReorderProps | OfflineReorderProps;
+export const reorder = async (props: ReorderProps) => {
+  const { addressId, items, placeType, paymentMethod } = props;
+
+  const res = await privateApi.post(
+    `order/create-order-products-multiple/${addressId}`,
+    {
+      products: items,
+      placeType,
+      paymentMethod,
+      ...(placeType === "Online" && {
+        governorate: props.governorate,
+        city: props.city,
+      }),
+    }
+  );
+
+  if (res.data.session_url) {
+    location.href = res.data.session_url;
   }
+
+  return res.data;
 };
